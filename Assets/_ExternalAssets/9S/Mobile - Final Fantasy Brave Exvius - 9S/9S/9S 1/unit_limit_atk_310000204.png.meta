@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 25
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -134,7 +134,1498 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: 9S_LimitAttack_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 2656
+        width: 120
+        height: 104
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 637051cfa58599c438ca562ec017b0f7
+      internalID: 300911527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_1
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 2656
+        width: 120
+        height: 104
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 626479fceed74a94a801c227ece36ffb
+      internalID: 1549254092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_2
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 2656
+        width: 120
+        height: 104
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 908cae577afa267469490ee405ba0b2b
+      internalID: -1060171812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_3
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 2535
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6411a73c4064d34eaf8a1881e167c24
+      internalID: 1313083464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_4
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 2535
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4b3035f1c2ec28469b697de5204c4b6
+      internalID: 773846435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_5
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 2535
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dca16ac95eae3ed4c99789d3c217259e
+      internalID: -1843186900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_6
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 2426
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2fd6ad25c77d8e4b9a177c1f0c060de
+      internalID: -1352867372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_7
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 2426
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30db453b4989cd046a4d7adf758ee124
+      internalID: -277058006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_8
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 2426
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76b0807bad8f44b4aa759024b82ecb07
+      internalID: 1762924816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_9
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 2311
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f8bc747b1309f340a91b241c9b4693e
+      internalID: -1792334138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_10
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 2311
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a394cf2d595478b4c8dd511880fee1af
+      internalID: 846398275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_11
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 2311
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42d4a2d71893c1f4eab39bd18ea91e59
+      internalID: -1857748709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_12
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 2196
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89d613a61c19f5843916a9a0684bf15f
+      internalID: -1882630088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_13
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 2196
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1c67aecdd8299445974175f6444711e
+      internalID: -1542941298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_14
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 2196
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a2306fdf103ef340a550ee7f40d06d6
+      internalID: -183813183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_16
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 2081
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64fb48506a2052c458bd03a8921f0c32
+      internalID: -1972328576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_17
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 2081
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d43200000a57716488d682423465e36d
+      internalID: -984802342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_15
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 2081
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff36012e230081047b4257ad45741e89
+      internalID: -1206757274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_19
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 1966
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a772edcaaa33b654da81deee160a84d7
+      internalID: 1229601520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_20
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 1966
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d777c75718b24314ea3d31bb22363ecc
+      internalID: -638191364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_18
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 1966
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ccc3b6ec8baef743942df77c2339db2
+      internalID: 1066612421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_31
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 1851
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5b9de5a096b79c49b4868c9d1f21358
+      internalID: 1047061153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_33
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 1851
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df50d1f0ab01a8746a12de54df4aa691
+      internalID: 219859280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_32
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 1851
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c38a40ff2471e8947a04a939ad8a46b4
+      internalID: -1110851769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_34
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 1736
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 355249051b7d6a447b5ed9bb9e310f5f
+      internalID: -1905709108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_35
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 1736
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 889d00a1725436243bc7a3a7f7de88f2
+      internalID: -1417144689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_36
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 1736
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 988325a06db0d684688d7ecec2f1fbdc
+      internalID: 1698584801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_37
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 1621
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 417e83a84996640498ed618f69a5a896
+      internalID: 2062942739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_38
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 1621
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff5c495825ace5b4ebee9c28beb01963
+      internalID: 1330400540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_39
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 1621
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48bb5cc0473298146977badcd62710e4
+      internalID: 368845107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_41
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 1506
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77f15e7065202764aae8c8c3a2d7eeca
+      internalID: -964418723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_42
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 1506
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef085cfc82704a04d8f7b5060f28737c
+      internalID: 2013005263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_40
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 1506
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c00af668185f8fe4cba0e4467e88c941
+      internalID: 540269798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_43
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 1391
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e2fbb69fc061404aaa2c3ca6fd1fff6
+      internalID: 2045329261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_44
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 1391
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a440baf4eaf6c614d86fdb2a7e57fb85
+      internalID: -46767526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_45
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 1391
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7678580e4b771e0458dbfef1e81ff2fe
+      internalID: 1453784448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_46
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 1276
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbffcef8e1df79049b6f2319cc28a3b6
+      internalID: -774935428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_47
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 1276
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57fe1bbc101555e46a3f9ccbc11f8c0b
+      internalID: -1499247102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_48
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 1276
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7ca21019d70dfb4292b8b5bb6ffcb60
+      internalID: 151924812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_50
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 1161
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4367adec7439be649910ca2b8f5b0242
+      internalID: 1223465214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_51
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 1161
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 650ed5aa1093ebb4baef789316f6ee28
+      internalID: 2037916409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_49
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 1161
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9086be1c49b83e642908aaaa9d0ef6f1
+      internalID: -708913238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_52
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 1046
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75cd197e83a0c2940aadeecd21b9f3ba
+      internalID: 2098360377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_53
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 1046
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2376b024231d82e40ba8a89b80ebaf15
+      internalID: 1826083264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_54
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 1046
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a9459aa724b3bc4b9f545a4ca002208
+      internalID: 1621948649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_55
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 931
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a2d003868730454f87922c422286e06
+      internalID: 276419717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_57
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 931
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6ecacc145ba8c040affeaf9a1ef162d
+      internalID: -2047355502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_56
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 931
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69f7aaff8d8330444ad41902d61922e3
+      internalID: -1197214129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_58
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 816
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff964a1560b9f514fbd1bf1423180190
+      internalID: -1573317308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_59
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 816
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78bc96720b0b10e4fa8d805c2c41a4b9
+      internalID: 186624258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_60
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 816
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f15ab507034df949aa9a7725a77f283
+      internalID: 820132050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_61
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 701
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3ad5e3116fd7dc40a972be3ae946ecd
+      internalID: -2115001087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_62
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 701
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a91d661b8f40f2479aaec7c3ffdafab
+      internalID: 352034219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_63
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 701
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f05f577c9c74fcb499f3ddd2f17c74d8
+      internalID: -2027890368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_65
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 586
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a660068573431ac40bf431ddffda0648
+      internalID: -991923822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_66
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 586
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed2cc4fb5c801634a9d67a47da8a6d71
+      internalID: 579804596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_64
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 586
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae9850b37561e35489d050088e400dc4
+      internalID: -914687107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_67
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 471
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cbebaab7502ef5408d10880db226b76
+      internalID: 526615462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_68
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 471
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41cd95fa3e4629b4d908751472a753c9
+      internalID: 78433353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_69
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 471
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 172905b69ab843e4490032bfd51998d9
+      internalID: 70912653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_70
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 356
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 423b18c69bac81c4fad6f74de7e936c7
+      internalID: -670077168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_71
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 356
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bf1d7513674ddc4cad53a39baab69ba
+      internalID: -260616219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_72
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 356
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8357cb494d36aa743a81779dcc459f6b
+      internalID: 1760334719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_73
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 241
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a02e87ac5c091cb47a87c651202aadf6
+      internalID: -1096691570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_74
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 241
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b81df393a56f3934783ad0935fd5e813
+      internalID: 776518443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_75
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 241
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b632baff29bd5e48959c760d76de14b
+      internalID: 145683542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_76
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 126
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbdce6a12dfc0e14d869992ab1bf7023
+      internalID: 990459969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_77
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 126
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef734b6ad73b3004ca79c20ea1322339
+      internalID: -821975091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_78
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 126
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2d7e095bad67bb439b7da568112cf53
+      internalID: -449434816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_79
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 11
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e789b964747dc74ba8bb068bb291f31
+      internalID: -1049548734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9S_LimitAttack_80
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 11
+        width: 120
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8adc977ab1f389e41b1468d40054d568
+      internalID: -767652466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +1636,174 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      9S_LimitAttack_0: 300911527
+      9S_LimitAttack_1: 1549254092
+      9S_LimitAttack_10: 846398275
+      9S_LimitAttack_11: -1857748709
+      9S_LimitAttack_12: -1882630088
+      9S_LimitAttack_13: -1542941298
+      9S_LimitAttack_14: -183813183
+      9S_LimitAttack_15: -1206757274
+      9S_LimitAttack_16: -1972328576
+      9S_LimitAttack_17: -984802342
+      9S_LimitAttack_18: 1066612421
+      9S_LimitAttack_19: 1229601520
+      9S_LimitAttack_2: -1060171812
+      9S_LimitAttack_20: -638191364
+      9S_LimitAttack_3: 1313083464
+      9S_LimitAttack_31: 1047061153
+      9S_LimitAttack_32: -1110851769
+      9S_LimitAttack_33: 219859280
+      9S_LimitAttack_34: -1905709108
+      9S_LimitAttack_35: -1417144689
+      9S_LimitAttack_36: 1698584801
+      9S_LimitAttack_37: 2062942739
+      9S_LimitAttack_38: 1330400540
+      9S_LimitAttack_39: 368845107
+      9S_LimitAttack_4: 773846435
+      9S_LimitAttack_40: 540269798
+      9S_LimitAttack_41: -964418723
+      9S_LimitAttack_42: 2013005263
+      9S_LimitAttack_43: 2045329261
+      9S_LimitAttack_44: -46767526
+      9S_LimitAttack_45: 1453784448
+      9S_LimitAttack_46: -774935428
+      9S_LimitAttack_47: -1499247102
+      9S_LimitAttack_48: 151924812
+      9S_LimitAttack_49: -708913238
+      9S_LimitAttack_5: -1843186900
+      9S_LimitAttack_50: 1223465214
+      9S_LimitAttack_51: 2037916409
+      9S_LimitAttack_52: 2098360377
+      9S_LimitAttack_53: 1826083264
+      9S_LimitAttack_54: 1621948649
+      9S_LimitAttack_55: 276419717
+      9S_LimitAttack_56: -1197214129
+      9S_LimitAttack_57: -2047355502
+      9S_LimitAttack_58: -1573317308
+      9S_LimitAttack_59: 186624258
+      9S_LimitAttack_6: -1352867372
+      9S_LimitAttack_60: 820132050
+      9S_LimitAttack_61: -2115001087
+      9S_LimitAttack_62: 352034219
+      9S_LimitAttack_63: -2027890368
+      9S_LimitAttack_64: -914687107
+      9S_LimitAttack_65: -991923822
+      9S_LimitAttack_66: 579804596
+      9S_LimitAttack_67: 526615462
+      9S_LimitAttack_68: 78433353
+      9S_LimitAttack_69: 70912653
+      9S_LimitAttack_7: -277058006
+      9S_LimitAttack_70: -670077168
+      9S_LimitAttack_71: -260616219
+      9S_LimitAttack_72: 1760334719
+      9S_LimitAttack_73: -1096691570
+      9S_LimitAttack_74: 776518443
+      9S_LimitAttack_75: 145683542
+      9S_LimitAttack_76: 990459969
+      9S_LimitAttack_77: -821975091
+      9S_LimitAttack_78: -449434816
+      9S_LimitAttack_79: -1049548734
+      9S_LimitAttack_8: 1762924816
+      9S_LimitAttack_80: -767652466
+      9S_LimitAttack_9: -1792334138
+      unit_limit_atk_310000204_10: 928983623
+      unit_limit_atk_310000204_102: -1012067141
+      unit_limit_atk_310000204_104: 1799752147
+      unit_limit_atk_310000204_106: -1784631194
+      unit_limit_atk_310000204_108: 434437625
+      unit_limit_atk_310000204_109: -1944208364
+      unit_limit_atk_310000204_111: 1077163809
+      unit_limit_atk_310000204_114: -427291185
+      unit_limit_atk_310000204_115: 587267862
+      unit_limit_atk_310000204_117: 1537266721
+      unit_limit_atk_310000204_118: -1974434372
+      unit_limit_atk_310000204_119: 643057266
+      unit_limit_atk_310000204_12: -1982619633
+      unit_limit_atk_310000204_122: -2079547410
+      unit_limit_atk_310000204_124: 1505441877
+      unit_limit_atk_310000204_126: 1862196498
+      unit_limit_atk_310000204_127: -1216510088
+      unit_limit_atk_310000204_129: -254837656
+      unit_limit_atk_310000204_131: 1759019883
+      unit_limit_atk_310000204_132: 883218240
+      unit_limit_atk_310000204_135: -1302761009
+      unit_limit_atk_310000204_136: 1642478490
+      unit_limit_atk_310000204_137: -726583944
+      unit_limit_atk_310000204_138: -741773772
+      unit_limit_atk_310000204_14: -1382173514
+      unit_limit_atk_310000204_142: 766833181
+      unit_limit_atk_310000204_144: -1641340011
+      unit_limit_atk_310000204_145: -169538670
+      unit_limit_atk_310000204_148: 625509173
+      unit_limit_atk_310000204_150: -2032452029
+      unit_limit_atk_310000204_151: 1405145087
+      unit_limit_atk_310000204_153: 382964372
+      unit_limit_atk_310000204_154: -34597216
+      unit_limit_atk_310000204_156: -528598628
+      unit_limit_atk_310000204_157: -971646253
+      unit_limit_atk_310000204_158: -266919530
+      unit_limit_atk_310000204_159: 501938565
+      unit_limit_atk_310000204_16: -717832882
+      unit_limit_atk_310000204_163: 183725339
+      unit_limit_atk_310000204_165: -867957312
+      unit_limit_atk_310000204_166: -1901896662
+      unit_limit_atk_310000204_17: 1906220329
+      unit_limit_atk_310000204_19: -2032120729
+      unit_limit_atk_310000204_20: 404979748
+      unit_limit_atk_310000204_21: -1774807484
+      unit_limit_atk_310000204_22: -255109328
+      unit_limit_atk_310000204_25: -1761994272
+      unit_limit_atk_310000204_26: -1035481380
+      unit_limit_atk_310000204_27: 368472851
+      unit_limit_atk_310000204_29: 574297722
+      unit_limit_atk_310000204_31: -1524520273
+      unit_limit_atk_310000204_32: -1089520037
+      unit_limit_atk_310000204_33: -1119304897
+      unit_limit_atk_310000204_34: 1554314096
+      unit_limit_atk_310000204_36: 127332184
+      unit_limit_atk_310000204_38: 1639548493
+      unit_limit_atk_310000204_39: -1591023756
+      unit_limit_atk_310000204_4: -1782481244
+      unit_limit_atk_310000204_41: -1168433133
+      unit_limit_atk_310000204_42: -72889757
+      unit_limit_atk_310000204_43: 1019144605
+      unit_limit_atk_310000204_45: -1838288869
+      unit_limit_atk_310000204_47: 1906455702
+      unit_limit_atk_310000204_49: 1281497931
+      unit_limit_atk_310000204_52: 868587231
+      unit_limit_atk_310000204_53: -34015482
+      unit_limit_atk_310000204_55: 1022758395
+      unit_limit_atk_310000204_58: 549074786
+      unit_limit_atk_310000204_59: 1053427745
+      unit_limit_atk_310000204_6: 1905638630
+      unit_limit_atk_310000204_61: -1842773683
+      unit_limit_atk_310000204_62: -1489074779
+      unit_limit_atk_310000204_63: 307500096
+      unit_limit_atk_310000204_64: 1838173171
+      unit_limit_atk_310000204_67: 219034937
+      unit_limit_atk_310000204_69: 843946190
+      unit_limit_atk_310000204_71: -816407063
+      unit_limit_atk_310000204_72: 1071544230
+      unit_limit_atk_310000204_74: 1710745266
+      unit_limit_atk_310000204_76: -360892462
+      unit_limit_atk_310000204_77: 888617087
+      unit_limit_atk_310000204_8: 1826359865
+      unit_limit_atk_310000204_80: 1399670620
+      unit_limit_atk_310000204_81: 1187093277
+      unit_limit_atk_310000204_82: 2062160271
+      unit_limit_atk_310000204_83: -1786550103
+      unit_limit_atk_310000204_84: 1451419848
+      unit_limit_atk_310000204_88: 302121318
+      unit_limit_atk_310000204_9: -1300802737
+      unit_limit_atk_310000204_90: -590720584
+      unit_limit_atk_310000204_91: -965165589
+      unit_limit_atk_310000204_93: 489902519
+      unit_limit_atk_310000204_95: -1389424063
+      unit_limit_atk_310000204_96: 336112639
+      unit_limit_atk_310000204_98: 497476326
+      unit_limit_atk_310000204_99: 2085530761
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
