@@ -261,7 +261,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Character_Elle_Prefabs: {fileID: 2264048331050677830, guid: 4550115a2bfbe7645995be2be1b6b686, type: 3}
   Character_Akstar_Prefabs: {fileID: 977611982912122184, guid: c4202cd0eb9ee6f4ba33290e0ffa7c73, type: 3}
-  selectedCharacter: 1
+  Character_Adel_Prefabs: {fileID: 2717422256876755193, guid: 08f1956ed64464f42a59ad7097cecc8c, type: 3}
+  Character_Amelia_Prefabs: {fileID: 102025735596091375, guid: 8561207a4d5f9ed4b9567f85bf22948c, type: 3}
+  selectedCharacter: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

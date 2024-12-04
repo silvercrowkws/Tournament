@@ -6,12 +6,16 @@ public enum PlayerCharacter
 {
     Character_Elle = 0,
     Character_Akstar,
+    Character_Adel,
+    Character_Amelia,
 }
 
 public class Player : MonoBehaviour
 {
     public GameObject Character_Elle_Prefabs;
     public GameObject Character_Akstar_Prefabs;
+    public GameObject Character_Adel_Prefabs;
+    public GameObject Character_Amelia_Prefabs;
 
     /// <summary>
     /// 플레이어가 어떻게 선택되고 그것을 받을지가 관건이겠네
@@ -33,6 +37,20 @@ public class Player : MonoBehaviour
         {
             // Character_Akstar_Prefabs 을 플레이어 오브젝트의 자식으로 생성
             Instantiate(Character_Akstar_Prefabs, transform.position, transform.rotation, transform);
+        }
+
+        // 플레이어가 Character_Adel 를 선택했으면
+        else if (selectedCharacter == PlayerCharacter.Character_Adel)
+        {
+            // Character_Adel_Prefabs 을 플레이어 오브젝트의 자식으로 생성
+            Instantiate(Character_Adel_Prefabs, transform.position, transform.rotation, transform);
+        }
+
+        // 플레이어가 Character_Amelia 를 선택했으면
+        else if (selectedCharacter == PlayerCharacter.Character_Amelia)
+        {
+            // Character_Amelia_Prefabs 을 플레이어 오브젝트의 자식으로 생성
+            Instantiate(Character_Amelia_Prefabs, transform.position, transform.rotation, transform);
         }
     }
 }
