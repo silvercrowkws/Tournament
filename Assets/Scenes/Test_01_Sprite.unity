@@ -264,7 +264,8 @@ MonoBehaviour:
   Character_Adel_Prefabs: {fileID: 2717422256876755193, guid: 08f1956ed64464f42a59ad7097cecc8c, type: 3}
   Character_Amelia_Prefabs: {fileID: 102025735596091375, guid: 8561207a4d5f9ed4b9567f85bf22948c, type: 3}
   Character_Barbariccia_Prefabs: {fileID: 3436376223126401286, guid: 43dd42d953a342d478c47863066543b8, type: 3}
-  selectedCharacter: 4
+  Character_Jade_Prefabs: {fileID: 6696925599088831060, guid: 190373bb27558cb4bbe76ef7507f75ba, type: 3}
+  selectedCharacter: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
