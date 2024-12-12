@@ -10,6 +10,8 @@ public enum PlayerCharacter
     Character_Amelia,
     Character_Barbariccia,
     Character_Jade,
+    Character_Arngrim,
+    Character_BlackMage,
 }
 
 public class Player : MonoBehaviour
@@ -20,6 +22,8 @@ public class Player : MonoBehaviour
     public GameObject Character_Amelia_Prefabs;
     public GameObject Character_Barbariccia_Prefabs;
     public GameObject Character_Jade_Prefabs;
+    public GameObject Character_Arngrim_Prefabs;
+    public GameObject Character_BlackMage_Prefabs;
 
     /// <summary>
     /// 플레이어가 어떻게 선택되고 그것을 받을지가 관건이겠네
@@ -69,6 +73,20 @@ public class Player : MonoBehaviour
         {
             // Character_Jade_Prefabs 을 플레이어 오브젝트의 자식으로 생성
             Instantiate(Character_Jade_Prefabs, transform.position, transform.rotation, transform);
+        }
+
+        // 플레이어가 Character_Arngrim 를 선택했으면
+        else if (selectedCharacter == PlayerCharacter.Character_Arngrim)
+        {
+            // Character_Arngrim_Prefabs 을 플레이어 오브젝트의 자식으로 생성
+            Instantiate(Character_Arngrim_Prefabs, transform.position, transform.rotation, transform);
+        }
+
+        // 플레이어가 Character_BlackMage 를 선택했으면
+        else if (selectedCharacter == PlayerCharacter.Character_BlackMage)
+        {
+            // Character_BlackMage_Prefabs 을 플레이어 오브젝트의 자식으로 생성
+            Instantiate(Character_BlackMage_Prefabs, transform.position, transform.rotation, transform);
         }
     }
 }
