@@ -139,12 +139,12 @@ TextureImporter:
       name: 100020005_magic_standby_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 89
-        width: 55
-        height: 74
+        x: 0
+        y: 84
+        width: 66
+        height: 84
       alignment: 9
-      pivot: {x: 0.5, y: 0.65}
+      pivot: {x: 0.5, y: 0.59}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -160,12 +160,12 @@ TextureImporter:
       name: 100020005_magic_standby_1
       rect:
         serializedVersion: 2
-        x: 71
-        y: 89
-        width: 56
-        height: 73
+        x: 66
+        y: 84
+        width: 66
+        height: 84
       alignment: 9
-      pivot: {x: 0.5, y: 0.65}
+      pivot: {x: 0.5, y: 0.59}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,12 +181,12 @@ TextureImporter:
       name: 100020005_magic_standby_2
       rect:
         serializedVersion: 2
-        x: 140
-        y: 89
-        width: 53
-        height: 74
+        x: 132
+        y: 84
+        width: 66
+        height: 84
       alignment: 9
-      pivot: {x: 0.5, y: 0.65}
+      pivot: {x: 0.5, y: 0.59}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -202,12 +202,12 @@ TextureImporter:
       name: 100020005_magic_standby_3
       rect:
         serializedVersion: 2
-        x: 8
-        y: 5
-        width: 53
-        height: 74
+        x: 0
+        y: 0
+        width: 66
+        height: 84
       alignment: 9
-      pivot: {x: 0.5, y: 0.65}
+      pivot: {x: 0.5, y: 0.59}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

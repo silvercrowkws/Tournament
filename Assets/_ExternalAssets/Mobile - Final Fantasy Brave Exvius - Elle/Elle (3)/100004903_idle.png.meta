@@ -136,85 +136,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Elle_Idle_0
+      name: 100004903_idle_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 71
-        width: 85
-        height: 56
+        x: 0
+        y: 66
+        width: 97
+        height: 66
       alignment: 9
-      pivot: {x: 0.58, y: 0.65}
+      pivot: {x: 0.5, y: 0.77}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d5153384001970c43930671d31f11634
-      internalID: -557340819
+      spriteID: fb0821d5f6f589c45954cfc5e6a0af16
+      internalID: -1696100853
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Elle_Idle_1
+      name: 100004903_idle_1
       rect:
         serializedVersion: 2
-        x: 104
-        y: 71
-        width: 85
-        height: 56
+        x: 97
+        y: 66
+        width: 97
+        height: 66
       alignment: 9
-      pivot: {x: 0.58, y: 0.65}
+      pivot: {x: 0.5, y: 0.77}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b2d88591c2c61b8459b9ebfd5cc2fdd4
-      internalID: -1874984497
+      spriteID: 1dc58b6f1d8c4ba47b2b8acf0389d0ee
+      internalID: 334512735
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Elle_Idle_2
+      name: 100004903_idle_2
       rect:
         serializedVersion: 2
-        x: 199
-        y: 71
-        width: 85
-        height: 56
+        x: 194
+        y: 66
+        width: 97
+        height: 66
       alignment: 9
-      pivot: {x: 0.58, y: 0.65}
+      pivot: {x: 0.5, y: 0.77}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a3fd4add08a6cca4aa6a886a765192d1
-      internalID: -89761401
+      spriteID: 2145ff1ec5a0c1c4990a768616d60cfb
+      internalID: 2010856602
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Elle_Idle_3
+      name: 100004903_idle_3
       rect:
         serializedVersion: 2
-        x: 5
-        y: 5
-        width: 85
-        height: 56
+        x: 0
+        y: 0
+        width: 97
+        height: 66
       alignment: 9
-      pivot: {x: 0.58, y: 0.65}
+      pivot: {x: 0.5, y: 0.77}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f52a6a000964be4488579c7330d6f65
-      internalID: 51571785
+      spriteID: 5ec94290485e84b40921e1d117b1c9cd
+      internalID: 1962630476
       vertices: []
       indices: 
       edges: []
@@ -230,10 +230,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Elle_Idle_0: -557340819
-      Elle_Idle_1: -1874984497
-      Elle_Idle_2: -89761401
-      Elle_Idle_3: 51571785
+      100004903_idle_0: -1696100853
+      100004903_idle_1: 334512735
+      100004903_idle_2: 2010856602
+      100004903_idle_3: 1962630476
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

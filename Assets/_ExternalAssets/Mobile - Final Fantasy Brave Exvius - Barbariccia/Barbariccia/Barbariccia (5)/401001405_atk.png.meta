@@ -139,12 +139,12 @@ TextureImporter:
       name: 401001405_atk_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 409
-        width: 120
-        height: 92
+        x: 0
+        y: 404
+        width: 130
+        height: 101
       alignment: 9
-      pivot: {x: 0.55, y: 0.57}
+      pivot: {x: 0.48, y: 0.485}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -160,12 +160,12 @@ TextureImporter:
       name: 401001405_atk_1
       rect:
         serializedVersion: 2
-        x: 135
-        y: 409
-        width: 120
-        height: 92
+        x: 130
+        y: 404
+        width: 130
+        height: 101
       alignment: 9
-      pivot: {x: 0.46, y: 0.57}
+      pivot: {x: 0.48, y: 0.485}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,12 +181,12 @@ TextureImporter:
       name: 401001405_atk_2
       rect:
         serializedVersion: 2
-        x: 265
-        y: 409
-        width: 120
-        height: 92
+        x: 260
+        y: 404
+        width: 130
+        height: 101
       alignment: 9
-      pivot: {x: 0.55, y: 0.57}
+      pivot: {x: 0.48, y: 0.485}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -202,12 +202,12 @@ TextureImporter:
       name: 401001405_atk_3
       rect:
         serializedVersion: 2
-        x: 14
-        y: 309
-        width: 120
-        height: 92
+        x: 0
+        y: 303
+        width: 130
+        height: 101
       alignment: 9
-      pivot: {x: 0.55, y: 0.57}
+      pivot: {x: 0.48, y: 0.485}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -223,12 +223,12 @@ TextureImporter:
       name: 401001405_atk_4
       rect:
         serializedVersion: 2
-        x: 135
-        y: 309
-        width: 120
-        height: 92
+        x: 130
+        y: 303
+        width: 130
+        height: 101
       alignment: 9
-      pivot: {x: 0.63, y: 0.57}
+      pivot: {x: 0.48, y: 0.485}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -244,12 +244,12 @@ TextureImporter:
       name: 401001405_atk_5
       rect:
         serializedVersion: 2
-        x: 265
-        y: 309
-        width: 120
-        height: 92
+        x: 260
+        y: 303
+        width: 130
+        height: 101
       alignment: 9
-      pivot: {x: 0.58, y: 0.57}
+      pivot: {x: 0.48, y: 0.485}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -265,12 +265,12 @@ TextureImporter:
       name: 401001405_atk_8
       rect:
         serializedVersion: 2
-        x: 14
-        y: 207
-        width: 120
-        height: 92
+        x: 260
+        y: 202
+        width: 130
+        height: 101
       alignment: 9
-      pivot: {x: 0.42, y: 0.57}
+      pivot: {x: 0.48, y: 0.485}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -286,12 +286,12 @@ TextureImporter:
       name: 401001405_atk_9
       rect:
         serializedVersion: 2
-        x: 135
-        y: 207
-        width: 120
-        height: 92
+        x: 0
+        y: 101
+        width: 130
+        height: 101
       alignment: 9
-      pivot: {x: 0.477, y: 0.6}
+      pivot: {x: 0.48, y: 0.485}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -307,12 +307,12 @@ TextureImporter:
       name: 401001405_atk_10
       rect:
         serializedVersion: 2
-        x: 265
-        y: 207
-        width: 120
-        height: 92
+        x: 130
+        y: 101
+        width: 130
+        height: 101
       alignment: 9
-      pivot: {x: 0.477, y: 0.6}
+      pivot: {x: 0.48, y: 0.485}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -328,12 +328,12 @@ TextureImporter:
       name: 401001405_atk_11
       rect:
         serializedVersion: 2
-        x: 14
-        y: 106
-        width: 120
-        height: 92
+        x: 260
+        y: 101
+        width: 130
+        height: 101
       alignment: 9
-      pivot: {x: 0.4, y: 0.6}
+      pivot: {x: 0.48, y: 0.485}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -349,12 +349,12 @@ TextureImporter:
       name: 401001405_atk_13
       rect:
         serializedVersion: 2
-        x: 135
-        y: 106
-        width: 120
-        height: 92
+        x: 130
+        y: 0
+        width: 130
+        height: 101
       alignment: 9
-      pivot: {x: 0.477, y: 0.6}
+      pivot: {x: 0.48, y: 0.485}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -367,64 +367,64 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 401001405_atk_14
+      name: 401001405_atk_6
       rect:
         serializedVersion: 2
-        x: 265
-        y: 106
-        width: 120
-        height: 92
+        x: 0
+        y: 202
+        width: 130
+        height: 101
       alignment: 9
-      pivot: {x: 0.477, y: 0.6}
+      pivot: {x: 0.48, y: 0.485}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a7dfc87cf196a984991cd317365e691d
-      internalID: -1089125261
+      spriteID: ae2c88d70a4e3fc48b983a43b52c567f
+      internalID: -1069995368
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 401001405_atk_16
+      name: 401001405_atk_7
       rect:
         serializedVersion: 2
-        x: 14
-        y: 5
-        width: 120
-        height: 92
+        x: 130
+        y: 202
+        width: 130
+        height: 101
       alignment: 9
-      pivot: {x: 0.4, y: 0.6}
+      pivot: {x: 0.48, y: 0.485}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 854a8478fef305c43aad10f47c86091b
-      internalID: 1233578287
+      spriteID: eaa31e3817b032a4f8a9284045076272
+      internalID: 1691737394
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 401001405_atk_17
+      name: 401001405_atk_12
       rect:
         serializedVersion: 2
-        x: 135
-        y: 5
-        width: 120
-        height: 92
+        x: 0
+        y: 0
+        width: 130
+        height: 101
       alignment: 9
-      pivot: {x: 0.477, y: 0.6}
+      pivot: {x: 0.48, y: 0.485}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5df5be63d10ea6c4bb903a6f27586841
-      internalID: -845922359
+      spriteID: 39f1a06e8abdaac4e883726f97586d82
+      internalID: -507391566
       vertices: []
       indices: 
       edges: []
@@ -446,10 +446,6 @@ TextureImporter:
       401001405_atk_11: -267137571
       401001405_atk_12: -507391566
       401001405_atk_13: -245096001
-      401001405_atk_14: -1089125261
-      401001405_atk_15: 346453850
-      401001405_atk_16: 1233578287
-      401001405_atk_17: -845922359
       401001405_atk_2: -797126165
       401001405_atk_3: 76520804
       401001405_atk_4: -1961760173
