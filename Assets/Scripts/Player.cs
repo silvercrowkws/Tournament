@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,6 +35,41 @@ public class Player : MonoBehaviour
     /// UI에서 선택을 하고 그걸 게임매니저가 받고, 다시 플레이어에게 알리고?
     /// </summary>
     public PlayerCharacter selectedCharacter;       // 플레이어가 선택한 캐릭터 저장
+
+
+    // 체력 관련 시작 ----------------------------------------------------------------------------------------------------
+
+    /// <summary>
+    /// 체력이 변경되었음을 알리는 델리게이트(UI 수정용)
+    /// </summary>
+    public Action<int> hpChange;
+
+    /// <summary>
+    /// 현재 가지고 있는 체력
+    /// </summary>
+    int currentHP = 100;
+
+    /// <summary>
+    /// HP 프로퍼티
+    /// </summary>
+    public int HP
+    {
+        get => currentHP;
+        set
+        {
+            if (currentHP != value)
+            {
+                //currentHP = value;
+                currentHP = Mathf.Clamp(value, 0, 999);
+                Debug.Log($"남은 체력 : {currentHP}");
+                hpChange?.Invoke(currentHP);
+            }
+        }
+    }
+
+    // 체력 관련 끝 ----------------------------------------------------------------------------------------------------
+
+
 
     private void Awake()
     {
