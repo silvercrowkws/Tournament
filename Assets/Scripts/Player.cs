@@ -13,6 +13,7 @@ public enum PlayerCharacter
     Character_Arngrim,
     Character_BlackMage,
     Character_Cloud,
+    Character_Nalu,
 }
 
 public class Player : MonoBehaviour
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour
     public GameObject Character_Arngrim_Prefabs;
     public GameObject Character_BlackMage_Prefabs;
     public GameObject Character_Cloud_Prefabs;
+    public GameObject Character_Nalu_Prefabs;
 
     /// <summary>
     /// 플레이어가 어떻게 선택되고 그것을 받을지가 관건이겠네
@@ -96,6 +98,13 @@ public class Player : MonoBehaviour
         {
             // Character_Cloud_Prefabs 을 플레이어 오브젝트의 자식으로 생성
             Instantiate(Character_Cloud_Prefabs, transform.position, transform.rotation, transform);
+        }
+
+        // 플레이어가 Character_Nalu 를 선택했으면
+        else if (selectedCharacter == PlayerCharacter.Character_Nalu)
+        {
+            // Character_Nalu_Prefabs 을 플레이어 오브젝트의 자식으로 생성
+            Instantiate(Character_Nalu_Prefabs, transform.position, transform.rotation, transform);
         }
     }
 }
