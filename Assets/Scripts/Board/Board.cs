@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-    public GameObject[] line_0_Section;
-    public GameObject[] line_1_Section;
+    GameObject[] line_0_Section;
+    GameObject[] line_1_Section;
 
+    /// <summary>
+    /// 플레이어1 이 움직일 수 있는 위치(0 ~ 7까지 8개 있음)
+    /// </summary>
     public GameObject[] player1_Section;
+
+    /// <summary>
+    /// 플레이어2 이 움직일 수 있는 위치(0 ~ 7까지 8개 있음)
+    /// </summary>
     public GameObject[] player2_Section;
     
     private void Awake()

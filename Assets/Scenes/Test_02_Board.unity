@@ -1427,7 +1427,7 @@ MonoBehaviour:
   Character_BlackMage_Prefabs: {fileID: 3679843440752199619, guid: c9045bd0916b08d46b5bf5def252ea58, type: 3}
   Character_Cloud_Prefabs: {fileID: 8606362613484457869, guid: 83146536b2ea9ea479d56c5d4cbb78c3, type: 3}
   Character_Nalu_Prefabs: {fileID: 7539256027345950733, guid: 4de53edc94c61c34ca4c9fc269483c78, type: 3}
-  selectedCharacter: 0
+  selectedCharacter: 9
 --- !u!4 &1831353452
 Transform:
   m_ObjectHideFlags: 0
@@ -1489,8 +1489,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e33f02b722c66f4bbefbb31ca0cfb3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  line_0_Section: []
-  line_1_Section: []
   player1_Section: []
   player2_Section: []
 --- !u!1 &1928531483

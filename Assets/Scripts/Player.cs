@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public enum PlayerCharacter
 {
@@ -15,6 +16,15 @@ public enum PlayerCharacter
     Character_BlackMage,
     Character_Cloud,
     Character_Nalu,
+}
+
+public enum PlayerMove
+{
+    None = 0,
+    Up,
+    Down,
+    Left,
+    Right,
 }
 
 public class Player : MonoBehaviour
@@ -36,6 +46,15 @@ public class Player : MonoBehaviour
     /// </summary>
     public PlayerCharacter selectedCharacter;       // 플레이어가 선택한 캐릭터 저장
 
+    /// <summary>
+    /// 플레이어가 어떻게 움직이는 상태인지
+    /// </summary>
+    public PlayerMove selectedMove;
+
+    /// <summary>
+    /// 보드
+    /// </summary>
+    Board board;
 
     // 체력 관련 시작 ----------------------------------------------------------------------------------------------------
 
@@ -69,7 +88,15 @@ public class Player : MonoBehaviour
 
     // 체력 관련 끝 ----------------------------------------------------------------------------------------------------
 
+    /// <summary>
+    /// 현재 위치 정보를 전달하는 델리게이트
+    /// </summary>
+    public Action<int> currentSection;
 
+    /// <summary>
+    /// 현재 위치의 인덱스
+    /// </summary>
+    int currentSectionIndex = 0;
 
     private void Awake()
     {
@@ -142,5 +169,81 @@ public class Player : MonoBehaviour
             // Character_Nalu_Prefabs 을 플레이어 오브젝트의 자식으로 생성
             Instantiate(Character_Nalu_Prefabs, transform.position, transform.rotation, transform);
         }
+    }
+
+    private void Start()
+    {
+        board = FindAnyObjectByType<Board>();
+        currentSectionIndex = 0;
+        transform.position = board.player1_Section[currentSectionIndex].transform.position;       // 플레이어의 현재 위치
+
+        // 현재 위치 정보를 델리게이트로 전달 (여기서는 player1_Section[0]의 인덱스를 전달)
+        SendSectionDelegateFC(currentSectionIndex);
+    }
+
+    private void Update()
+    {
+        if (selectedMove != PlayerMove.None)
+        {
+            Move();  // 방향에 맞춰 이동 처리
+            selectedMove = PlayerMove.None;  // 이동 후 selectedMove를 None으로 설정하여 이동을 한 번만 처리
+        }
+    }
+
+    /// <summary>
+    /// 현재 위치 정보를 델리게이트로 전달하는 함수
+    /// </summary>
+    /// <param name="section">현재 위치의 인덱스</param>
+    void SendSectionDelegateFC(int section)
+    {
+        currentSection?.Invoke(section);
+    }
+
+    /// <summary>
+    /// 위아래 좌우로 움직이는 함수
+    /// 나중에 한턴에 행동 하나씩 할 때 이 함수 실행되는 위치를 조절해야 함
+    /// </summary>
+    void Move()
+    {
+        switch (selectedMove)
+        {
+            case PlayerMove.Up:
+                if(currentSectionIndex < 4)         // 현재 위치가 0 1 2 3 일 때(아래줄)
+                {
+                    currentSectionIndex += 4;       // 위로 이동할 때는 +4 만큼 델리게이트로 전송
+                }
+                break;
+            case PlayerMove.Down:
+                if(currentSectionIndex > 3)         // 현재 위치가 4 5 6 7 일 때(윗줄)
+                {
+                    currentSectionIndex -= 4;       // 아래로 이동할 때는 -4 만큼
+                }
+                break;
+            case PlayerMove.Left:
+                if(currentSectionIndex != 0 && currentSectionIndex != 4)        // 현재 위치가 0 또는 4 가 아닐 때(맨 왼쪽)
+                {
+                    currentSectionIndex--;          // 왼쪽으로 이동할 때는 -1 만큼
+                }
+                break;
+            case PlayerMove.Right:
+                if(currentSectionIndex != 3 && currentSectionIndex != 7)        // 현재 위치가 3 또는 7 가 아닐 때(맨 오른쪽)
+                {
+                    currentSectionIndex++;          // 오른쪽으로 이동할 때는 +1 만큼
+                }
+                break;
+
+        }
+
+        // 배열 범위 검사를 추가하여 IndexOutOfRangeException을 방지
+        currentSectionIndex = Mathf.Clamp(currentSectionIndex, 0, board.player1_Section.Length - 1);
+
+        // 이동 후 플레이어의 위치 업데이트
+        transform.position = board.player1_Section[currentSectionIndex].transform.position;
+
+        // 새로운 위치 정보를 델리게이트로 전송
+        SendSectionDelegateFC(currentSectionIndex);
+
+        // 움직이는 모션 자리 여기 switch문 끝났을 때 한번만 넣으면 될듯?
+
     }
 }
