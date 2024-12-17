@@ -304,6 +304,11 @@ public class Player : MonoBehaviour
         animator.SetTrigger("Move");
     }
 
+    /// <summary>
+    /// 포물선을 그리면서 플레이어를 이동시키는 코루틴
+    /// </summary>
+    /// <param name="targetPosition">이동할 위치</param>
+    /// <returns></returns>
     private IEnumerator MoveToPosition(Vector3 targetPosition)
     {
         float timeToMove = 0.5f;          // 총 이동 시간
@@ -398,6 +403,11 @@ public class Player : MonoBehaviour
         switch(selectedAttack)
         {
             case PlayerAttack.Attack:
+
+                // 공격 범위 결정?
+                // 공격 범위 내에 상대 플레이어가 있으면 HP 감소 시키기
+                // 애니메이터 변경
+
                 break;
             case PlayerAttack.MagicAttack:
                 break;
