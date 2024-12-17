@@ -73,6 +73,33 @@ public partial class @TestInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Test6"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb85fa0e-3a11-4da1-b8ab-b38739a3e0c6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Test7"",
+                    ""type"": ""Button"",
+                    ""id"": ""e5c4a9d2-3c5e-4087-a6fc-a8ec5975406f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Test8"",
+                    ""type"": ""Button"",
+                    ""id"": ""a1a7c18c-6ac3-4a2e-a4f5-c30f96eb9a8f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""LClick"",
                     ""type"": ""Button"",
                     ""id"": ""6458b933-9224-4883-9854-5db7caecbdc0"",
@@ -250,6 +277,39 @@ public partial class @TestInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""MouseWheel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0129d1f4-6cfb-4cd2-bc6d-4c6234e0d512"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KM"",
+                    ""action"": ""Test6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""55d82b63-967d-4b8a-a738-84e8fee6ba1c"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KM"",
+                    ""action"": ""Test7"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e4a820ca-3ca7-4f6b-95f2-f0ddc74207e1"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KM"",
+                    ""action"": ""Test8"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -280,6 +340,9 @@ public partial class @TestInputActions: IInputActionCollection2, IDisposable
         m_Test_Test3 = m_Test.FindAction("Test3", throwIfNotFound: true);
         m_Test_Test4 = m_Test.FindAction("Test4", throwIfNotFound: true);
         m_Test_Test5 = m_Test.FindAction("Test5", throwIfNotFound: true);
+        m_Test_Test6 = m_Test.FindAction("Test6", throwIfNotFound: true);
+        m_Test_Test7 = m_Test.FindAction("Test7", throwIfNotFound: true);
+        m_Test_Test8 = m_Test.FindAction("Test8", throwIfNotFound: true);
         m_Test_LClick = m_Test.FindAction("LClick", throwIfNotFound: true);
         m_Test_RClick = m_Test.FindAction("RClick", throwIfNotFound: true);
         m_Test_Enter = m_Test.FindAction("Enter", throwIfNotFound: true);
@@ -351,6 +414,9 @@ public partial class @TestInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Test_Test3;
     private readonly InputAction m_Test_Test4;
     private readonly InputAction m_Test_Test5;
+    private readonly InputAction m_Test_Test6;
+    private readonly InputAction m_Test_Test7;
+    private readonly InputAction m_Test_Test8;
     private readonly InputAction m_Test_LClick;
     private readonly InputAction m_Test_RClick;
     private readonly InputAction m_Test_Enter;
@@ -365,6 +431,9 @@ public partial class @TestInputActions: IInputActionCollection2, IDisposable
         public InputAction @Test3 => m_Wrapper.m_Test_Test3;
         public InputAction @Test4 => m_Wrapper.m_Test_Test4;
         public InputAction @Test5 => m_Wrapper.m_Test_Test5;
+        public InputAction @Test6 => m_Wrapper.m_Test_Test6;
+        public InputAction @Test7 => m_Wrapper.m_Test_Test7;
+        public InputAction @Test8 => m_Wrapper.m_Test_Test8;
         public InputAction @LClick => m_Wrapper.m_Test_LClick;
         public InputAction @RClick => m_Wrapper.m_Test_RClick;
         public InputAction @Enter => m_Wrapper.m_Test_Enter;
@@ -394,6 +463,15 @@ public partial class @TestInputActions: IInputActionCollection2, IDisposable
             @Test5.started += instance.OnTest5;
             @Test5.performed += instance.OnTest5;
             @Test5.canceled += instance.OnTest5;
+            @Test6.started += instance.OnTest6;
+            @Test6.performed += instance.OnTest6;
+            @Test6.canceled += instance.OnTest6;
+            @Test7.started += instance.OnTest7;
+            @Test7.performed += instance.OnTest7;
+            @Test7.canceled += instance.OnTest7;
+            @Test8.started += instance.OnTest8;
+            @Test8.performed += instance.OnTest8;
+            @Test8.canceled += instance.OnTest8;
             @LClick.started += instance.OnLClick;
             @LClick.performed += instance.OnLClick;
             @LClick.canceled += instance.OnLClick;
@@ -428,6 +506,15 @@ public partial class @TestInputActions: IInputActionCollection2, IDisposable
             @Test5.started -= instance.OnTest5;
             @Test5.performed -= instance.OnTest5;
             @Test5.canceled -= instance.OnTest5;
+            @Test6.started -= instance.OnTest6;
+            @Test6.performed -= instance.OnTest6;
+            @Test6.canceled -= instance.OnTest6;
+            @Test7.started -= instance.OnTest7;
+            @Test7.performed -= instance.OnTest7;
+            @Test7.canceled -= instance.OnTest7;
+            @Test8.started -= instance.OnTest8;
+            @Test8.performed -= instance.OnTest8;
+            @Test8.canceled -= instance.OnTest8;
             @LClick.started -= instance.OnLClick;
             @LClick.performed -= instance.OnLClick;
             @LClick.canceled -= instance.OnLClick;
@@ -476,6 +563,9 @@ public partial class @TestInputActions: IInputActionCollection2, IDisposable
         void OnTest3(InputAction.CallbackContext context);
         void OnTest4(InputAction.CallbackContext context);
         void OnTest5(InputAction.CallbackContext context);
+        void OnTest6(InputAction.CallbackContext context);
+        void OnTest7(InputAction.CallbackContext context);
+        void OnTest8(InputAction.CallbackContext context);
         void OnLClick(InputAction.CallbackContext context);
         void OnRClick(InputAction.CallbackContext context);
         void OnEnter(InputAction.CallbackContext context);

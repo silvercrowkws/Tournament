@@ -51,6 +51,33 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Test6",
+                    "type": "Button",
+                    "id": "bb85fa0e-3a11-4da1-b8ab-b38739a3e0c6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Test7",
+                    "type": "Button",
+                    "id": "e5c4a9d2-3c5e-4087-a6fc-a8ec5975406f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Test8",
+                    "type": "Button",
+                    "id": "a1a7c18c-6ac3-4a2e-a4f5-c30f96eb9a8f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "LClick",
                     "type": "Button",
                     "id": "6458b933-9224-4883-9854-5db7caecbdc0",
@@ -228,6 +255,39 @@
                     "action": "MouseWheel",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "0129d1f4-6cfb-4cd2-bc6d-4c6234e0d512",
+                    "path": "<Keyboard>/6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KM",
+                    "action": "Test6",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "55d82b63-967d-4b8a-a738-84e8fee6ba1c",
+                    "path": "<Keyboard>/7",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KM",
+                    "action": "Test7",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e4a820ca-3ca7-4f6b-95f2-f0ddc74207e1",
+                    "path": "<Keyboard>/8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KM",
+                    "action": "Test8",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

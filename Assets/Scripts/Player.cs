@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -25,6 +26,14 @@ public enum PlayerMove
     Down,
     Left,
     Right,
+}
+
+public enum PlayerAttack
+{
+    None = 0,
+    Attack,
+    MagicAttack,
+    LimitAttack,
 }
 
 public class Player : MonoBehaviour
@@ -52,9 +61,19 @@ public class Player : MonoBehaviour
     public PlayerMove selectedMove;
 
     /// <summary>
+    /// 플레이어가 어떤 공격 상태인지
+    /// </summary>
+    public PlayerAttack selectedAttack;
+
+    /// <summary>
     /// 보드
     /// </summary>
     Board board;
+
+    /// <summary>
+    /// 이동할 타겟 오브젝트
+    /// </summary>
+    GameObject targetObgect;
 
     // 체력 관련 시작 ----------------------------------------------------------------------------------------------------
 
@@ -88,6 +107,14 @@ public class Player : MonoBehaviour
 
     // 체력 관련 끝 ----------------------------------------------------------------------------------------------------
 
+    // 애니메이터 관련 시작 ----------------------------------------------------------------------------------------------------
+
+    /// <summary>
+    /// 애니메이터
+    /// </summary>
+    Animator animator;
+
+    // 애니메이터 관련 끝 ----------------------------------------------------------------------------------------------------
     /// <summary>
     /// 현재 위치 정보를 전달하는 델리게이트
     /// </summary>
@@ -100,74 +127,83 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        GameObject newCharacter = null;     // 생성된 캐릭터를 저장할 변수
+
         // 플레이어가 Character_Elle 를 선택했으면
         if (selectedCharacter == PlayerCharacter.Character_Elle)
         {
             // Character_Elle_Prefabs 을 플레이어 오브젝트의 자식으로 생성
-            Instantiate(Character_Elle_Prefabs, transform.position, transform.rotation, transform);
+            newCharacter = Instantiate(Character_Elle_Prefabs, transform.position, transform.rotation, transform);
         }
 
         // 플레이어가 Character_Akstar 를 선택했으면
         else if (selectedCharacter == PlayerCharacter.Character_Akstar)
         {
             // Character_Akstar_Prefabs 을 플레이어 오브젝트의 자식으로 생성
-            Instantiate(Character_Akstar_Prefabs, transform.position, transform.rotation, transform);
+            newCharacter = Instantiate(Character_Akstar_Prefabs, transform.position, transform.rotation, transform);
         }
 
         // 플레이어가 Character_Adel 를 선택했으면
         else if (selectedCharacter == PlayerCharacter.Character_Adel)
         {
             // Character_Adel_Prefabs 을 플레이어 오브젝트의 자식으로 생성
-            Instantiate(Character_Adel_Prefabs, transform.position, transform.rotation, transform);
+            newCharacter = Instantiate(Character_Adel_Prefabs, transform.position, transform.rotation, transform);
         }
 
         // 플레이어가 Character_Amelia 를 선택했으면
         else if (selectedCharacter == PlayerCharacter.Character_Amelia)
         {
             // Character_Amelia_Prefabs 을 플레이어 오브젝트의 자식으로 생성
-            Instantiate(Character_Amelia_Prefabs, transform.position, transform.rotation, transform);
+            newCharacter = Instantiate(Character_Amelia_Prefabs, transform.position, transform.rotation, transform);
         }
 
         // 플레이어가 Character_Barbariccia 를 선택했으면
         else if (selectedCharacter == PlayerCharacter.Character_Barbariccia)
         {
             // Character_Barbariccia_Prefabs 을 플레이어 오브젝트의 자식으로 생성
-            Instantiate(Character_Barbariccia_Prefabs, transform.position, transform.rotation, transform);
+            newCharacter = Instantiate(Character_Barbariccia_Prefabs, transform.position, transform.rotation, transform);
         }
 
         // 플레이어가 Character_Jade 를 선택했으면
         else if (selectedCharacter == PlayerCharacter.Character_Jade)
         {
             // Character_Jade_Prefabs 을 플레이어 오브젝트의 자식으로 생성
-            Instantiate(Character_Jade_Prefabs, transform.position, transform.rotation, transform);
+            newCharacter = Instantiate(Character_Jade_Prefabs, transform.position, transform.rotation, transform);
         }
 
         // 플레이어가 Character_Arngrim 를 선택했으면
         else if (selectedCharacter == PlayerCharacter.Character_Arngrim)
         {
             // Character_Arngrim_Prefabs 을 플레이어 오브젝트의 자식으로 생성
-            Instantiate(Character_Arngrim_Prefabs, transform.position, transform.rotation, transform);
+            newCharacter = Instantiate(Character_Arngrim_Prefabs, transform.position, transform.rotation, transform);
         }
 
         // 플레이어가 Character_BlackMage 를 선택했으면
         else if (selectedCharacter == PlayerCharacter.Character_BlackMage)
         {
             // Character_BlackMage_Prefabs 을 플레이어 오브젝트의 자식으로 생성
-            Instantiate(Character_BlackMage_Prefabs, transform.position, transform.rotation, transform);
+            newCharacter = Instantiate(Character_BlackMage_Prefabs, transform.position, transform.rotation, transform);
         }
 
         // 플레이어가 Character_Cloud 를 선택했으면
         else if (selectedCharacter == PlayerCharacter.Character_Cloud)
         {
             // Character_Cloud_Prefabs 을 플레이어 오브젝트의 자식으로 생성
-            Instantiate(Character_Cloud_Prefabs, transform.position, transform.rotation, transform);
+            newCharacter = Instantiate(Character_Cloud_Prefabs, transform.position, transform.rotation, transform);
         }
 
         // 플레이어가 Character_Nalu 를 선택했으면
         else if (selectedCharacter == PlayerCharacter.Character_Nalu)
         {
             // Character_Nalu_Prefabs 을 플레이어 오브젝트의 자식으로 생성
-            Instantiate(Character_Nalu_Prefabs, transform.position, transform.rotation, transform);
+            newCharacter = Instantiate(Character_Nalu_Prefabs, transform.position, transform.rotation, transform);
+        }
+
+        if (newCharacter != null)
+        {
+            Vector3 flippedScale = newCharacter.transform.localScale;
+            flippedScale.x *= -1;               // X축 반전
+            newCharacter.transform.localScale = flippedScale;
         }
     }
 
@@ -179,14 +215,22 @@ public class Player : MonoBehaviour
 
         // 현재 위치 정보를 델리게이트로 전달 (여기서는 player1_Section[0]의 인덱스를 전달)
         SendSectionDelegateFC(currentSectionIndex);
+
+        animator = gameObject.GetComponentInChildren<Animator>();                                 // 자식에서 애니메이터를 찾음
     }
 
     private void Update()
     {
         if (selectedMove != PlayerMove.None)
         {
-            Move();  // 방향에 맞춰 이동 처리
-            selectedMove = PlayerMove.None;  // 이동 후 selectedMove를 None으로 설정하여 이동을 한 번만 처리
+            Move();                                 // 방향에 맞춰 이동 처리
+            selectedMove = PlayerMove.None;         // 이동 후 selectedMove를 None으로 설정하여 이동을 한 번만 처리
+        }
+
+        if(selectedAttack != PlayerAttack.None)
+        {
+            Attack(selectedCharacter, selectedAttack);          // 어떤 공격인지 맞춰 공격 처리
+            selectedAttack = PlayerAttack.None;                 // 공격 후 selectedAttack을 None으로 설정하여 공격을 한 번만 처리
         }
     }
 
@@ -205,6 +249,10 @@ public class Player : MonoBehaviour
     /// </summary>
     void Move()
     {
+        // 목표 위치
+        //Vector3 targetPosition = board.player1_Section[currentSectionIndex].transform.position;
+        Vector3 targetPosition;
+
         switch (selectedMove)
         {
             case PlayerMove.Up:
@@ -237,13 +285,136 @@ public class Player : MonoBehaviour
         // 배열 범위 검사를 추가하여 IndexOutOfRangeException을 방지
         currentSectionIndex = Mathf.Clamp(currentSectionIndex, 0, board.player1_Section.Length - 1);
 
-        // 이동 후 플레이어의 위치 업데이트
-        transform.position = board.player1_Section[currentSectionIndex].transform.position;
+        // 이동 후 플레이어의 위치 업데이트 -> 순간이동이 아니라 서서히 이동하도록 수정        
+        //transform.position = board.player1_Section[currentSectionIndex].transform.position;
+
+        // 타겟 오브젝트
+        targetObgect = board.player1_Section[currentSectionIndex];
+
+        // 새로운 위치를 계산
+        targetPosition = targetObgect.transform.position;
+
+        // 이동하는 동안 목표 위치로 서서히 이동
+        StartCoroutine(MoveToPosition(targetPosition));
 
         // 새로운 위치 정보를 델리게이트로 전송
         SendSectionDelegateFC(currentSectionIndex);
 
         // 움직이는 모션 자리 여기 switch문 끝났을 때 한번만 넣으면 될듯?
+        animator.SetTrigger("Move");
+    }
 
+    private IEnumerator MoveToPosition(Vector3 targetPosition)
+    {
+        float timeToMove = 0.5f;          // 총 이동 시간
+        float maxHeight = 2f;             // 포물선의 최대 높이 (이동 경로의 정점 높이)
+
+        float elapsedTime = 0f;
+        Vector3 startPosition = transform.position;
+
+
+        //Transform parent = board.player1_Section[currentSectionIndex].transform.parent;
+
+        // targetObject의 부모 색상을 초록색으로 변경
+        Transform parent = targetObgect.transform.parent;
+        Renderer parentRenderer = null;
+
+        if (parent != null)
+        {
+            parentRenderer = parent.GetComponent<Renderer>();
+            if (parentRenderer != null)
+            {
+                parentRenderer.material.color = Color.green;        // 부모의 색상을 초록색으로 변경
+            }
+        }
+
+
+        while (elapsedTime < timeToMove)
+        {
+            // 수평 이동 비율 (0 ~ 1)
+            float t = elapsedTime / timeToMove;
+
+            // 수평 위치를 보간
+            Vector3 horizontalPosition = Vector3.Lerp(startPosition, targetPosition, t);
+
+            // 수직 위치 계산: 포물선 높이
+            float height = Mathf.Sin(t * Mathf.PI) * maxHeight;
+
+            // 최종 위치 = 수평 위치 + 수직 위치
+            transform.position = new Vector3(horizontalPosition.x, horizontalPosition.y + height, horizontalPosition.z);
+
+            // 시간 증가
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // 최종 위치를 정확히 설정
+        transform.position = targetPosition;
+
+
+        // 부모 색상을 다시 흰색으로 변경
+        if (parentRenderer != null)
+        {
+            parentRenderer.material.color = Color.white;        // 부모의 색상을 흰색으로 변경
+        }
+
+
+        ResetTrigger();                 // 트리거 리셋
+        animator.SetTrigger("Idle");    // 대기 상태로 전환
+    }
+
+    /// <summary>
+    /// 공격 함수(어떤 캐릭터가 어떤 공격을 했다)
+    /// </summary>
+    /// <param name="selectedCharacter">어떤 캐릭터가 공격했는지(공격 범위, 공격력이 캐릭터마다 다름)</param>
+    /// <param name="selectedAttack">어떤 공격을 했는지</param>
+    private void Attack(PlayerCharacter selectedCharacter, PlayerAttack selectedAttack)
+    {
+        switch (selectedCharacter)
+        {
+            case PlayerCharacter.Character_Elle:
+                break;
+            case PlayerCharacter.Character_Akstar:
+                break;
+            case PlayerCharacter.Character_Adel:
+                break;
+            case PlayerCharacter.Character_Amelia:
+                break;
+            case PlayerCharacter.Character_Barbariccia:
+                break;
+            case PlayerCharacter.Character_Jade:
+                break;
+            case PlayerCharacter.Character_Arngrim:
+                break;
+            case PlayerCharacter.Character_BlackMage:
+                break;
+            case PlayerCharacter.Character_Cloud:
+                break;
+            case PlayerCharacter.Character_Nalu:
+                break;
+
+        }
+
+        switch(selectedAttack)
+        {
+            case PlayerAttack.Attack:
+                break;
+            case PlayerAttack.MagicAttack:
+                break;
+            case PlayerAttack.LimitAttack:
+                break;
+        }
+
+        // 공격 범위에 해당하는 보드가 빨간색으로 바뀌어야 함
+    }
+
+    /// <summary>
+    /// 트리거를 리셋하는 함수
+    /// </summary>
+    private void ResetTrigger()
+    {
+        animator.ResetTrigger("Idle");
+        animator.ResetTrigger("Die");
+        animator.ResetTrigger("Move");
     }
 }
