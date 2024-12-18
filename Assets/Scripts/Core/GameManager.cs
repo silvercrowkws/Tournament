@@ -91,6 +91,21 @@ public class GameManager : Singleton<GameManager>
             return player;
         }
     }
+
+    /// <summary>
+    /// 적 플레이어
+    /// </summary>
+    EnemyPlayer enemyPlayer;
+
+    public EnemyPlayer EnemyPlayer
+    {
+        get
+        {
+            if (enemyPlayer == null)
+                enemyPlayer = FindAnyObjectByType<EnemyPlayer>();
+            return enemyPlayer;
+        }
+    }
     
     /// <summary>
     /// 턴 매니저

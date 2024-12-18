@@ -185,6 +185,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1645348698}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &146754688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 146754690}
+  - component: {fileID: 146754691}
+  m_Layer: 0
+  m_Name: EnemyPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &146754690
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146754688}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &146754691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146754688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de9b9721fc071ef4b9d41b82d68de942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &149281278
 GameObject:
   m_ObjectHideFlags: 0
@@ -2054,9 +2098,10 @@ MonoBehaviour:
   Character_BlackMage_Prefabs: {fileID: 3679843440752199619, guid: c9045bd0916b08d46b5bf5def252ea58, type: 3}
   Character_Cloud_Prefabs: {fileID: 8606362613484457869, guid: 83146536b2ea9ea479d56c5d4cbb78c3, type: 3}
   Character_Nalu_Prefabs: {fileID: 7539256027345950733, guid: 4de53edc94c61c34ca4c9fc269483c78, type: 3}
-  selectedCharacter: 9
+  selectedCharacter: 0
   selectedMove: 0
   selectedAttack: 0
+  currentSectionIndex: 0
 --- !u!4 &1831353452
 Transform:
   m_ObjectHideFlags: 0
@@ -2119,8 +2164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e33f02b722c66f4bbefbb31ca0cfb3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1_Section: []
-  player2_Section: []
+  player1_Position: []
+  player2_Position: []
 --- !u!1 &1928531483
 GameObject:
   m_ObjectHideFlags: 0
@@ -2406,6 +2451,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 776965351}
   - {fileID: 1831353452}
+  - {fileID: 146754690}
   - {fileID: 1098125968}
   - {fileID: 2102638464}
   - {fileID: 1883253287}

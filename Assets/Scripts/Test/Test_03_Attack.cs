@@ -59,18 +59,21 @@ public class Test_03_Attack : TestBase
     {
         Debug.Log("Attack");
         player.selectedAttack = PlayerAttack.Attack;
+        player.Attack(player.selectedCharacter, player.selectedAttack, player.currentSectionIndex);
     }
 
     protected override void OnTest6(InputAction.CallbackContext context)
     {
         Debug.Log("MagicAttack");
         player.selectedAttack = PlayerAttack.MagicAttack;
+        player.Attack(player.selectedCharacter, player.selectedAttack, player.currentSectionIndex);
     }
 
     protected override void OnTest7(InputAction.CallbackContext context)
     {
         Debug.Log("LimitAttack");
         player.selectedAttack = PlayerAttack.LimitAttack;
+        player.Attack(player.selectedCharacter, player.selectedAttack, player.currentSectionIndex);
     }
 
 #endif

@@ -30,6 +30,9 @@ public class TestBase : MonoBehaviour
         inputActions.Test.Test3.performed += OnTest3;
         inputActions.Test.Test4.performed += OnTest4;
         inputActions.Test.Test5.performed += OnTest5;
+        inputActions.Test.Test6.performed += OnTest6;
+        inputActions.Test.Test7.performed += OnTest7;
+        inputActions.Test.Test8.performed += OnTest8;
         inputActions.Test.LClick.performed += OnTestLClick;
         inputActions.Test.RClick.performed += OnTestRClick;
     }
@@ -38,6 +41,9 @@ public class TestBase : MonoBehaviour
     {
         inputActions.Test.RClick.performed -= OnTestRClick;
         inputActions.Test.LClick.performed -= OnTestLClick;
+        inputActions.Test.Test8.performed -= OnTest8;
+        inputActions.Test.Test7.performed -= OnTest7;
+        inputActions.Test.Test6.performed -= OnTest6;
         inputActions.Test.Test5.performed -= OnTest5;
         inputActions.Test.Test4.performed -= OnTest4;
         inputActions.Test.Test3.performed -= OnTest3;
