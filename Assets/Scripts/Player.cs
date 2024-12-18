@@ -211,9 +211,9 @@ public class Player : MonoBehaviour
     {
         board = FindAnyObjectByType<Board>();
         currentSectionIndex = 0;
-        transform.position = board.player1_Section[currentSectionIndex].transform.position;       // 플레이어의 현재 위치
+        transform.position = board.player1_Position[currentSectionIndex].transform.position;       // 플레이어의 현재 위치
 
-        // 현재 위치 정보를 델리게이트로 전달 (여기서는 player1_Section[0]의 인덱스를 전달)
+        // 현재 위치 정보를 델리게이트로 전달 (여기서는 player1_Position[0]의 인덱스를 전달)
         SendSectionDelegateFC(currentSectionIndex);
 
         animator = gameObject.GetComponentInChildren<Animator>();                                 // 자식에서 애니메이터를 찾음
@@ -250,13 +250,13 @@ public class Player : MonoBehaviour
     void Move()
     {
         // 목표 위치
-        //Vector3 targetPosition = board.player1_Section[currentSectionIndex].transform.position;
+        //Vector3 targetPosition = board.player1_Position[currentSectionIndex].transform.position;
         Vector3 targetPosition;
 
         switch (selectedMove)
         {
             case PlayerMove.Up:
-                if(currentSectionIndex < 4)         // 현재 위치가 0 1 2 3 일 때(아래줄)
+                if(currentSectionIndex < 8)         // 현재 위치가 0 1 2 3 일 때(아래줄)  4 -> 8
                 {
                     currentSectionIndex += 4;       // 위로 이동할 때는 +4 만큼 델리게이트로 전송
                 }
@@ -268,13 +268,13 @@ public class Player : MonoBehaviour
                 }
                 break;
             case PlayerMove.Left:
-                if(currentSectionIndex != 0 && currentSectionIndex != 4)        // 현재 위치가 0 또는 4 가 아닐 때(맨 왼쪽)
+                if(currentSectionIndex != 0 && currentSectionIndex != 4 && currentSectionIndex != 8)        // 현재 위치가 0, 4, 8 이 아닐 때(맨 왼쪽)
                 {
                     currentSectionIndex--;          // 왼쪽으로 이동할 때는 -1 만큼
                 }
                 break;
             case PlayerMove.Right:
-                if(currentSectionIndex != 3 && currentSectionIndex != 7)        // 현재 위치가 3 또는 7 가 아닐 때(맨 오른쪽)
+                if(currentSectionIndex != 3 && currentSectionIndex != 7 && currentSectionIndex != 11)        // 현재 위치가 3, 7, 11 이 아닐 때(맨 오른쪽)
                 {
                     currentSectionIndex++;          // 오른쪽으로 이동할 때는 +1 만큼
                 }
@@ -283,13 +283,13 @@ public class Player : MonoBehaviour
         }
 
         // 배열 범위 검사를 추가하여 IndexOutOfRangeException을 방지
-        currentSectionIndex = Mathf.Clamp(currentSectionIndex, 0, board.player1_Section.Length - 1);
+        currentSectionIndex = Mathf.Clamp(currentSectionIndex, 0, board.player1_Position.Length - 1);
 
         // 이동 후 플레이어의 위치 업데이트 -> 순간이동이 아니라 서서히 이동하도록 수정        
-        //transform.position = board.player1_Section[currentSectionIndex].transform.position;
+        //transform.position = board.player1_Position[currentSectionIndex].transform.position;
 
         // 타겟 오브젝트
-        targetObgect = board.player1_Section[currentSectionIndex];
+        targetObgect = board.player1_Position[currentSectionIndex];
 
         // 새로운 위치를 계산
         targetPosition = targetObgect.transform.position;
@@ -318,7 +318,7 @@ public class Player : MonoBehaviour
         Vector3 startPosition = transform.position;
 
 
-        //Transform parent = board.player1_Section[currentSectionIndex].transform.parent;
+        //Transform parent = board.player1_Position[currentSectionIndex].transform.parent;
 
         // targetObject의 부모 색상을 초록색으로 변경
         Transform parent = targetObgect.transform.parent;

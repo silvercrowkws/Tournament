@@ -32,7 +32,7 @@ public class Test_03_Attack : TestBase
     protected override void OnTest1(InputAction.CallbackContext context)
     {
         //player.transform.position = board.line_0_Section[0].transform.position;
-        //player.transform.position = board.player1_Section[0].transform.position;
+        //player.transform.position = board.player1_Position[0].transform.position;
         Debug.Log("위로 움직임");
         player.selectedMove = PlayerMove.Up;
     }
