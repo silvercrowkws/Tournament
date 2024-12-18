@@ -547,7 +547,7 @@ public class Player : MonoBehaviour
                 {
 
                     // 만약 적 플레이어가 공격 범위에 있으면 데미지
-                    if (enemyPlayer.transform.position == board.player2_Position[attackRange[i]].transform.transform.position)
+                    if (enemyPlayer.transform.position == board.player2_Position[attackRange[i]].transform.position)
                     {
                         // 데미지
                     }
@@ -565,7 +565,7 @@ public class Player : MonoBehaviour
                 {
 
                     // 만약 적 플레이어가 공격 범위에 있으면 데미지
-                    if (enemyPlayer.transform.position == board.player2_Position[magicAttackRange[i]].transform.transform.position)
+                    if (enemyPlayer.transform.position == board.player2_Position[magicAttackRange[i]].transform.position)
                     {
                         // 데미지
                     }
@@ -583,7 +583,7 @@ public class Player : MonoBehaviour
                 {
 
                     // 만약 적 플레이어가 공격 범위에 있으면 데미지
-                    if (enemyPlayer.transform.position == board.player2_Position[limitAttackRange[i]].transform.transform.position)
+                    if (enemyPlayer.transform.position == board.player2_Position[limitAttackRange[i]].transform.position)
                     {
                         // 데미지
                     }
