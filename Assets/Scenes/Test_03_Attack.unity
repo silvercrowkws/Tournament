@@ -769,7 +769,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1290,7 +1290,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.9, y: 1, z: 1}
+  m_LocalScale: {x: 2.6, y: 1.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2098,7 +2098,7 @@ MonoBehaviour:
   Character_BlackMage_Prefabs: {fileID: 3679843440752199619, guid: c9045bd0916b08d46b5bf5def252ea58, type: 3}
   Character_Cloud_Prefabs: {fileID: 8606362613484457869, guid: 83146536b2ea9ea479d56c5d4cbb78c3, type: 3}
   Character_Nalu_Prefabs: {fileID: 7539256027345950733, guid: 4de53edc94c61c34ca4c9fc269483c78, type: 3}
-  selectedCharacter: 1
+  selectedCharacter: 5
   selectedMove: 0
   selectedAttack: 0
   currentSectionIndex: 0
