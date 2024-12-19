@@ -1006,6 +1006,108 @@ public class Player : MonoBehaviour
                 }
                 break;
             case PlayerCharacter.Character_Arngrim:
+
+                // 코스트
+                attackCost = 25;
+                magicAttackCost = 35;
+                limitAttackCost = 50;
+
+                // 공격력
+                attackDamage = 25;          // ㅜ 모양
+                magicAttackDamage = 25;     // + 모양
+                limitAttackDamage = 50;     // ㅗ 모양
+
+                // 공격 범위(위치에 따라 다름 )
+                switch (where)
+                {
+                    case 0:
+                        attackRange = new int[] { currentSectionIndex, currentSectionIndex + 4, currentSectionIndex + 5 };          // 0 4 5
+                        magicAttackRange = new int[] { currentSectionIndex, currentSectionIndex + 4, currentSectionIndex + 1 };     // 0 1 4
+                        limitAttackRange = new int[] { currentSectionIndex                                                          // 0
+                            };
+                        break;
+                    case 1:
+                        attackRange = new int[] { currentSectionIndex, currentSectionIndex + 3, currentSectionIndex + 4,            // 1 4 5 6
+                            currentSectionIndex + 5 };
+                        magicAttackRange = new int[] { currentSectionIndex, currentSectionIndex - 1, currentSectionIndex + 1,       // 1 0 5 2
+                            currentSectionIndex + 4 };
+                        limitAttackRange = new int[] { currentSectionIndex                                                          // 1
+                             };
+                        break;
+                    case 2:
+                        attackRange = new int[] { currentSectionIndex, currentSectionIndex + 3, currentSectionIndex + 4,            // 2 5 6 7
+                        currentSectionIndex + 5};
+                        magicAttackRange = new int[] { currentSectionIndex, currentSectionIndex - 1, currentSectionIndex + 1,       // 2 1 6 3
+                            currentSectionIndex + 4 };
+                        limitAttackRange = new int[] { currentSectionIndex                                                          // 2
+                             };
+                        break;
+                    case 3:
+                        attackRange = new int[] { currentSectionIndex, currentSectionIndex + 3, currentSectionIndex + 4 };           // 3 6 7
+                        magicAttackRange = new int[] { currentSectionIndex, currentSectionIndex - 1, currentSectionIndex + 4 };      // 3 2 7
+                        limitAttackRange = new int[] { currentSectionIndex                                                           // 3
+                             };
+                        break;
+                    case 4:
+                        attackRange = new int[] { currentSectionIndex, currentSectionIndex + 4, currentSectionIndex + 5 };           // 4 8 9
+                        magicAttackRange = new int[] { currentSectionIndex, currentSectionIndex - 4, currentSectionIndex + 1,        // 4 0 5 8
+                            currentSectionIndex + 4 };
+                        limitAttackRange = new int[] { currentSectionIndex, currentSectionIndex - 4, currentSectionIndex - 3,        // 4 0 1
+                             };
+                        break;
+                    case 5:
+                        attackRange = new int[] { currentSectionIndex, currentSectionIndex + 3, currentSectionIndex + 4,             // 5 8 9 10
+                            currentSectionIndex + 5};
+                        magicAttackRange = new int[] { currentSectionIndex, currentSectionIndex - 4, currentSectionIndex - 1,        // 5 1 4 9 6
+                            currentSectionIndex + 4, currentSectionIndex + 1 };
+                        limitAttackRange = new int[] { currentSectionIndex, currentSectionIndex - 5, currentSectionIndex - 4,        // 5 0 1 2
+                            currentSectionIndex - 3 };
+                        break;
+                    case 6:
+                        attackRange = new int[] { currentSectionIndex, currentSectionIndex + 3, currentSectionIndex + 4,             // 6 9 10 11
+                            currentSectionIndex + 5 };
+                        magicAttackRange = new int[] { currentSectionIndex, currentSectionIndex - 4, currentSectionIndex - 1,        // 6 2 5 10 7
+                            currentSectionIndex + 4, currentSectionIndex + 1 };
+                        limitAttackRange = new int[] { currentSectionIndex, currentSectionIndex - 5, currentSectionIndex - 4,        // 6 1 2 3
+                            currentSectionIndex - 3 };
+                        break;
+                    case 7:
+                        attackRange = new int[] { currentSectionIndex, currentSectionIndex + 3, currentSectionIndex + 4 };           // 7 10 11
+                        magicAttackRange = new int[] { currentSectionIndex, currentSectionIndex - 4, currentSectionIndex - 1,        // 7 3 6 11
+                            currentSectionIndex + 4 };
+                        limitAttackRange = new int[] { currentSectionIndex, currentSectionIndex - 5, currentSectionIndex - 4,        // 7 2 3
+                             };
+                        break;
+                    case 8:
+                        attackRange = new int[] { currentSectionIndex };                                                             // 8
+                        magicAttackRange = new int[] { currentSectionIndex, currentSectionIndex - 4, currentSectionIndex + 1         // 8 4 9
+                             };
+                        limitAttackRange = new int[] { currentSectionIndex, currentSectionIndex - 4, currentSectionIndex - 3,        // 8 4 5
+                             };
+                        break;
+                    case 9:
+                        attackRange = new int[] { currentSectionIndex };                                                             // 9
+                        magicAttackRange = new int[] { currentSectionIndex, currentSectionIndex - 1, currentSectionIndex - 4,        // 9 8 5 10
+                            currentSectionIndex + 1 };
+                        limitAttackRange = new int[] { currentSectionIndex, currentSectionIndex - 5, currentSectionIndex - 4,        // 9 4 5 6
+                            currentSectionIndex - 3 };
+                        break;
+                    case 10:
+                        attackRange = new int[] { currentSectionIndex };                                                             // 10
+                        magicAttackRange = new int[] { currentSectionIndex, currentSectionIndex - 1, currentSectionIndex - 4,        // 10 9 6 11
+                            currentSectionIndex + 1 };
+                        limitAttackRange = new int[] { currentSectionIndex, currentSectionIndex - 5, currentSectionIndex - 4,        // 10 5 6 7
+                            currentSectionIndex - 3 };
+                        break;
+                    case 11:
+                        attackRange = new int[] { currentSectionIndex };                                                             // 11
+                        magicAttackRange = new int[] { currentSectionIndex, currentSectionIndex - 1, currentSectionIndex - 4         // 11 10 7
+                             };
+                        limitAttackRange = new int[] { currentSectionIndex, currentSectionIndex - 5, currentSectionIndex - 4         // 11 6 7
+                             };
+                        break;
+
+                }
                 break;
             case PlayerCharacter.Character_BlackMage:
                 break;
