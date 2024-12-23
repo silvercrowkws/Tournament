@@ -2098,7 +2098,7 @@ MonoBehaviour:
   Character_BlackMage_Prefabs: {fileID: 3679843440752199619, guid: c9045bd0916b08d46b5bf5def252ea58, type: 3}
   Character_Cloud_Prefabs: {fileID: 8606362613484457869, guid: 83146536b2ea9ea479d56c5d4cbb78c3, type: 3}
   Character_Nalu_Prefabs: {fileID: 7539256027345950733, guid: 4de53edc94c61c34ca4c9fc269483c78, type: 3}
-  selectedCharacter: 6
+  selectedCharacter: 9
   selectedMove: 0
   selectedAttack: 0
   currentSectionIndex: 0
