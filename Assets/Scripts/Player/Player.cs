@@ -266,7 +266,7 @@ public class Player : MonoBehaviour
 
         animator = gameObject.GetComponentInChildren<Animator>();                                 // 자식에서 애니메이터를 찾음
     }
-
+    
     private void Update()
     {
         if (selectedMove != PlayerMove.None)
@@ -275,7 +275,7 @@ public class Player : MonoBehaviour
             selectedMove = PlayerMove.None;         // 이동 후 selectedMove를 None으로 설정하여 이동을 한 번만 처리
         }
 
-        if(selectedAttack != PlayerAttack.None)
+        if (selectedAttack != PlayerAttack.None)
         {
             Attack(selectedCharacter, selectedAttack, currentSectionIndex);          // 누가 어디서 어떤 공격을 했는지에 따라 공격 처리
             selectedAttack = PlayerAttack.None;                 // 공격 후 selectedAttack을 None으로 설정하여 공격을 한 번만 처리
@@ -437,6 +437,7 @@ public class Player : MonoBehaviour
         int magicAttackDamage = 0;  // 마법 공격 데미지
         int limitAttackDamage = 0;  // 리미트 공격 데미지
 
+        Debug.Log($"Attack 메서드 호출됨: {selectedAttack}");
 
         switch (selectedCharacter)
         {
@@ -1554,8 +1555,8 @@ public class Player : MonoBehaviour
     public void ReduceEnergy(int cost)
     {
         Debug.Log($"Energy 감소: {cost}");
-        Energy -= cost;  // 에너지 차감
-        energyChange?.Invoke(currentEnergy);  // UI 업데이트용 델리게이트 호출
+        Energy -= cost;                         // 에너지 차감
+        energyChange?.Invoke(currentEnergy);    // UI 업데이트용 델리게이트 호출
     }
 
     /// <summary>
