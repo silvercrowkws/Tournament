@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public enum PlayerCharacter
+/*public enum PlayerCharacter
 {
     Character_Elle = 0,
     Character_Akstar,
@@ -17,7 +17,7 @@ public enum PlayerCharacter
     Character_BlackMage,
     Character_Cloud,
     Character_Nalu,
-}
+}*/
 
 public enum PlayerMove
 {
@@ -90,6 +90,11 @@ public class Player : MonoBehaviour
     /// 공격할 대상 바닥?
     /// </summary>
     GameObject targetAttack;
+
+    /// <summary>
+    /// VS 이미지
+    /// </summary>
+    VSImage vsImage;
 
     // 체력 & 에너지 관련 시작 ----------------------------------------------------------------------------------------------------
 
@@ -172,6 +177,110 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        /*GameObject newCharacter = null;     // 생성된 캐릭터를 저장할 변수
+
+        // 플레이어가 Character_Elle 를 선택했으면
+        if (selectedCharacter == PlayerCharacter.Character_Elle)
+        {
+            // Character_Elle_Prefabs 을 플레이어 오브젝트의 자식으로 생성
+            newCharacter = Instantiate(Character_Elle_Prefabs, transform.position, transform.rotation, transform);
+        }
+
+        // 플레이어가 Character_Akstar 를 선택했으면
+        else if (selectedCharacter == PlayerCharacter.Character_Akstar)
+        {
+            // Character_Akstar_Prefabs 을 플레이어 오브젝트의 자식으로 생성
+            newCharacter = Instantiate(Character_Akstar_Prefabs, transform.position, transform.rotation, transform);
+        }
+
+        // 플레이어가 Character_Adel 를 선택했으면
+        else if (selectedCharacter == PlayerCharacter.Character_Adel)
+        {
+            // Character_Adel_Prefabs 을 플레이어 오브젝트의 자식으로 생성
+            newCharacter = Instantiate(Character_Adel_Prefabs, transform.position, transform.rotation, transform);
+        }
+
+        // 플레이어가 Character_Amelia 를 선택했으면
+        else if (selectedCharacter == PlayerCharacter.Character_Amelia)
+        {
+            // Character_Amelia_Prefabs 을 플레이어 오브젝트의 자식으로 생성
+            newCharacter = Instantiate(Character_Amelia_Prefabs, transform.position, transform.rotation, transform);
+        }
+
+        // 플레이어가 Character_Barbariccia 를 선택했으면
+        else if (selectedCharacter == PlayerCharacter.Character_Barbariccia)
+        {
+            // Character_Barbariccia_Prefabs 을 플레이어 오브젝트의 자식으로 생성
+            newCharacter = Instantiate(Character_Barbariccia_Prefabs, transform.position, transform.rotation, transform);
+        }
+
+        // 플레이어가 Character_Jade 를 선택했으면
+        else if (selectedCharacter == PlayerCharacter.Character_Jade)
+        {
+            // Character_Jade_Prefabs 을 플레이어 오브젝트의 자식으로 생성
+            newCharacter = Instantiate(Character_Jade_Prefabs, transform.position, transform.rotation, transform);
+        }
+
+        // 플레이어가 Character_Arngrim 를 선택했으면
+        else if (selectedCharacter == PlayerCharacter.Character_Arngrim)
+        {
+            // Character_Arngrim_Prefabs 을 플레이어 오브젝트의 자식으로 생성
+            newCharacter = Instantiate(Character_Arngrim_Prefabs, transform.position, transform.rotation, transform);
+        }
+
+        // 플레이어가 Character_BlackMage 를 선택했으면
+        else if (selectedCharacter == PlayerCharacter.Character_BlackMage)
+        {
+            // Character_BlackMage_Prefabs 을 플레이어 오브젝트의 자식으로 생성
+            newCharacter = Instantiate(Character_BlackMage_Prefabs, transform.position, transform.rotation, transform);
+        }
+
+        // 플레이어가 Character_Cloud 를 선택했으면
+        else if (selectedCharacter == PlayerCharacter.Character_Cloud)
+        {
+            // Character_Cloud_Prefabs 을 플레이어 오브젝트의 자식으로 생성
+            newCharacter = Instantiate(Character_Cloud_Prefabs, transform.position, transform.rotation, transform);
+        }
+
+        // 플레이어가 Character_Nalu 를 선택했으면
+        else if (selectedCharacter == PlayerCharacter.Character_Nalu)
+        {
+            // Character_Nalu_Prefabs 을 플레이어 오브젝트의 자식으로 생성
+            newCharacter = Instantiate(Character_Nalu_Prefabs, transform.position, transform.rotation, transform);
+        }
+
+        if (newCharacter != null)
+        {
+            Vector3 flippedScale = newCharacter.transform.localScale;
+            flippedScale.x *= -1;               // X축 반전
+            newCharacter.transform.localScale = flippedScale;
+        }*/
+    }
+
+    private void Start()
+    {
+        gameManager = GameManager.Instance;
+        enemyPlayer = gameManager.EnemyPlayer;
+        vsImage = FindAnyObjectByType<VSImage>();
+
+        board = FindAnyObjectByType<Board>();
+        currentSectionIndex = 0;
+        transform.position = board.player1_Position[currentSectionIndex].transform.position;       // 플레이어의 현재 위치
+
+        // 현재 위치 정보를 델리게이트로 전달 (여기서는 player1_Position[0]의 인덱스를 전달)
+        SendSectionDelegateFC(currentSectionIndex);
+
+        animator = gameObject.GetComponentInChildren<Animator>();                                 // 자식에서 애니메이터를 찾음
+
+        //vsImage.onPickCharacter += OnSelectedCharacter;
+    }
+
+    /// <summary>
+    /// 버튼에서 선택된 캐릭터를 생성하는 함수
+    /// </summary>
+    /// <param name="character"></param>
+    private void OnSelectedCharacter(PlayerCharacter character)
+    {
         GameObject newCharacter = null;     // 생성된 캐릭터를 저장할 변수
 
         // 플레이어가 Character_Elle 를 선택했으면
@@ -252,21 +361,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        gameManager = GameManager.Instance;
-        enemyPlayer = gameManager.EnemyPlayer;
-
-        board = FindAnyObjectByType<Board>();
-        currentSectionIndex = 0;
-        transform.position = board.player1_Position[currentSectionIndex].transform.position;       // 플레이어의 현재 위치
-
-        // 현재 위치 정보를 델리게이트로 전달 (여기서는 player1_Position[0]의 인덱스를 전달)
-        SendSectionDelegateFC(currentSectionIndex);
-
-        animator = gameObject.GetComponentInChildren<Animator>();                                 // 자식에서 애니메이터를 찾음
-    }
-    
     private void Update()
     {
         if (selectedMove != PlayerMove.None)
