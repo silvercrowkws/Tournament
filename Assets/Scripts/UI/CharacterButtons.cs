@@ -44,5 +44,8 @@ public class CharacterButtons : MonoBehaviour
     private void PickCharacter(int index)
     {
         onPickCharacter.Invoke(index);
+
+        // 이 게임 오브젝트 비활성화 필요
+        gameObject.SetActive(false);
     }
 }
