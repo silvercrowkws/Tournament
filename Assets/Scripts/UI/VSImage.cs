@@ -223,7 +223,7 @@ public class VSImage : MonoBehaviour
     /// <returns></returns>
     IEnumerator MoveCharacters()
     {
-        float duration = 0.3f;        // 1초 동안
+        float duration = 0.3f;        // 0.3초 동안
         float elapsedTime = 0f;
 
         leftStartPos = leftCharacter.rectTransform.localPosition;
