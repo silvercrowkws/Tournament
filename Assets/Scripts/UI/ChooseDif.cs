@@ -33,6 +33,8 @@ public class ChooseDif : MonoBehaviour
     private void NormalMode()
     {
         // 게임 매니저에 노말모드로 플레이 한다고 알리기(져도 다시 플레이)
+        Debug.Log("노말 모드");
+        // 카드 선택으로 씬 이동하기
     }
 
     /// <summary>
@@ -41,5 +43,7 @@ public class ChooseDif : MonoBehaviour
     private void HardMode()
     {
         // 게임 매니저에 하드모드로 플레이 한다고 알리기(한번 지면 끝)
+        Debug.Log("하드 모드");
+        // 카드 선택으로 씬 이동하기
     }
 }
