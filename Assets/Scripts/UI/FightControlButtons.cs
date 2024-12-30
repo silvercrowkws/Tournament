@@ -17,7 +17,7 @@ public class FightControlButtons : MonoBehaviour
     Button fight;
 
     /// <summary>
-    /// 캐릭터 선택 버튼
+    /// 캐릭터 선택 버튼(클래스)
     /// </summary>
     CharacterButtons characterButtons;
 
@@ -63,6 +63,7 @@ public class FightControlButtons : MonoBehaviour
     /// </summary>
     private void FightFC()
     {
-        
+        // 1. 씬 전환(카드 선택으로 작동하는 씬?)
+        // 2. 
     }
 }

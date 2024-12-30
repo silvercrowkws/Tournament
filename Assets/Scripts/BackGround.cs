@@ -53,5 +53,11 @@ public class BackGround : MonoBehaviour
             // 이후 셔플된 리스트에서 첫 번째 인덱스를 제거(다음 0번을 위함)
             availableIndexes.RemoveAt(0);
         }
+
+        // 게임 상태가 메인 상태이면
+        else if(gameManager.GameState == GameState.Main)
+        {
+            spriteRenderer.sprite = backgrounds[0];
+        }
     }
 }

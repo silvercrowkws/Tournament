@@ -10,7 +10,8 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public enum GameState
 {
-    SelectCharacter = 0,        // 캐릭터 선택 상태
+    Main = 0,                   // 기본 상태
+    SelectCharacter,            // 캐릭터 선택 상태
     SelectCard,                 // 카드 선택 상태
     GameStart,                  // 내가 카드 선택한대로 움직이는 상태
     GameWin,                    // 내가 그 판을 이긴 상태
@@ -29,7 +30,7 @@ public class GameManager : Singleton<GameManager>
     /// <summary>
     /// 현재 게임상태
     /// </summary>
-    public GameState gameState = GameState.SelectCharacter;
+    public GameState gameState = GameState.Main;
 
     /// <summary>
     /// 현재 게임상태 변경시 알리는 프로퍼티
@@ -44,6 +45,9 @@ public class GameManager : Singleton<GameManager>
                 gameState = value;
                 switch (gameState)
                 {
+                    case GameState.Main:
+                        Debug.Log("메인 상태");
+                        break;
                     case GameState.SelectCharacter:
                         Debug.Log("캐릭터 선택 상태");
                         onSelectCharacter?.Invoke();
