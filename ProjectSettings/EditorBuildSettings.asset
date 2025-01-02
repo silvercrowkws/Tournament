@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Test_01_Sprite.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/Main/01_StartScene.unity
+    guid: 0350bf3a702240448a1450f698269c91
+  - enabled: 1
+    path: Assets/Scenes/Main/02_SelectCharacter.unity
+    guid: ae68b3d59801a4b429c604a44d75c6fa
+  - enabled: 1
+    path: Assets/Scenes/Test_06_Card.unity
+    guid: ec13b9a7e00cd3945855ed2fea26bcc4
   m_configObjects: {}

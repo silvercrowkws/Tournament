@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FightControlButtons : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class FightControlButtons : MonoBehaviour
     /// 캐릭터 변경 버튼을 클릭했다고 알리는 델리게이트
     /// </summary>
     public Action onChangeFighter;
+
+    public Action onFight;
 
     private void Awake()
     {
@@ -63,7 +66,10 @@ public class FightControlButtons : MonoBehaviour
     /// </summary>
     private void FightFC()
     {
-        // 1. 씬 전환(카드 선택으로 작동하는 씬?)
-        // 2. 
+        // 1. 배틀 순서를 게임 매니저에 전달
+        // 2. 씬 전환(카드 선택으로 작동하는 씬?)
+
+        onFight?.Invoke();                                  // 1
+        SceneManager.LoadScene(2);                          // 2
     }
 }

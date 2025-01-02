@@ -65,7 +65,6 @@ public class Player : MonoBehaviour
     /// </summary>
     public PlayerAttack selectedAttack;
 
-
     /// <summary>
     /// 게임 매니저
     /// </summary>

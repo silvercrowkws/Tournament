@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using System.Linq;
 using Unity.VisualScripting;
 
-public enum PlayerCharacter
+/*public enum PlayerCharacter
 {
     Character_Adel = 0,
     Character_Akstar,
@@ -18,7 +18,7 @@ public enum PlayerCharacter
     Character_Elle,
     Character_Jade,
     Character_Nalu,
-}
+}*/
 
 public class VSImage : MonoBehaviour
 {
@@ -96,6 +96,11 @@ public class VSImage : MonoBehaviour
     /// </summary>
     Image flashImage;
 
+    /// <summary>
+    /// 게임 매니저
+    /// </summary>
+    GameManager gameManager;
+
     private void Awake()
     {
         leftCharacter = transform.GetChild(0).GetComponent<Image>();
@@ -137,11 +142,14 @@ public class VSImage : MonoBehaviour
 
     private void Start()
     {
+        gameManager = GameManager.Instance;
+
         characterButtons = FindAnyObjectByType<CharacterButtons>();
         characterButtons.onPickCharacter += OnPickCharacter;
 
         fightControlButtons = FindObjectOfType<FightControlButtons>();
         fightControlButtons.onChangeFighter += ClearListFC;
+        fightControlButtons.onFight += SendListFC;
 
         // 비활성화 처리
         if (fightControlButtons != null)
@@ -289,5 +297,19 @@ public class VSImage : MonoBehaviour
         rightCharacter.rectTransform.localPosition = rightStartPos;     // 오른족 캐릭터 시작위치로 이동
 
         tournamentList.Clear();
+    }
+    /// <summary>
+    /// fightControlButtons의 델리게이트를 받아 리스트를 전달 하는 함수
+    /// </summary>
+    private void SendListFC()
+    {
+        gameManager.gameTournamentList.Clear();     // 기존에 있던 값을 초기화
+        gameManager.gameTournamentList.AddRange(tournamentList);  // tournamentList의 내용을 gameTournamentList에 복사
+
+        // gameTournamentList가 복사되었는지 확인 (디버깅 용)
+        foreach (var item in gameManager.gameTournamentList)
+        {
+            Debug.Log("GameManager의 대진표: " + item);
+        }
     }
 }
