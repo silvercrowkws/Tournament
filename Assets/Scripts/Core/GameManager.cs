@@ -51,6 +51,11 @@ public enum GameDifficulty
 public class GameManager : Singleton<GameManager>
 {
     /// <summary>
+    /// 플레이어의 캐릭터 인덱스
+    /// </summary>
+    public int playerCharacterIndex = 0;
+
+    /// <summary>
     /// 현재 게임상태
     /// </summary>
     public GameState gameState = GameState.Main;

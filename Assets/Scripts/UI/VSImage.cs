@@ -166,6 +166,8 @@ public class VSImage : MonoBehaviour
     {
         leftCharacter.sprite = characters[index];
 
+        gameManager.playerCharacterIndex = index;       // 게임매니저의 플레이어의 캐릭터 인덱스 변경
+
         /*// PlayerCharacter의 개수를 가져오기 위해 enum의 값을 사용
         int playerCharacterCount = Enum.GetValues(typeof(PlayerCharacter)).Length;
 
