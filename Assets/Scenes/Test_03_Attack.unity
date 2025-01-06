@@ -2444,7 +2444,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24195432d5c17a74abd74bc12e0e690f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCharacterIndex: 0
   gameState: 0
+  gamediff: 0
+  gameTournamentList: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

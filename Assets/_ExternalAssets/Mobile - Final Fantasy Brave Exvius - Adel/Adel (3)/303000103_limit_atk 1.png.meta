@@ -1,0 +1,226 @@
+fileFormatVersion: 2
+guid: c2ace3a2f298c334ea1ee88b3eb07692
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 25
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 303000103_limit_atk_32
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 1740
+        width: 190
+        height: 119
+      alignment: 9
+      pivot: {x: 0.780148, y: 0.3383138}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00daf32a6d96e214ca8a3c8d2b6d4ba3
+      internalID: 746955665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      303000103_limit_atk_0: 530630925
+      303000103_limit_atk_1: 647637684
+      303000103_limit_atk_10: -231747785
+      303000103_limit_atk_11: -1375242287
+      303000103_limit_atk_12: 931954741
+      303000103_limit_atk_13: -847304319
+      303000103_limit_atk_14: 815557415
+      303000103_limit_atk_15: 1601117964
+      303000103_limit_atk_16: 1689252346
+      303000103_limit_atk_17: 82731354
+      303000103_limit_atk_18: 1990430071
+      303000103_limit_atk_19: 745616078
+      303000103_limit_atk_2: 1560961217
+      303000103_limit_atk_20: -292623302
+      303000103_limit_atk_21: 689075287
+      303000103_limit_atk_22: 985177773
+      303000103_limit_atk_23: -774436347
+      303000103_limit_atk_24: -502020725
+      303000103_limit_atk_25: 1132273141
+      303000103_limit_atk_26: -1675797881
+      303000103_limit_atk_27: -209606665
+      303000103_limit_atk_28: -1356743423
+      303000103_limit_atk_29: -1996543925
+      303000103_limit_atk_3: 1082226443
+      303000103_limit_atk_30: 1135598198
+      303000103_limit_atk_31: -1627524418
+      303000103_limit_atk_32: 746955665
+      303000103_limit_atk_33: 2035106955
+      303000103_limit_atk_34: -873673436
+      303000103_limit_atk_35: -986584989
+      303000103_limit_atk_36: 1601470143
+      303000103_limit_atk_37: -1779622168
+      303000103_limit_atk_38: 1351609217
+      303000103_limit_atk_39: -2003515600
+      303000103_limit_atk_4: 739661531
+      303000103_limit_atk_40: 241858775
+      303000103_limit_atk_41: -1500013775
+      303000103_limit_atk_42: 757620358
+      303000103_limit_atk_43: 848148274
+      303000103_limit_atk_44: 2132323609
+      303000103_limit_atk_45: 716094259
+      303000103_limit_atk_46: 45748232
+      303000103_limit_atk_47: 28197654
+      303000103_limit_atk_48: 1776279615
+      303000103_limit_atk_49: 1776456933
+      303000103_limit_atk_5: 968612068
+      303000103_limit_atk_50: 396280025
+      303000103_limit_atk_51: -1819323929
+      303000103_limit_atk_6: -1413828970
+      303000103_limit_atk_7: -121703745
+      303000103_limit_atk_8: -1280906340
+      303000103_limit_atk_9: -85117199
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
