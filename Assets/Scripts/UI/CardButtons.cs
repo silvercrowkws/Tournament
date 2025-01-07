@@ -165,7 +165,7 @@ public class CardButtons : MonoBehaviour
     }
 
     /// <summary>
-    /// 내 캐릭터에 따라서 버튼의 이미지를 변경하는 함수
+    /// 내 캐릭터에 따라서 버튼의 이미지, 텍스트를 변경하는 함수
     /// </summary>
     private void ButtonsSpriteChange()
     {
