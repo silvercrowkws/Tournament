@@ -176,7 +176,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        /*GameObject newCharacter = null;     // 생성된 캐릭터를 저장할 변수
+        GameObject newCharacter = null;     // 생성된 캐릭터를 저장할 변수
 
         // 플레이어가 Character_Elle 를 선택했으면
         if (selectedCharacter == PlayerCharacter.Character_Elle)
@@ -253,7 +253,8 @@ public class Player : MonoBehaviour
             Vector3 flippedScale = newCharacter.transform.localScale;
             flippedScale.x *= -1;               // X축 반전
             newCharacter.transform.localScale = flippedScale;
-        }*/
+        }
+        ㅁ
     }
 
     private void Start()
@@ -537,14 +538,14 @@ public class Player : MonoBehaviour
             case PlayerCharacter.Character_Elle:
 
                 // 코스트
-                attackCost = 25;
-                magicAttackCost = 35;
-                limitAttackCost = 50;
+                attackCost = 15;
+                magicAttackCost = 25;
+                limitAttackCost = 45;
 
                 // 공격력
                 attackDamage = 25;          // ㅡ 모양
-                magicAttackDamage = 25;     // x 모양
-                limitAttackDamage = 50;     // H 모양
+                magicAttackDamage = 35;     // x 모양
+                limitAttackDamage = 45;     // H 모양
 
                 // 공격 범위(위치에 따라 다름 )
                 switch (where)
@@ -635,14 +636,14 @@ public class Player : MonoBehaviour
             case PlayerCharacter.Character_Akstar:
 
                 // 코스트
-                attackCost = 25;
-                magicAttackCost = 35;
-                limitAttackCost = 50;
+                attackCost = 15;
+                magicAttackCost = 25;
+                limitAttackCost = 45;
 
                 // 공격력
                 attackDamage = 25;          // ㅣ 모양
-                magicAttackDamage = 25;     // x 모양
-                limitAttackDamage = 50;     // ㅜㅗ 모양
+                magicAttackDamage = 35;     // x 모양
+                limitAttackDamage = 45;     // ㅜㅗ 모양
 
                 // 공격 범위(위치에 따라 다름 )
                 switch (where)
@@ -733,13 +734,13 @@ public class Player : MonoBehaviour
             case PlayerCharacter.Character_Adel:
 
                 // 코스트
-                attackCost = 25;
-                magicAttackCost = 35;
-                limitAttackCost = 50;
+                attackCost = 15;
+                magicAttackCost = 25;
+                limitAttackCost = 40;
 
                 // 공격력
                 attackDamage = 25;          // ㅣ 모양
-                magicAttackDamage = 25;     // + 모양
+                magicAttackDamage = 30;     // + 모양
                 limitAttackDamage = 50;     // ㅗ 모양
 
                 // 공격 범위(위치에 따라 다름 )
@@ -834,14 +835,14 @@ public class Player : MonoBehaviour
             case PlayerCharacter.Character_Amelia:
 
                 // 코스트
-                attackCost = 25;
-                magicAttackCost = 35;
-                limitAttackCost = 50;
+                attackCost = 15;
+                magicAttackCost = 25;
+                limitAttackCost = 45;
 
                 // 공격력
                 attackDamage = 25;          // ㅡ 모양
-                magicAttackDamage = 25;     // + 모양
-                limitAttackDamage = 50;     // 아래 ㅁ 모양
+                magicAttackDamage = 30;     // + 모양
+                limitAttackDamage = 40;     // 아래 ㅁ 모양
 
                 // 공격 범위(위치에 따라 다름 )
                 switch (where)
@@ -935,14 +936,14 @@ public class Player : MonoBehaviour
             case PlayerCharacter.Character_Barbariccia:
 
                 // 코스트
-                attackCost = 25;
-                magicAttackCost = 35;
-                limitAttackCost = 50;
+                attackCost = 15;
+                magicAttackCost = 25;
+                limitAttackCost = 45;
 
                 // 공격력
                 attackDamage = 25;          // ㅡ 모양
-                magicAttackDamage = 25;     // x 모양
-                limitAttackDamage = 50;     // 위 ㅁ 모양
+                magicAttackDamage = 35;     // x 모양
+                limitAttackDamage = 40;     // 위 ㅁ 모양
 
                 // 공격 범위(위치에 따라 다름 )
                 switch (where)
@@ -1034,13 +1035,13 @@ public class Player : MonoBehaviour
 
                 // 코스트
                 attackCost = 25;
-                magicAttackCost = 35;
-                limitAttackCost = 50;
+                magicAttackCost = 25;
+                limitAttackCost = 45;
 
                 // 공격력
-                attackDamage = 25;          // ㅜ 모양
-                magicAttackDamage = 25;     // x 모양
-                limitAttackDamage = 50;     // H 모양
+                attackDamage = 20;          // ㅜ 모양
+                magicAttackDamage = 35;     // x 모양
+                limitAttackDamage = 45;     // H 모양
 
                 // 공격 범위(위치에 따라 다름 )
                 switch (where)
@@ -1135,13 +1136,13 @@ public class Player : MonoBehaviour
             case PlayerCharacter.Character_Arngrim:
 
                 // 코스트
-                attackCost = 25;
-                magicAttackCost = 35;
-                limitAttackCost = 50;
+                attackCost = 20;
+                magicAttackCost = 25;
+                limitAttackCost = 40;
 
                 // 공격력
                 attackDamage = 25;          // ㅜ 모양
-                magicAttackDamage = 25;     // + 모양
+                magicAttackDamage = 30;     // + 모양
                 limitAttackDamage = 50;     // ㅗ 모양
 
                 // 공격 범위(위치에 따라 다름 )
@@ -1240,14 +1241,14 @@ public class Player : MonoBehaviour
             case PlayerCharacter.Character_BlackMage:
 
                 // 코스트
-                attackCost = 25;
-                magicAttackCost = 35;
-                limitAttackCost = 50;
+                attackCost = 15;
+                magicAttackCost = 25;
+                limitAttackCost = 45;
 
                 // 공격력
-                attackDamage = 25;          // ㅗ 모양
-                magicAttackDamage = 25;     // + 모양
-                limitAttackDamage = 50;     // 위 ㅁ 모양
+                attackDamage = 20;          // ㅗ 모양
+                magicAttackDamage = 30;     // + 모양
+                limitAttackDamage = 40;     // 위 ㅁ 모양
 
                 // 공격 범위(위치에 따라 다름 )
                 switch (where)
@@ -1345,14 +1346,14 @@ public class Player : MonoBehaviour
             case PlayerCharacter.Character_Cloud:
 
                 // 코스트
-                attackCost = 25;
-                magicAttackCost = 35;
-                limitAttackCost = 50;
+                attackCost = 15;
+                magicAttackCost = 25;
+                limitAttackCost = 40;
 
                 // 공격력
                 attackDamage = 25;          // ㅡ 모양
-                magicAttackDamage = 25;     // + 모양
-                limitAttackDamage = 50;     // . . 모양
+                magicAttackDamage = 30;     // + 모양
+                limitAttackDamage = 70;     // . . 모양
 
                 // 공격 범위(위치에 따라 다름 )
                 switch (where)
@@ -1446,14 +1447,14 @@ public class Player : MonoBehaviour
             case PlayerCharacter.Character_Nalu:
 
                 // 코스트
-                attackCost = 25;
-                magicAttackCost = 35;
-                limitAttackCost = 50;
+                attackCost = 15;
+                magicAttackCost = 25;
+                limitAttackCost = 40;
 
                 // 공격력
                 attackDamage = 25;          // ㅣ 모양
-                magicAttackDamage = 25;     // x 모양
-                limitAttackDamage = 50;     // 자신 서있는 줄 ㅡ 모양
+                magicAttackDamage = 35;     // x 모양
+                limitAttackDamage = 40;     // 자신 서있는 줄 ㅡ 모양
 
                 // 공격 범위(위치에 따라 다름 )
                 switch (where)
