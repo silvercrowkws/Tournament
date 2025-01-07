@@ -254,7 +254,6 @@ public class Player : MonoBehaviour
             flippedScale.x *= -1;               // X축 반전
             newCharacter.transform.localScale = flippedScale;
         }
-        ㅁ
     }
 
     private void Start()
