@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,6 +35,21 @@ public class CardButtons : MonoBehaviour
     /// 공격 범위 이미지의 배열(자리)
     /// </summary>
     Image[] attackRange;
+
+    /// <summary>
+    /// 기본 공격 데미지, 에너지 텍스트
+    /// </summary>
+    TextMeshProUGUI[] attackTexts;
+
+    /// <summary>
+    /// 매직 어택 데미지, 에너지 텍스트
+    /// </summary>
+    TextMeshProUGUI[] magicAttackTexts;
+
+    /// <summary>
+    /// 리미트 어택 데미지, 에너지 텍스트
+    /// </summary>
+    TextMeshProUGUI[] limitAttackTexts;
 
     /// <summary>
     /// Adel의 스프라이트
@@ -71,6 +87,9 @@ public class CardButtons : MonoBehaviour
         attackImages = new Image[3];
         energyImage = new Image[2];
         attackRange = new Image[3];
+        attackTexts = new TextMeshProUGUI[2];
+        magicAttackTexts = new TextMeshProUGUI[2];
+        limitAttackTexts = new TextMeshProUGUI[2];
 
         Transform child = transform.GetChild(0);        // 0 번째 자식 MoveDown_Button
 
@@ -111,6 +130,36 @@ public class CardButtons : MonoBehaviour
         energyImage[0] = child.GetChild(0).GetComponent<Image>();
         child = transform.GetChild(12);
         energyImage[1] = child.GetChild(0).GetComponent<Image>();
+
+        /*child = transform.GetChild(5);          // Attack_Button
+        child = child.transform.GetChild(2);    // Description
+        child = child.transform.GetChild(1);    // Text 게임 오브젝트
+        attackTexts[0] = child.GetChild(0).GetComponent<TextMeshProUGUI>();
+        attackTexts[1] = child.GetChild(1).GetComponent<TextMeshProUGUI>();*/
+
+        // 데미지, 에너지 텍스트 수정 용
+        for(int i = 0;i< 3;i++)
+        {
+            child = transform.GetChild(i + 5);      // Attack_Button, MagicAttack_Button, LimitAttack_Button
+            child = child.transform.GetChild(2);    // Description
+            child = child.transform.GetChild(1);    // Text 게임 오브젝트
+
+            if(i == 0)
+            {
+                attackTexts[0] = child.GetChild(0).GetComponent<TextMeshProUGUI>();
+                attackTexts[1] = child.GetChild(1).GetComponent<TextMeshProUGUI>();
+            }
+            else if(i == 1)
+            {
+                magicAttackTexts[0] = child.GetChild(0).GetComponent<TextMeshProUGUI>();
+                magicAttackTexts[1] = child.GetChild(1).GetComponent<TextMeshProUGUI>();
+            }
+            else if (i == 2)
+            {
+                limitAttackTexts[0] = child.GetChild(0).GetComponent<TextMeshProUGUI>();
+                limitAttackTexts[1] = child.GetChild(1).GetComponent<TextMeshProUGUI>();
+            }
+        }
 
         ButtonsSpriteChange();
     }
@@ -154,6 +203,14 @@ public class CardButtons : MonoBehaviour
                     attackRange[i].sprite = Adels[i + 6];
                 }
 
+                // 공격력 & 에너지 텍스트 수정
+                attackTexts[0].text = "25";
+                attackTexts[1].text = "15";
+                magicAttackTexts[0].text = "30";
+                magicAttackTexts[1].text = "25";
+                limitAttackTexts[0].text = "50";
+                limitAttackTexts[1].text = "40";
+
                 break;
 
             // Akstar
@@ -186,6 +243,14 @@ public class CardButtons : MonoBehaviour
                 {
                     attackRange[i].sprite = Akstars[i + 6];
                 }
+
+                // 공격력 & 에너지 텍스트 수정
+                attackTexts[0].text = "25";
+                attackTexts[1].text = "15";
+                magicAttackTexts[0].text = "35";
+                magicAttackTexts[1].text = "25";
+                limitAttackTexts[0].text = "45";
+                limitAttackTexts[1].text = "45";
 
                 break;
 
@@ -220,6 +285,14 @@ public class CardButtons : MonoBehaviour
                     attackRange[i].sprite = Amelias[i + 6];
                 }
 
+                // 공격력 & 에너지 텍스트 수정
+                attackTexts[0].text = "25";
+                attackTexts[1].text = "15";
+                magicAttackTexts[0].text = "30";
+                magicAttackTexts[1].text = "25";
+                limitAttackTexts[0].text = "40";
+                limitAttackTexts[1].text = "45";
+
                 break;
 
             // Arngrim
@@ -252,6 +325,14 @@ public class CardButtons : MonoBehaviour
                 {
                     attackRange[i].sprite = Arngrims[i + 6];
                 }
+
+                // 공격력 & 에너지 텍스트 수정
+                attackTexts[0].text = "20";
+                attackTexts[1].text = "25";
+                magicAttackTexts[0].text = "35";
+                magicAttackTexts[1].text = "25";
+                limitAttackTexts[0].text = "50";
+                limitAttackTexts[1].text = "40";
 
                 break;
 
@@ -286,6 +367,14 @@ public class CardButtons : MonoBehaviour
                     attackRange[i].sprite = Barbariccias[i + 6];
                 }
 
+                // 공격력 & 에너지 텍스트 수정
+                attackTexts[0].text = "25";
+                attackTexts[1].text = "15";
+                magicAttackTexts[0].text = "35";
+                magicAttackTexts[1].text = "25";
+                limitAttackTexts[0].text = "40";
+                limitAttackTexts[1].text = "45";
+
                 break;
 
             // BlackMage
@@ -318,6 +407,14 @@ public class CardButtons : MonoBehaviour
                 {
                     attackRange[i].sprite = BlackMages[i + 6];
                 }
+
+                // 공격력 & 에너지 텍스트 수정
+                attackTexts[0].text = "20";
+                attackTexts[1].text = "15";
+                magicAttackTexts[0].text = "30";
+                magicAttackTexts[1].text = "25";
+                limitAttackTexts[0].text = "50";
+                limitAttackTexts[1].text = "40";
 
                 break;
 
@@ -352,6 +449,14 @@ public class CardButtons : MonoBehaviour
                     attackRange[i].sprite = Clouds[i + 6];
                 }
 
+                // 공격력 & 에너지 텍스트 수정
+                attackTexts[0].text = "25";
+                attackTexts[1].text = "15";
+                magicAttackTexts[0].text = "30";
+                magicAttackTexts[1].text = "25";
+                limitAttackTexts[0].text = "70";
+                limitAttackTexts[1].text = "40";
+
                 break;
 
             // Elle
@@ -384,6 +489,14 @@ public class CardButtons : MonoBehaviour
                 {
                     attackRange[i].sprite = Elles[i + 6];
                 }
+
+                // 공격력 & 에너지 텍스트 수정
+                attackTexts[0].text = "25";
+                attackTexts[1].text = "15";
+                magicAttackTexts[0].text = "35";
+                magicAttackTexts[1].text = "25";
+                limitAttackTexts[0].text = "45";
+                limitAttackTexts[1].text = "45";
 
                 break;
 
@@ -418,6 +531,14 @@ public class CardButtons : MonoBehaviour
                     attackRange[i].sprite = Jades[i + 6];
                 }
 
+                // 공격력 & 에너지 텍스트 수정
+                attackTexts[0].text = "20";
+                attackTexts[1].text = "25";
+                magicAttackTexts[0].text = "35";
+                magicAttackTexts[1].text = "25";
+                limitAttackTexts[0].text = "45";
+                limitAttackTexts[1].text = "45";
+
                 break;
 
             // Nalu
@@ -450,6 +571,14 @@ public class CardButtons : MonoBehaviour
                 {
                     attackRange[i].sprite = Nalus[i + 6];
                 }
+
+                // 공격력 & 에너지 텍스트 수정
+                attackTexts[0].text = "25";
+                attackTexts[1].text = "15";
+                magicAttackTexts[0].text = "35";
+                magicAttackTexts[1].text = "25";
+                limitAttackTexts[0].text = "40";
+                limitAttackTexts[1].text = "40";
 
                 break;
         }
