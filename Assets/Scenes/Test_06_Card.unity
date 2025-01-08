@@ -6737,6 +6737,7 @@ GameObject:
   m_Component:
   - component: {fileID: 644254700}
   - component: {fileID: 644254701}
+  - component: {fileID: 644254702}
   m_Layer: 5
   m_Name: PlaceCard
   m_TagString: Untagged
@@ -6792,6 +6793,40 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &644254702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644254699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e26b87f10b8b164449c7ea43d497a3e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultCard:
+  - {fileID: 21300000, guid: 04b88fc641e424640bd58e29dd64bc8d, type: 3}
+  - {fileID: 21300000, guid: 6596fd12999f3ca42b532241b54df5ab, type: 3}
+  - {fileID: 21300000, guid: 6e319314a910a9644811ca9dd1d3e997, type: 3}
+  placeHereCard:
+  - {fileID: 21300000, guid: fe414586add02f249bc8160a704e18bc, type: 3}
+  - {fileID: 21300000, guid: dc73c212aa3b4d34cae8ad1d824f16bb, type: 3}
+  - {fileID: 21300000, guid: 6fbe80809b2e57c47bf6280103ab71ba, type: 3}
+  AdelCards:
+  - {fileID: 21300000, guid: b3c35c20ba09dd1439ebd0de68beffb3, type: 3}
+  - {fileID: 21300000, guid: 37428bebf187c634c90d0ca456d492f9, type: 3}
+  - {fileID: 21300000, guid: 5d8a6987dd3513d4d97285a382988c6a, type: 3}
+  - {fileID: 21300000, guid: a6d2d8e88e88c1241af3530da91c72a3, type: 3}
+  - {fileID: 21300000, guid: 22f592106367f3048b876ad260e0c978, type: 3}
+  - {fileID: 21300000, guid: 41ab30fb7079d414186d17176decf95f, type: 3}
+  - {fileID: 21300000, guid: 871400562f79f65468d8a00240177253, type: 3}
+  - {fileID: 21300000, guid: 5464ca509ea24f847be69be7895da777, type: 3}
+  - {fileID: 21300000, guid: 9fe31014a6ff59345b6fd06babcc4e5b, type: 3}
+  - {fileID: 21300000, guid: 2c5b2a86a5d60694b9be34cff02559e3, type: 3}
+  - {fileID: 21300000, guid: 0a951b8dbd1b84c4e929519cdac24a70, type: 3}
+  - {fileID: 21300000, guid: d564389b47096cf4aaf1015032af5cbc, type: 3}
+  - {fileID: 21300000, guid: 7ede35832fa636747997f1069b3f5075, type: 3}
 --- !u!1 &644772994
 GameObject:
   m_ObjectHideFlags: 0
@@ -9119,7 +9154,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fe414586add02f249bc8160a704e18bc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 04b88fc641e424640bd58e29dd64bc8d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

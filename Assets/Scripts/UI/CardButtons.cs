@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -52,6 +53,23 @@ public class CardButtons : MonoBehaviour
     TextMeshProUGUI[] limitAttackTexts;
 
     /// <summary>
+    /// 각 카드의 버튼들의 배열
+    /// </summary>
+    Button[] buttons;
+
+    /// <summary>
+    /// 각 카드들이 가지고 있는 캔버스 그룹의 배열
+    /// </summary>
+    CanvasGroup[] canvasGroup;
+
+    public Action<int> onCardButton;
+
+    /// <summary>
+    /// PlaceCard 클래스
+    /// </summary>
+    PlaceCard placeCard;
+
+    /// <summary>
     /// Adel의 스프라이트
     /// 0 : move(0,1,2,3,9,10)
     /// 1 : 가드, 퍼팩트 가드
@@ -81,6 +99,10 @@ public class CardButtons : MonoBehaviour
 
     private void Start()
     {
+        placeCard = FindAnyObjectByType<PlaceCard>();
+        placeCard.onCardDisable += OnCardDisable;
+        placeCard.onCardEnable += OnCardEnable;
+
         // 배열 크기 초기화
         moveImages = new Image[6];
         guardImages = new Image[2];
@@ -90,6 +112,8 @@ public class CardButtons : MonoBehaviour
         attackTexts = new TextMeshProUGUI[2];
         magicAttackTexts = new TextMeshProUGUI[2];
         limitAttackTexts = new TextMeshProUGUI[2];
+        buttons = new Button[13];
+        canvasGroup = new CanvasGroup[13];
 
         Transform child = transform.GetChild(0);        // 0 번째 자식 MoveDown_Button
 
@@ -161,7 +185,46 @@ public class CardButtons : MonoBehaviour
             }
         }
 
+        for(int i = 0; i < buttons.Length; i++)
+        {
+            int index = i;                                              // 캡처할 변수 복사
+            Transform buttonChild = transform.GetChild(i);
+            buttons[i] = buttonChild.GetComponent<Button>();
+            canvasGroup[i] = buttons[i].GetComponent<CanvasGroup>();
+            buttons[i].onClick.AddListener(() => SendCard(index));      // 복사된 변수로 람다식으로 몇번째 버튼이 클릭되었는지 넘겨줌
+        }
+
         ButtonsSpriteChange();
+    }
+
+    /// <summary>
+    /// 해당하는 카드를 활성화 하기 위한 함수(PlaceCard 에서 확인 후 알파값 조절)
+    /// </summary>
+    /// <param name="cardIndex"></param>
+    private void OnCardEnable(int cardIndex)
+    {
+        canvasGroup[cardIndex].alpha = 1;                   // 알파값 1로 조절
+        canvasGroup[cardIndex].interactable = true;         // 상호작용 되게 변경
+    }
+
+    /// <summary>
+    /// 해당하는 카드를 비활성화 하기 위한 함수(PlaceCard 에서 확인 후 알파값 조절)
+    /// </summary>
+    /// <param name="cardIndex"></param>
+    private void OnCardDisable(int cardIndex)
+    {
+        canvasGroup[cardIndex].alpha = 0;                   // 알파값 0으로 조절
+        canvasGroup[cardIndex].interactable = false;        // 상호작용 안되게 변경
+    }
+
+    /// <summary>
+    /// 카드 버튼 클릭으로 실행되는 함수
+    /// 0 : 아래, 1 : 위, 2 : 오른쪽, 3 : 왼쪽, 4 : 가드, 5 : 공격, 6 : 마법공격, 7 : 특수공격, 8 : 에너지 업, 9 : 더블 오른쪽, 10 : 더블 왼쪽, 11 : 퍼펙트 가드, 12 : 힐
+    /// </summary>
+    private void SendCard(int buttonNumber)
+    {
+        Debug.Log($"{buttonNumber} 버튼 클릭");
+        onCardButton?.Invoke(buttonNumber);
     }
 
     /// <summary>
