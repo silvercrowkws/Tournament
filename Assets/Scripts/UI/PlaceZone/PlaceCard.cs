@@ -157,6 +157,8 @@ public class PlaceCard : MonoBehaviour
     /// <param name="cardIndex">CardButtons에서 넘겨받은 카드의 인덱스</param>
     private void OnCardPlace(int cardIndex)
     {
+        // 여기 델리게이트도 수정해서 캐릭터의 인덱스도 받아야 할 듯
+
         // 만약 카드 공간이 3개 전부 차있지 않으면
         if(emptyFirstCard || emptySecondCard || emptyThirdCard)
         {
