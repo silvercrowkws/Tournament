@@ -62,6 +62,9 @@ public class CardButtons : MonoBehaviour
     /// </summary>
     CanvasGroup[] canvasGroup;
 
+    /// <summary>
+    /// 카드를 클릭했다고 알리는 델리게이트
+    /// </summary>
     public Action<int> onCardButton;
 
     /// <summary>

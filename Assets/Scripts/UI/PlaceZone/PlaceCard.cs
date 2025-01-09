@@ -45,6 +45,20 @@ public class PlaceCard : MonoBehaviour
     /// 버튼에 할당할 카드 이미지들의 배열
     /// </summary>
     public Sprite[] AdelCards;
+    public Sprite[] AkstarCards;
+    public Sprite[] AmeliaCards;
+    public Sprite[] ArngrimCards;
+    public Sprite[] BarbaricciaCards;
+    public Sprite[] BlackMageCards;
+    public Sprite[] CloudCards;
+    public Sprite[] ElleCards;
+    public Sprite[] JadeCards;
+    public Sprite[] NaluCards;
+
+    /// <summary>
+    /// 캐릭터에 따라 내용이 달라지는 배열
+    /// </summary>
+    public Sprite[] ChangeCards;
 
     /// <summary>
     /// 선택된 카드를 비활성화 시키기 위한 델리게이트
@@ -55,6 +69,28 @@ public class PlaceCard : MonoBehaviour
     /// 선택이 취소된 카드를 활성화 시키기 위한 델리게이트
     /// </summary>
     public Action<int> onCardEnable;
+
+    /// <summary>
+    /// 턴이 진행될 카드의 순서를 알리는 델리게이트
+    /// </summary>
+    public Action<int, int, int> onSendCardNumber;
+
+    /// <summary>
+    /// 게임 매니저
+    /// </summary>
+    GameManager gameManager;
+
+    /// <summary>
+    /// 컨트롤 존
+    /// </summary>
+    ControlZone controlZone;
+
+    /// <summary>
+    /// 첫번째 공간이 비었는지(true : 비어있다, false : 차있다)
+    /// </summary>
+    bool emptyFirstCard = true;
+    bool emptySecondCard = true;
+    bool emptyThirdCard = true;
 
     private void Awake()
     {
@@ -71,18 +107,91 @@ public class PlaceCard : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 첫번째 공간이 비었는지(true : 비어있다, false : 차있다)
-    /// </summary>
-    bool emptyFirstCard = true;
-    bool emptySecondCard = true;
-    bool emptyThirdCard = true;
-
     private void Start()
     {
+        gameManager = GameManager.Instance;
+        controlZone = FindAnyObjectByType<ControlZone>();
+        controlZone.onClearPlace += OnClearPlace;
+
+        // 배열 초기화
+        ChangeCards = new Sprite[AdelCards.Length];     // 카드들의 개수는 같으니 AdelCards.Length 로 초기화
+        
+        OnChangeCard();                                 // 배열 복사
+
         fullPlace = 0;
         cardButtons = FindAnyObjectByType<CardButtons>();
         cardButtons.onCardButton += OnCardPlace;
+    }
+
+    /// <summary>
+    /// 플레이어 인덱스에 따라서 배열을 복사시키는 함수
+    /// </summary>
+    void OnChangeCard()
+    {
+        // 플레이어 인덱스에 따라서
+        switch (gameManager.playerCharacterIndex)
+        {
+            case 0:
+                for (int i = 0; i < AdelCards.Length; i++)
+                {
+                    ChangeCards[i] = AdelCards[i];
+                }
+                break;
+            case 1:
+                for (int i = 0; i < AkstarCards.Length; i++)
+                {
+                    ChangeCards[i] = AkstarCards[i];
+                }
+                break;
+            case 2:
+                for (int i = 0; i < AmeliaCards.Length; i++)
+                {
+                    ChangeCards[i] = AmeliaCards[i];
+                }
+                break;
+            case 3:
+                for (int i = 0; i < ArngrimCards.Length; i++)
+                {
+                    ChangeCards[i] = ArngrimCards[i];
+                }
+                break;
+            case 4:
+                for (int i = 0; i < BarbaricciaCards.Length; i++)
+                {
+                    ChangeCards[i] = BarbaricciaCards[i];
+                }
+                break;
+            case 5:
+                for (int i = 0; i < BlackMageCards.Length; i++)
+                {
+                    ChangeCards[i] = BlackMageCards[i];
+                }
+                break;
+            case 6:
+                for (int i = 0; i < CloudCards.Length; i++)
+                {
+                    ChangeCards[i] = CloudCards[i];
+                }
+                break;
+            case 7:
+                for (int i = 0; i < ElleCards.Length; i++)
+                {
+                    ChangeCards[i] = ElleCards[i];
+                }
+                break;
+            case 8:
+                for (int i = 0; i < JadeCards.Length; i++)
+                {
+                    ChangeCards[i] = JadeCards[i];
+                }
+                break;
+            case 9:
+                for (int i = 0; i < NaluCards.Length; i++)
+                {
+                    ChangeCards[i] = NaluCards[i];
+                }
+                break;
+        }
     }
 
     /// <summary>
@@ -97,23 +206,46 @@ public class PlaceCard : MonoBehaviour
                 buttonImages[0].sprite = defaultCard[0];        // 버튼의 이미지 초기화
                 onCardEnable?.Invoke(firstCardNumber);          // 카드 다시 활성화 하라고 델리게이트 전달
                 firstCardNumber = 0;                            // 기록 초기화
+                SendCardNumber();                               // 카드 순서 넘겨줌
                 emptyFirstCard = true;                          // 배치할 수 있게 bool 변수 초기화
                 break;
             case 1:
                 buttonImages[1].sprite = defaultCard[1];
                 onCardEnable?.Invoke(secondCardNumber);
                 secondCardNumber = 0;
+                SendCardNumber();
                 emptySecondCard = true;
                 break;
             case 2:
                 buttonImages[2].sprite = defaultCard[2];
                 onCardEnable?.Invoke(thirdCardNumber);
                 thirdCardNumber = 0;
+                SendCardNumber();
                 emptyThirdCard = true;
                 break;
         }
 
         UpdatePlaceImages();
+    }
+
+    /// <summary>
+    /// 클리어 버튼 클릭으로 세팅을 전부 초기화 하는 함수
+    /// </summary>
+    private void OnClearPlace()
+    {
+        buttonImages[0].sprite = placeHereCard[0];      // 버튼 이미지 초기화
+        buttonImages[1].sprite = defaultCard[1];
+        buttonImages[2].sprite = defaultCard[2];
+        onCardEnable?.Invoke(firstCardNumber);          // 카드 다시 활성화 하라고 델리게이트 전달
+        onCardEnable?.Invoke(secondCardNumber);
+        onCardEnable?.Invoke(thirdCardNumber);
+        firstCardNumber = 0;                            // 기록 초기화
+        secondCardNumber = 0;
+        thirdCardNumber = 0;
+        emptyFirstCard = true;                          // 배치할 수 있게 bool 변수 초기화
+        emptySecondCard = true;
+        emptyThirdCard = true;
+        SendCardNumber();                               // 카드 순서 넘겨줌
     }
 
     /// <summary>
@@ -166,8 +298,9 @@ public class PlaceCard : MonoBehaviour
             if(emptyFirstCard)
             {
                 // 버튼에 이미지 할당
-                buttonImages[0].sprite = AdelCards[cardIndex];
+                buttonImages[0].sprite = ChangeCards[cardIndex];
                 firstCardNumber = cardIndex;
+                SendCardNumber();
                 emptyFirstCard = false;
 
                 if (buttonImages[1].sprite == defaultCard[1])       // 버튼 1번의 이미지가 디폴트면
@@ -185,8 +318,9 @@ public class PlaceCard : MonoBehaviour
             else if (emptySecondCard)
             {
                 // 버튼에 이미지 할당
-                buttonImages[1].sprite = AdelCards[cardIndex];
+                buttonImages[1].sprite = ChangeCards[cardIndex];
                 secondCardNumber = cardIndex;
+                SendCardNumber();
                 emptySecondCard = false;
 
                 if (buttonImages[2].sprite == defaultCard[2])       // 버튼 2번의 이미지가 디폴트면
@@ -199,45 +333,26 @@ public class PlaceCard : MonoBehaviour
             else if (emptyThirdCard)
             {
                 // 버튼에 이미지 할당
-                buttonImages[2].sprite = AdelCards[cardIndex];
+                buttonImages[2].sprite = ChangeCards[cardIndex];
                 thirdCardNumber = cardIndex;
+                SendCardNumber();
                 emptyThirdCard = false;
             }
 
             // CardButtons 에서 해당하는 카드 비활성화 시키는 부분 필요
             onCardDisable?.Invoke(cardIndex);
-
-
-
-
-
-
-
-            // 버튼에 이미지 할당
-            //buttons[fullPlace].GetComponent<Image>().sprite = AdelCards[cardIndex];
-
-            // CardButtons 에서 해당하는 카드 비활성화 시키는 부분 필요
-            //onCardDisable?.Invoke(cardIndex);
-
-            // Place 쪽 버튼을 눌렀을 때 다시 CardButtons 쪽 버튼을 활성화 시키기 위해 기억해 놓음
-            /*switch (fullPlace)
-            {
-                case 0:
-                    firstCardNumber = cardIndex;
-                    break;
-                case 1:
-                    secondCardNumber = cardIndex;
-                    break;
-                case 2:
-                    thirdCardNumber = cardIndex;
-                    break;
-            }*/
-
-            //fullPlace++;
         }
         else
         {
             Debug.LogWarning("모든 카드 공간이 이미 차 있다.");
         }
+    }
+
+    /// <summary>
+    /// 카드 순서를 넘겨주는 함수
+    /// </summary>
+    void SendCardNumber()
+    {
+        onSendCardNumber?.Invoke(firstCardNumber, secondCardNumber, thirdCardNumber);
     }
 }
