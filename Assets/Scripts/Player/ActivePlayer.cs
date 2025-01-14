@@ -44,10 +44,14 @@ public class ActivePlayer : MonoBehaviour
     private void OnPlayerActive(int turnNumber)
     {
         Debug.Log("OnPlayerActive 함수");
+        Debug.Log($"플레이어의 1번째 카드 인덱스 : {controlZone.firstTurnCardIndex}");
+        Debug.Log($"플레이어의 2번째 카드 인덱스 : {controlZone.secondTurnCardIndex}");
+        Debug.Log($"플레이어의 3번째 카드 인덱스 : {controlZone.thirdTurnCardIndex}");
 
         switch (controlZone.firstTurnCardIndex)
         {
             case 0:
+                Debug.Log("아래로 움직임");
                 player.selectedMove = PlayerMove.Down;
                 break;
             case 1:
