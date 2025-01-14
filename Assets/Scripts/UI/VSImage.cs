@@ -6,19 +6,7 @@ using UnityEngine.UI;
 using System.Linq;
 using Unity.VisualScripting;
 
-/*public enum PlayerCharacter
-{
-    Character_Adel = 0,
-    Character_Akstar,
-    Character_Amelia,
-    Character_Arngrim,
-    Character_Barbariccia,
-    Character_BlackMage,
-    Character_Cloud,
-    Character_Elle,
-    Character_Jade,
-    Character_Nalu,
-}*/
+
 
 public class VSImage : MonoBehaviour
 {
@@ -309,9 +297,9 @@ public class VSImage : MonoBehaviour
         gameManager.gameTournamentList.AddRange(tournamentList);  // tournamentList의 내용을 gameTournamentList에 복사
 
         // gameTournamentList가 복사되었는지 확인 (디버깅 용)
-        foreach (var item in gameManager.gameTournamentList)
+        /*foreach (var item in gameManager.gameTournamentList)
         {
             Debug.Log("GameManager의 대진표: " + item);
-        }
+        }*/
     }
 }

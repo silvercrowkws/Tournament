@@ -226,7 +226,7 @@ public class CardButtons : MonoBehaviour
     /// </summary>
     private void SendCard(int buttonNumber)
     {
-        Debug.Log($"{buttonNumber} 버튼 클릭");
+        //Debug.Log($"{buttonNumber} 버튼 클릭");
         onCardButton?.Invoke(buttonNumber);
     }
 

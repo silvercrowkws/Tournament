@@ -92,6 +92,11 @@ public class PlaceCard : MonoBehaviour
     bool emptySecondCard = true;
     bool emptyThirdCard = true;
 
+    /// <summary>
+    /// 카드 공간이 전부 차있는지 확인하는 bool 변수(true : 가득찼다, false : 비어있다)
+    /// </summary>
+    public bool pullCard = false;
+
     private void Awake()
     {
         // 배열 크기 초기화
@@ -206,24 +211,26 @@ public class PlaceCard : MonoBehaviour
                 buttonImages[0].sprite = defaultCard[0];        // 버튼의 이미지 초기화
                 onCardEnable?.Invoke(firstCardNumber);          // 카드 다시 활성화 하라고 델리게이트 전달
                 firstCardNumber = 0;                            // 기록 초기화
-                SendCardNumber();                               // 카드 순서 넘겨줌
+                //SendCardNumber();                               // 카드 순서 넘겨줌
                 emptyFirstCard = true;                          // 배치할 수 있게 bool 변수 초기화
                 break;
             case 1:
                 buttonImages[1].sprite = defaultCard[1];
                 onCardEnable?.Invoke(secondCardNumber);
                 secondCardNumber = 0;
-                SendCardNumber();
+                //SendCardNumber();
                 emptySecondCard = true;
                 break;
             case 2:
                 buttonImages[2].sprite = defaultCard[2];
                 onCardEnable?.Invoke(thirdCardNumber);
                 thirdCardNumber = 0;
-                SendCardNumber();
+                //SendCardNumber();
                 emptyThirdCard = true;
                 break;
         }
+        pullCard = false;
+        SendCardNumber();
 
         UpdatePlaceImages();
     }
@@ -245,6 +252,7 @@ public class PlaceCard : MonoBehaviour
         emptyFirstCard = true;                          // 배치할 수 있게 bool 변수 초기화
         emptySecondCard = true;
         emptyThirdCard = true;
+        pullCard = false;                               // 카드 공간이 비어있게 bool 변수 false로
         SendCardNumber();                               // 카드 순서 넘겨줌
     }
 
@@ -284,13 +292,11 @@ public class PlaceCard : MonoBehaviour
 
 
     /// <summary>
-    /// 델리게이트를 받아 버튼의 이미지를 변경하는 함수
+    /// 델리게이트를 받아 플레이스 존 버튼의 이미지를 변경하는 함수
     /// </summary>
     /// <param name="cardIndex">CardButtons에서 넘겨받은 카드의 인덱스</param>
     private void OnCardPlace(int cardIndex)
     {
-        // 여기 델리게이트도 수정해서 캐릭터의 인덱스도 받아야 할 듯
-
         // 만약 카드 공간이 3개 전부 차있지 않으면
         if(emptyFirstCard || emptySecondCard || emptyThirdCard)
         {
@@ -339,12 +345,21 @@ public class PlaceCard : MonoBehaviour
                 emptyThirdCard = false;
             }
 
-            // CardButtons 에서 해당하는 카드 비활성화 시키는 부분 필요
+            pullCard = false;
+
+            // CardButtons 에서 해당하는 카드 비활성화 시키는 부분
             onCardDisable?.Invoke(cardIndex);
+
+            // 모든 카드가 배치되었는지 확인
+            if (!emptyFirstCard && !emptySecondCard && !emptyThirdCard)
+            {
+                pullCard = true;        // 카드가 3개 전부 배치되었을 때 pullCard를 true로 설정
+            }
         }
         else
         {
             Debug.LogWarning("모든 카드 공간이 이미 차 있다.");
+            pullCard = true;
         }
     }
 

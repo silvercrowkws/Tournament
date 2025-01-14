@@ -176,7 +176,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        GameObject newCharacter = null;     // 생성된 캐릭터를 저장할 변수
+        /*GameObject newCharacter = null;     // 생성된 캐릭터를 저장할 변수
 
         // 플레이어가 Character_Elle 를 선택했으면
         if (selectedCharacter == PlayerCharacter.Character_Elle)
@@ -253,7 +253,7 @@ public class Player : MonoBehaviour
             Vector3 flippedScale = newCharacter.transform.localScale;
             flippedScale.x *= -1;               // X축 반전
             newCharacter.transform.localScale = flippedScale;
-        }
+        }*/
     }
 
     private void Start()
@@ -270,8 +270,10 @@ public class Player : MonoBehaviour
         SendSectionDelegateFC(currentSectionIndex);
 
         animator = gameObject.GetComponentInChildren<Animator>();                                 // 자식에서 애니메이터를 찾음
+        
+        selectedCharacter = (PlayerCharacter)gameManager.playerCharacterIndex;
 
-        //vsImage.onPickCharacter += OnSelectedCharacter;
+        OnSelectedCharacter(selectedCharacter);
     }
 
     /// <summary>
