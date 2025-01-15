@@ -53,6 +53,8 @@ public class ActivePlayer : MonoBehaviour
 
     private IEnumerator OnPlayerActive()
     {
+        // 이제 n초 기다리는게 아니라 애니메이션 끝날때? 정도로 바꿔야 됨
+
         Debug.Log("OnPlayerActive 함수");
         Debug.Log($"플레이어의 1번째 카드 인덱스 : {controlZone.firstTurnCardIndex}");
         Debug.Log($"플레이어의 2번째 카드 인덱스 : {controlZone.secondTurnCardIndex}");
