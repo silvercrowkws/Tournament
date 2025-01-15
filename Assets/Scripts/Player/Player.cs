@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// VS 이미지
     /// </summary>
-    VSImage vsImage;
+    //VSImage vsImage;
 
     // 체력 & 에너지 관련 시작 ----------------------------------------------------------------------------------------------------
 
@@ -259,21 +259,35 @@ public class Player : MonoBehaviour
     private void Start()
     {
         gameManager = GameManager.Instance;
+        if (gameManager == null)
+            Debug.LogError("GameManager instance not found!");
+
         enemyPlayer = gameManager.EnemyPlayer;
-        vsImage = FindAnyObjectByType<VSImage>();
+
+        /*vsImage = FindAnyObjectByType<VSImage>();
+        if (vsImage == null)
+            Debug.LogError("VSImage object not found!");*/
 
         board = FindAnyObjectByType<Board>();
+        if (board == null)
+            Debug.LogError("Board is null!");
+
         currentSectionIndex = 0;
         transform.position = board.player1_Position[currentSectionIndex].transform.position;       // 플레이어의 현재 위치
+
 
         // 현재 위치 정보를 델리게이트로 전달 (여기서는 player1_Position[0]의 인덱스를 전달)
         SendSectionDelegateFC(currentSectionIndex);
 
-        animator = gameObject.GetComponentInChildren<Animator>();                                 // 자식에서 애니메이터를 찾음
-        
+
         selectedCharacter = (PlayerCharacter)gameManager.playerCharacterIndex;
 
         OnSelectedCharacter(selectedCharacter);
+
+        animator = gameObject.GetComponentInChildren<Animator>();                                 // 자식에서 애니메이터를 찾음 => 캐릭터를 만든 후 애니메이터를 찾도록 위치 변경
+        
+        if (animator == null)
+            Debug.LogError("Animator is null!");
     }
 
     /// <summary>
@@ -433,6 +447,12 @@ public class Player : MonoBehaviour
 
         // 타겟 오브젝트
         targetObgect = board.player1_Position[currentSectionIndex];
+
+        if (targetObgect == null)
+        {
+            Debug.LogError("TargetObject is null! Cannot proceed with Move.");
+            return; // 혹은 적절히 예외 처리
+        }
 
         // 새로운 위치를 계산
         targetPosition = targetObgect.transform.position;
