@@ -38,6 +38,15 @@ public enum PlayerAttack
     LimitAttack,
 }
 
+public enum PlayerProtect
+{
+    None = 0,
+    Guard,
+    PerfectGuard,
+    EnergyUp,
+    Heal,
+}
+
 public class Player : MonoBehaviour
 {
     public GameObject Character_Elle_Prefabs;
@@ -66,6 +75,11 @@ public class Player : MonoBehaviour
     /// 플레이어가 어떤 공격 상태인지
     /// </summary>
     public PlayerAttack selectedAttack;
+
+    /// <summary>
+    /// 플레이어가 어떤 수비 상태인지
+    /// </summary>
+    public PlayerProtect selectedProtect;
 
     /// <summary>
     /// 게임 매니저
@@ -164,6 +178,11 @@ public class Player : MonoBehaviour
     /// 애니메이터
     /// </summary>
     Animator animator;
+
+    /// <summary>
+    /// 플레이어의 공격이 끝났는지 확인하는 bool 변수(true : 공격이 끝남, false : 공격 중)
+    /// </summary>
+    public bool playerAttackEnd = false;
 
     // 애니메이터 관련 끝 ----------------------------------------------------------------------------------------------------
     /// <summary>
@@ -389,7 +408,14 @@ public class Player : MonoBehaviour
         if (selectedAttack != PlayerAttack.None)
         {
             Attack(selectedCharacter, selectedAttack, currentSectionIndex);          // 누가 어디서 어떤 공격을 했는지에 따라 공격 처리
+
             selectedAttack = PlayerAttack.None;                 // 공격 후 selectedAttack을 None으로 설정하여 공격을 한 번만 처리
+        }
+
+        if(selectedProtect != PlayerProtect.None)
+        {
+            Protect();
+            selectedProtect = PlayerProtect.None;
         }
     }
 
@@ -1587,6 +1613,7 @@ public class Player : MonoBehaviour
                 // 애니메이터 변경
                 
                 ResetTrigger();
+                playerAttackEnd = false;        // 플레이어가 공격 중이라고 표시
                 animator.SetTrigger("Attack");
 
                 // 에너지 감소
@@ -1609,6 +1636,7 @@ public class Player : MonoBehaviour
             case PlayerAttack.MagicAttack:
 
                 ResetTrigger();
+                playerAttackEnd = false;        // 플레이어가 공격 중이라고 표시
                 animator.SetTrigger("MagicAttack");
 
                 // 에너지 감소
@@ -1630,6 +1658,7 @@ public class Player : MonoBehaviour
             case PlayerAttack.LimitAttack:
 
                 ResetTrigger();
+                playerAttackEnd = false;        // 플레이어가 공격 중이라고 표시
                 animator.SetTrigger("LimitAttack");
 
                 // 에너지 감소
@@ -1694,6 +1723,57 @@ public class Player : MonoBehaviour
         Debug.Log($"Energy 감소: {cost}");
         Energy -= cost;                         // 에너지 차감
         energyChange?.Invoke(currentEnergy);    // UI 업데이트용 델리게이트 호출
+    }
+
+    /// <summary>
+    /// 플레이어가 수비적인 행동을 할 때 실행되는 함수
+    /// </summary>
+    private void Protect()
+    {
+        switch (selectedProtect)
+        {
+            case PlayerProtect.Guard:
+                // 데미지 감소시키는 부분 필요
+                break;
+            case PlayerProtect.PerfectGuard:
+                // 데미지 상쇄시키는 부분 필요
+                break;
+            case PlayerProtect.EnergyUp:
+                // 에너지 회복하는 부분 필요
+                break;
+            case PlayerProtect.Heal:
+                // HP 회복 시키는 부분 필요
+                break;
+        }
+
+        StartCoroutine(ProtectCoroutine());
+        //animator.SetTrigger("Protect");     // 가드, 에너지 업, 힐 애니메이터
+    }
+
+    /// <summary>
+    /// 플레이어가 수비적인 행동을 할 때 실행되는 코루틴
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator ProtectCoroutine()
+    {
+        animator.SetTrigger("Protect");     // 가드, 에너지 업, 힐 애니메이터
+
+        while (enemyPlayer.enemyAttackEnd)
+        {
+            yield return null;
+        }
+
+        ResetTrigger();
+        animator.SetTrigger("Idle");
+    }
+
+    /// <summary>
+    /// 플레이어의 공격이 끝났음을 표시하는 함수
+    /// </summary>
+    public void AttackEnd()
+    {
+        Debug.Log("플레이어 공격 끝");
+        playerAttackEnd = true;
     }
 
     /// <summary>
