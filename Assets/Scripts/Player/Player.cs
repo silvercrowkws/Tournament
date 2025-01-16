@@ -26,6 +26,8 @@ public enum PlayerMove
     Down,
     Left,
     Right,
+    DoubleRight,
+    DoubleLeft,
 }
 
 public enum PlayerAttack
@@ -434,6 +436,26 @@ public class Player : MonoBehaviour
                 if(currentSectionIndex != 3 && currentSectionIndex != 7 && currentSectionIndex != 11)        // 현재 위치가 3, 7, 11 이 아닐 때(맨 오른쪽)
                 {
                     currentSectionIndex++;          // 오른쪽으로 이동할 때는 +1 만큼
+                }
+                break;
+            case PlayerMove.DoubleRight:            // 현재 위치가 2, 6, 10이면 ++ / 2, 3, 6, 7, 10, 11이 아니면 +2
+                if(currentSectionIndex == 2 || currentSectionIndex == 6 || currentSectionIndex == 10)
+                {
+                    currentSectionIndex++;
+                }
+                else if(currentSectionIndex != 2 && currentSectionIndex != 3 && currentSectionIndex != 6 && currentSectionIndex != 7 && currentSectionIndex != 10 && currentSectionIndex != 11)
+                {
+                    currentSectionIndex += 2;
+                }
+                break;
+            case PlayerMove.DoubleLeft:             // 현재 위치가 1, 5, 9면 -- / 0, 1, 4, 5, 8, 9가 아니면 -2
+                if (currentSectionIndex == 1 || currentSectionIndex == 5 || currentSectionIndex == 9)
+                {
+                    currentSectionIndex--;
+                }
+                else if (currentSectionIndex != 0 && currentSectionIndex != 1 && currentSectionIndex != 4 && currentSectionIndex != 5 && currentSectionIndex != 8 && currentSectionIndex != 9)
+                {
+                    currentSectionIndex -= 2;
                 }
                 break;
 

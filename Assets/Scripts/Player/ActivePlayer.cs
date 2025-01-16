@@ -51,6 +51,10 @@ public class ActivePlayer : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// 플레이어를 카드에 맞게 행동시키는 코루틴
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator OnPlayerActive()
     {
         // 이제 n초 기다리는게 아니라 애니메이션 끝날때? 정도로 바꿔야 됨
@@ -82,6 +86,38 @@ public class ActivePlayer : MonoBehaviour
                     Debug.Log("1 왼쪽으로 움직임");
                     player.selectedMove = PlayerMove.Left;
                     break;
+                case 4:
+                    Debug.Log("1 가드");
+                    break;
+                case 5:
+                    Debug.Log("1 Attack");
+                    player.selectedAttack = PlayerAttack.Attack;
+                    break;
+                case 6:
+                    Debug.Log("1 MagicAttack");
+                    player.selectedAttack = PlayerAttack.MagicAttack;
+                    break;
+                case 7:
+                    Debug.Log("1 LimitAttack");
+                    player.selectedAttack = PlayerAttack.LimitAttack;
+                    break;
+                case 8:
+                    Debug.Log("1 에너지 업");
+                    break;
+                case 9:
+                    Debug.Log("1 더블 오른쪽 움직임");
+                    player.selectedMove = PlayerMove.DoubleRight;
+                    break;
+                case 10:
+                    Debug.Log("1 더블 왼쪽 움직임");
+                    player.selectedMove = PlayerMove.DoubleLeft;
+                    break;
+                case 11:
+                    Debug.Log("1 퍼펙트 가드");
+                    break;
+                case 12:
+                    Debug.Log("1 힐");
+                    break;
             }
 
             firstMove = false;
@@ -111,6 +147,38 @@ public class ActivePlayer : MonoBehaviour
                     Debug.Log("2 왼쪽으로 움직임");
                     player.selectedMove = PlayerMove.Left;
                     break;
+                case 4:
+                    Debug.Log("1 가드");
+                    break;
+                case 5:
+                    Debug.Log("2 Attack");
+                    player.selectedAttack = PlayerAttack.Attack;
+                    break;
+                case 6:
+                    Debug.Log("2 MagicAttack");
+                    player.selectedAttack = PlayerAttack.MagicAttack;
+                    break;
+                case 7:
+                    Debug.Log("2 LimitAttack");
+                    player.selectedAttack = PlayerAttack.LimitAttack;
+                    break;
+                case 8:
+                    Debug.Log("2 에너지 업");
+                    break;
+                case 9:
+                    Debug.Log("2 더블 오른쪽 움직임");
+                    player.selectedMove = PlayerMove.DoubleRight;
+                    break;
+                case 10:
+                    Debug.Log("2 더블 왼쪽 움직임");
+                    player.selectedMove = PlayerMove.DoubleLeft;
+                    break;
+                case 11:
+                    Debug.Log("2 퍼펙트 가드");
+                    break;
+                case 12:
+                    Debug.Log("2 힐");
+                    break;
             }
 
             secondMove = false;
@@ -139,6 +207,38 @@ public class ActivePlayer : MonoBehaviour
                 case 3:
                     Debug.Log("3 왼쪽으로 움직임");
                     player.selectedMove = PlayerMove.Left;
+                    break;
+                case 4:
+                    Debug.Log("3 가드");
+                    break;
+                case 5:
+                    Debug.Log("3 Attack");
+                    player.selectedAttack = PlayerAttack.Attack;
+                    break;
+                case 6:
+                    Debug.Log("3 MagicAttack");
+                    player.selectedAttack = PlayerAttack.MagicAttack;
+                    break;
+                case 7:
+                    Debug.Log("3 LimitAttack");
+                    player.selectedAttack = PlayerAttack.LimitAttack;
+                    break;
+                case 8:
+                    Debug.Log("3 에너지 업");
+                    break;
+                case 9:
+                    Debug.Log("3 더블 오른쪽 움직임");
+                    player.selectedMove = PlayerMove.DoubleRight;
+                    break;
+                case 10:
+                    Debug.Log("3 더블 왼쪽 움직임");
+                    player.selectedMove = PlayerMove.DoubleLeft;
+                    break;
+                case 11:
+                    Debug.Log("3 퍼펙트 가드");
+                    break;
+                case 12:
+                    Debug.Log("3 힐");
                     break;
             }
 

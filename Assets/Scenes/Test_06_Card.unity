@@ -8727,7 +8727,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5842909937481397350, guid: c3a8c9cde7e0e7e4c87ebbcb878121ea, type: 3}
       propertyPath: playerCharacterIndex
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8742,6 +8742,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7325756435416934870, guid: 992e0e627e5dc9c418a1ad16b0b5ee15, type: 3}
+      propertyPath: selectedCharacter
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7325756435416934870, guid: 992e0e627e5dc9c418a1ad16b0b5ee15, type: 3}
+      propertyPath: currentSectionIndex
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8066698125535371425, guid: 992e0e627e5dc9c418a1ad16b0b5ee15, type: 3}
       propertyPath: m_Name
       value: Player
