@@ -397,6 +397,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void AAA()
+    {
+        Debug.Log("공격 끝");
+    }
+
     private void Update()
     {
         if (selectedMove != PlayerMove.None)
@@ -408,6 +413,36 @@ public class Player : MonoBehaviour
         if (selectedAttack != PlayerAttack.None)
         {
             Attack(selectedCharacter, selectedAttack, currentSectionIndex);          // 누가 어디서 어떤 공격을 했는지에 따라 공격 처리
+
+            // 0번 레이어의 현재 상태 정보를 가져옵니다.
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+            // 현재 상태 정보 출력
+            Debug.Log($"Current State Name Hash: {stateInfo.fullPathHash}");
+            Debug.Log($"Normalized Time: {stateInfo.normalizedTime}");
+            Debug.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name);         // 왜 아이들 나오냐고..?
+
+            // 상태가 "Attack" 트리거로 전환되었는지 확인 (애니메이션 태그로 설정 가능)
+            if (stateInfo.IsTag("Attack"))
+            {
+                Debug.Log("공격중");
+                if (stateInfo.normalizedTime >= 1.0f)       // 애니메이션 종료 감지
+                {
+                    Debug.Log("공격 애니메이션 종료");
+                }
+            }
+            else
+            {
+                Debug.Log("태그가 Attack 이 아닌데?");
+            }
+
+            // 상태 전환 정보 출력
+            AnimatorTransitionInfo transitionInfo = animator.GetAnimatorTransitionInfo(0);
+            if (transitionInfo.IsName("AnyState -> Attack"))
+            {
+                Debug.Log("Attack 상태로 전환 중입니다.");
+            }
+
 
             selectedAttack = PlayerAttack.None;                 // 공격 후 selectedAttack을 None으로 설정하여 공격을 한 번만 처리
         }
