@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1064427007109486209}
   - component: {fileID: 8295796844388219426}
   - component: {fileID: 4909666983048368576}
+  - component: {fileID: -7664744659763297538}
   m_Layer: 0
   m_Name: Character_Elle
   m_TagString: Untagged
@@ -72,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 117495137
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -1696100853, guid: 06e81f68edcbd6d41928e0afbe8776a8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -106,3 +107,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-7664744659763297538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2264048331050677830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f05736f34bf5529439b48bcd8d218b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

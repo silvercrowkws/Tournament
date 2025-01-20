@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7358872458154109169}
   - component: {fileID: 2790163611470870126}
   - component: {fileID: 1714573852235687997}
+  - component: {fileID: 1532002629903833415}
   m_Layer: 0
   m_Name: Character_Arngrim
   m_TagString: Untagged
@@ -72,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 117495137
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 2113620452, guid: d21da9c61b81f59458d480a0d91d2619, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -106,3 +107,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1532002629903833415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7401647427172119752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f05736f34bf5529439b48bcd8d218b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

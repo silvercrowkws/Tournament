@@ -311,6 +311,28 @@ public class Player : MonoBehaviour
             Debug.LogError("Animator is null!");
     }
 
+    private void Update()
+    {
+        if (selectedMove != PlayerMove.None)
+        {
+            Move();                                 // 방향에 맞춰 이동 처리
+            selectedMove = PlayerMove.None;         // 이동 후 selectedMove를 None으로 설정하여 이동을 한 번만 처리
+        }
+
+        if (selectedAttack != PlayerAttack.None)
+        {
+            Attack(selectedCharacter, selectedAttack, currentSectionIndex);          // 누가 어디서 어떤 공격을 했는지에 따라 공격 처리
+
+            selectedAttack = PlayerAttack.None;                 // 공격 후 selectedAttack을 None으로 설정하여 공격을 한 번만 처리
+        }
+
+        if (selectedProtect != PlayerProtect.None)
+        {
+            Protect();
+            selectedProtect = PlayerProtect.None;
+        }
+    }
+
     /// <summary>
     /// 버튼에서 선택된 캐릭터를 생성하는 함수
     /// </summary>
@@ -394,63 +416,6 @@ public class Player : MonoBehaviour
             Vector3 flippedScale = newCharacter.transform.localScale;
             flippedScale.x *= -1;               // X축 반전
             newCharacter.transform.localScale = flippedScale;
-        }
-    }
-
-    public void AAA()
-    {
-        Debug.Log("공격 끝");
-    }
-
-    private void Update()
-    {
-        if (selectedMove != PlayerMove.None)
-        {
-            Move();                                 // 방향에 맞춰 이동 처리
-            selectedMove = PlayerMove.None;         // 이동 후 selectedMove를 None으로 설정하여 이동을 한 번만 처리
-        }
-
-        if (selectedAttack != PlayerAttack.None)
-        {
-            Attack(selectedCharacter, selectedAttack, currentSectionIndex);          // 누가 어디서 어떤 공격을 했는지에 따라 공격 처리
-
-            // 0번 레이어의 현재 상태 정보를 가져옵니다.
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-
-            // 현재 상태 정보 출력
-            Debug.Log($"Current State Name Hash: {stateInfo.fullPathHash}");
-            Debug.Log($"Normalized Time: {stateInfo.normalizedTime}");
-            Debug.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name);         // 왜 아이들 나오냐고..?
-
-            // 상태가 "Attack" 트리거로 전환되었는지 확인 (애니메이션 태그로 설정 가능)
-            if (stateInfo.IsTag("Attack"))
-            {
-                Debug.Log("공격중");
-                if (stateInfo.normalizedTime >= 1.0f)       // 애니메이션 종료 감지
-                {
-                    Debug.Log("공격 애니메이션 종료");
-                }
-            }
-            else
-            {
-                Debug.Log("태그가 Attack 이 아닌데?");
-            }
-
-            // 상태 전환 정보 출력
-            AnimatorTransitionInfo transitionInfo = animator.GetAnimatorTransitionInfo(0);
-            if (transitionInfo.IsName("AnyState -> Attack"))
-            {
-                Debug.Log("Attack 상태로 전환 중입니다.");
-            }
-
-
-            selectedAttack = PlayerAttack.None;                 // 공격 후 selectedAttack을 None으로 설정하여 공격을 한 번만 처리
-        }
-
-        if(selectedProtect != PlayerProtect.None)
-        {
-            Protect();
-            selectedProtect = PlayerProtect.None;
         }
     }
 
@@ -636,6 +601,8 @@ public class Player : MonoBehaviour
         int limitAttackDamage = 0;  // 리미트 공격 데미지
 
         Debug.Log($"Attack 메서드 호출됨: {selectedAttack}");
+
+        playerAttackEnd = false;        // 공격 중이라고 표시
 
         switch (selectedCharacter)
         {
@@ -1768,33 +1735,56 @@ public class Player : MonoBehaviour
         switch (selectedProtect)
         {
             case PlayerProtect.Guard:
+                StartCoroutine(GuardCoroutine());
                 // 데미지 감소시키는 부분 필요
                 break;
             case PlayerProtect.PerfectGuard:
+                StartCoroutine(GuardCoroutine());
                 // 데미지 상쇄시키는 부분 필요
                 break;
             case PlayerProtect.EnergyUp:
+                StartCoroutine(EnergyHealCoroutine());
                 // 에너지 회복하는 부분 필요
                 break;
             case PlayerProtect.Heal:
+                StartCoroutine(EnergyHealCoroutine());
                 // HP 회복 시키는 부분 필요
                 break;
         }
-
-        StartCoroutine(ProtectCoroutine());
-        //animator.SetTrigger("Protect");     // 가드, 에너지 업, 힐 애니메이터
     }
 
     /// <summary>
-    /// 플레이어가 수비적인 행동을 할 때 실행되는 코루틴
+    /// 플레이어가 가드 행동을 할 때 실행되는 코루틴
     /// </summary>
     /// <returns></returns>
-    IEnumerator ProtectCoroutine()
+    IEnumerator GuardCoroutine()
+    {
+        animator.SetTrigger("Protect");         // 가드, 에너지 업, 힐 애니메이터
+
+        yield return new WaitForSeconds(1);     // 1초 대기 => 가드를 먼저 시작하고 후에 적이 공격을 시작하기 때문에(공격 시작 전까지는 enemyAttackEnd 가 false임)
+
+        while (enemyPlayer.enemyAttackEnd)      // 적의 공격이 끝날 때까지 반복
+        {
+            yield return null;
+        }
+
+        ResetTrigger();
+        animator.SetTrigger("Idle");
+    }
+
+    /// <summary>
+    /// 플레이어가 에너지, 체력을 회복할 때 실행되는 코루틴
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator EnergyHealCoroutine()
     {
         animator.SetTrigger("Protect");     // 가드, 에너지 업, 힐 애니메이터
 
-        while (enemyPlayer.enemyAttackEnd)
+        float elTime = 0;                   // 누적 시간
+        
+        while(elTime > 1.0f)                // 회복하는 동안 반복
         {
+            elTime += Time.deltaTime;
             yield return null;
         }
 

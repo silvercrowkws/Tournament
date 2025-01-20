@@ -76,5 +76,11 @@ public class Test_03_Attack : TestBase
         //player.Attack(player.selectedCharacter, player.selectedAttack, player.currentSectionIndex);
     }
 
+    protected override void OnTest8(InputAction.CallbackContext context)
+    {
+        Debug.Log("Protect");
+        player.selectedProtect = PlayerProtect.Guard;
+    }
+
 #endif
 }

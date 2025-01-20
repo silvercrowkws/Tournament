@@ -104,9 +104,9 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.9166667
-    functionName: AAA
+    functionName: AttackEnd
     data: 
-    objectReferenceParameter: {fileID: 8066698125535371425, guid: 992e0e627e5dc9c418a1ad16b0b5ee15, type: 3}
+    objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
