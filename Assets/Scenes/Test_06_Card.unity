@@ -4399,7 +4399,7 @@ MonoBehaviour:
   - {fileID: 239186303, guid: 558873fa62c98e8499a0ba27f7e10059, type: 3}
   - {fileID: -2108469972, guid: b68b2ef920eedbc4fb5fd2e628d71cd3, type: 3}
   - {fileID: 729824991, guid: b88936792decdca4da869aa5f96d3bef, type: 3}
-  - {fileID: 227559096, guid: 171248d33e2ac5d4892b857d1449bd46, type: 3}
+  - {fileID: 227559096, guid: cdf94181540faea4bac81efac92c6b8b, type: 3}
   - {fileID: -28252121, guid: 81eb71943fcb53a4791fdf21eb078818, type: 3}
   - {fileID: 21300000, guid: fe397b873b175144fa67b059f355d3a7, type: 3}
   - {fileID: 21300000, guid: 48140a170dccf0c4a9432819a8f7213e, type: 3}
@@ -8744,7 +8744,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7325756435416934870, guid: 992e0e627e5dc9c418a1ad16b0b5ee15, type: 3}
       propertyPath: selectedCharacter
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7325756435416934870, guid: 992e0e627e5dc9c418a1ad16b0b5ee15, type: 3}
       propertyPath: currentSectionIndex
@@ -8752,6 +8752,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8066698125535371425, guid: 992e0e627e5dc9c418a1ad16b0b5ee15, type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8066698125535371425, guid: 992e0e627e5dc9c418a1ad16b0b5ee15, type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8636587528024748922, guid: 992e0e627e5dc9c418a1ad16b0b5ee15, type: 3}

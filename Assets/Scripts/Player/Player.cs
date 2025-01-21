@@ -180,9 +180,9 @@ public class Player : MonoBehaviour
     Animator animator;
 
     /// <summary>
-    /// 플레이어의 공격이 끝났는지 확인하는 bool 변수(true : 공격이 끝남, false : 공격 중)
+    /// 플레이어의 행동이 끝났는지 확인하는 bool 변수(true : 행동이 끝남, false : 행동 중)
     /// </summary>
-    public bool playerAttackEnd = false;
+    public bool playerActiveEnd = false;
 
     // 애니메이터 관련 끝 ----------------------------------------------------------------------------------------------------
     /// <summary>
@@ -315,21 +315,26 @@ public class Player : MonoBehaviour
     {
         if (selectedMove != PlayerMove.None)
         {
+            //playerActiveEnd = false;                // 행동 중이라고 표시 => 여기서 걸어봤자 이미 턴은 시작되어서 ActivePlayer에서는 늦지?
             Move();                                 // 방향에 맞춰 이동 처리
             selectedMove = PlayerMove.None;         // 이동 후 selectedMove를 None으로 설정하여 이동을 한 번만 처리
+            //playerActiveEnd = true;                 // 행동이 끝났다고 표시 => 이쪽은 그래도 행동이 끝났다는거니까 의미가 있으려나(Move 다음에 바로 실행되는거면 의미 없는데)
         }
 
         if (selectedAttack != PlayerAttack.None)
         {
-            Attack(selectedCharacter, selectedAttack, currentSectionIndex);          // 누가 어디서 어떤 공격을 했는지에 따라 공격 처리
-
-            selectedAttack = PlayerAttack.None;                 // 공격 후 selectedAttack을 None으로 설정하여 공격을 한 번만 처리
+            //playerActiveEnd = false;                                                // 행동 중이라고 표시
+            Attack(selectedCharacter, selectedAttack, currentSectionIndex);         // 누가 어디서 어떤 공격을 했는지에 따라 공격 처리
+            selectedAttack = PlayerAttack.None;                                     // 공격 후 selectedAttack을 None으로 설정하여 공격을 한 번만 처리
+            //playerActiveEnd = true;                                                 // 행동이 끝났다고 표시
         }
 
         if (selectedProtect != PlayerProtect.None)
         {
+            //playerActiveEnd = false;                // 행동 중이라고 표시
             Protect();
             selectedProtect = PlayerProtect.None;
+            //playerActiveEnd = true;                 // 행동이 끝났다고 표시
         }
     }
 
@@ -601,8 +606,6 @@ public class Player : MonoBehaviour
         int limitAttackDamage = 0;  // 리미트 공격 데미지
 
         Debug.Log($"Attack 메서드 호출됨: {selectedAttack}");
-
-        playerAttackEnd = false;        // 공격 중이라고 표시
 
         switch (selectedCharacter)
         {
@@ -1615,7 +1618,6 @@ public class Player : MonoBehaviour
                 // 애니메이터 변경
                 
                 ResetTrigger();
-                playerAttackEnd = false;        // 플레이어가 공격 중이라고 표시
                 animator.SetTrigger("Attack");
 
                 // 에너지 감소
@@ -1638,7 +1640,6 @@ public class Player : MonoBehaviour
             case PlayerAttack.MagicAttack:
 
                 ResetTrigger();
-                playerAttackEnd = false;        // 플레이어가 공격 중이라고 표시
                 animator.SetTrigger("MagicAttack");
 
                 // 에너지 감소
@@ -1660,7 +1661,6 @@ public class Player : MonoBehaviour
             case PlayerAttack.LimitAttack:
 
                 ResetTrigger();
-                playerAttackEnd = false;        // 플레이어가 공격 중이라고 표시
                 animator.SetTrigger("LimitAttack");
 
                 // 에너지 감소
@@ -1790,15 +1790,6 @@ public class Player : MonoBehaviour
 
         ResetTrigger();
         animator.SetTrigger("Idle");
-    }
-
-    /// <summary>
-    /// 플레이어의 공격이 끝났음을 표시하는 함수
-    /// </summary>
-    public void AttackEnd()
-    {
-        Debug.Log("플레이어 공격 끝");
-        playerAttackEnd = true;
     }
 
     /// <summary>

@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Akstar_LmitAttack
+  m_Name: Akstar_LimitAttack
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -227,7 +227,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 4.3333335
-    functionName: AttackEnd
+    functionName: ActiveEnd
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
