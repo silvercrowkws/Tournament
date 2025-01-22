@@ -159,6 +159,26 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public List<int> gameTournamentList = new List<int>();
 
+    /// <summary>
+    /// 플레이어가 모든 행동을 완료했는지 확인하는 bool 변수(true : 행동을 완료했다, false : 행동을 완료하지 않았다.)
+    /// </summary>
+    public bool isPlayerDone = false;
+
+    /// <summary>
+    /// 적 플레이어가 모든 행동을 완료했는지 확인하는 bool 변수(true : 행동을 완료했다, false : 행동을 완료하지 않았다.)
+    /// </summary>
+    public bool isEnemyPlayerDone = false;
+
+    /// <summary>
+    /// 양쪽 플레이어 모두 행동을 완료했는지 확인하는 bool 변수
+    /// </summary>
+    public bool isBothPlayersDone = false;
+
+    /// <summary>
+    /// 양쪽 플레이어 모두 행동을 완료했다고 알리는 델리게이트
+    /// </summary>
+    public Action onBothPlayersDone;
+
     private void Start()
     {
         //chooseDif = FindAnyObjectByType<ChooseDif>();
@@ -189,6 +209,28 @@ public class GameManager : Singleton<GameManager>
 
         //turnManager = FindAnyObjectByType<TurnManager>();
         //turnManager.OnInitialize2();
+    }
+
+    private void Update()
+    {
+        // 플레이어와 적이 모두 턴을 끝냈으면
+        if(!isBothPlayersDone && isPlayerDone && isEnemyPlayerDone)
+        {
+            isBothPlayersDone = true;
+            onBothPlayersDone?.Invoke();
+        }
+
+        // 두 플레이어 중 하나라도 턴을 끝내지 않았으면
+        else if(!isPlayerDone && !isEnemyPlayerDone)
+        {
+            isBothPlayersDone = false;
+        }
+
+        /*// 플레이어나 적이 죽은 상황에도 턴을 끝냈다고 판단 => 이게 필요한가..?
+        else if (player.HP <= 0 || enemyPlayer.HP <= 0)
+        {
+            isBothPlayersDone = true;
+        }*/
     }
 
     /// <summary>

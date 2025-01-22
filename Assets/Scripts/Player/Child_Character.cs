@@ -42,8 +42,8 @@ public class Child_Character : MonoBehaviour
             else if(transform.parent.gameObject == enemyPlayer.gameObject)     // 부모가 적 플레이어인 경우
             {
                 // 적의 행동이 끝났다고 나에게 알림
-                enemyPlayer.enemyAttackEnd = true;
-                //Debug.Log($"enemyPlayer.enemyAttackEnd : {enemyPlayer.enemyAttackEnd}");
+                enemyPlayer.enemyActiveEnd = true;
+                //Debug.Log($"enemyPlayer.enemyActiveEnd : {enemyPlayer.enemyActiveEnd}");
             }
         }
         Debug.Log("행동 끝");

@@ -97,6 +97,11 @@ public class PlaceCard : MonoBehaviour
     /// </summary>
     public bool pullCard = false;
 
+    /// <summary>
+    /// 넥스트 존
+    /// </summary>
+    NextZone nextZone;
+
     private void Awake()
     {
         // 배열 크기 초기화
@@ -126,6 +131,9 @@ public class PlaceCard : MonoBehaviour
         fullPlace = 0;
         cardButtons = FindAnyObjectByType<CardButtons>();
         cardButtons.onCardButton += OnCardPlace;
+
+        nextZone = FindAnyObjectByType<NextZone>();
+        nextZone.onFramSetActive += OnClearPlace;
     }
 
     /// <summary>

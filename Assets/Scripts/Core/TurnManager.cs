@@ -93,11 +93,12 @@ public class TurnManager : Singleton<TurnManager>       // 나중에 리스타�
         if (isTurnEnable)                           // 턴 매니저가 작동 중이면
         {
             turnNumber++;                           // 턴 숫자 증가
+            gameManager.isPlayerDone = false;       // 플레이어의 턴 중임을 표시
             Debug.Log($"{turnNumber}턴 시작");
             turnState = TurnProcessState.Start;     // 턴 시작 상태
 
             //Debug.Log("onTurnStart 델리게이트 보냄");
-            onTurnStart?.Invoke(turnNumber);        // 턴이 시작되었음을 알림(플레이어 한테?)
+            onTurnStart?.Invoke(turnNumber);        // 턴이 시작되었음을 알림(ActivePlayer 클래스에)
         }
     }
 

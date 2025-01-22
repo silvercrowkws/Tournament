@@ -1761,9 +1761,9 @@ public class Player : MonoBehaviour
     {
         animator.SetTrigger("Protect");         // 가드, 에너지 업, 힐 애니메이터
 
-        yield return new WaitForSeconds(1);     // 1초 대기 => 가드를 먼저 시작하고 후에 적이 공격을 시작하기 때문에(공격 시작 전까지는 enemyAttackEnd 가 false임)
+        yield return new WaitForSeconds(1);     // 1초 대기 => 가드를 먼저 시작하고 후에 적이 공격을 시작하기 때문에(공격 시작 전까지는 enemyActiveEnd 가 false임)
 
-        while (!enemyPlayer.enemyAttackEnd)     // 적의 공격이 끝날 때까지 반복
+        while (!enemyPlayer.enemyActiveEnd)     // 적의 공격이 끝날 때까지 반복
         {
             yield return null;
         }
