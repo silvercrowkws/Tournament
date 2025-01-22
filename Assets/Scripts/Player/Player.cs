@@ -1763,10 +1763,12 @@ public class Player : MonoBehaviour
 
         yield return new WaitForSeconds(1);     // 1초 대기 => 가드를 먼저 시작하고 후에 적이 공격을 시작하기 때문에(공격 시작 전까지는 enemyAttackEnd 가 false임)
 
-        while (enemyPlayer.enemyAttackEnd)      // 적의 공격이 끝날 때까지 반복
+        while (!enemyPlayer.enemyAttackEnd)     // 적의 공격이 끝날 때까지 반복
         {
             yield return null;
         }
+
+        playerActiveEnd = true;                 // 행동이 끝났음을 표시
 
         ResetTrigger();
         animator.SetTrigger("Idle");
@@ -1782,11 +1784,13 @@ public class Player : MonoBehaviour
 
         float elTime = 0;                   // 누적 시간
         
-        while(elTime > 1.0f)                // 회복하는 동안 반복
+        while(elTime < 1.0f)                // 회복하는 동안 반복
         {
             elTime += Time.deltaTime;
             yield return null;
         }
+
+        playerActiveEnd = true;             // 행동이 끝났음을 표시
 
         ResetTrigger();
         animator.SetTrigger("Idle");

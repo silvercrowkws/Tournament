@@ -65,14 +65,11 @@ public class ActivePlayer : MonoBehaviour
         Debug.Log($"플레이어의 3번째 카드 인덱스 : {controlZone.thirdTurnCardIndex}");
 
 
-
-
         // 첫번째 행동
         player.playerActiveEnd = false;                     // 플레이어가 행동중임을 표시
         ActiveCard(controlZone.firstTurnCardIndex);         // 첫 번째 카드 행동 실행
         yield return StartCoroutine(WaitForPlayerAction()); // 행동 완료 대기
         Debug.Log("첫 번째 행동 완료");
-
         yield return new WaitForSeconds(1);                 // 1초 대기
 
         // 두번째 행동
@@ -80,7 +77,6 @@ public class ActivePlayer : MonoBehaviour
         ActiveCard(controlZone.secondTurnCardIndex);
         yield return StartCoroutine(WaitForPlayerAction());
         Debug.Log("두 번째 행동 완료");
-
         yield return new WaitForSeconds(1);                 // 1초 대기
 
         // 세번째 행동
@@ -343,6 +339,7 @@ public class ActivePlayer : MonoBehaviour
                 break;
             case 4:
                 Debug.Log("가드");
+                player.selectedProtect = PlayerProtect.Guard;
                 break;
             case 5:
                 Debug.Log("Attack");
@@ -358,6 +355,7 @@ public class ActivePlayer : MonoBehaviour
                 break;
             case 8:
                 Debug.Log("에너지 업");
+                player.selectedProtect = PlayerProtect.EnergyUp;
                 break;
             case 9:
                 Debug.Log("더블 오른쪽 움직임");
@@ -369,9 +367,11 @@ public class ActivePlayer : MonoBehaviour
                 break;
             case 11:
                 Debug.Log("퍼펙트 가드");
+                player.selectedProtect = PlayerProtect.PerfectGuard;
                 break;
             case 12:
                 Debug.Log("힐");
+                player.selectedProtect = PlayerProtect.Heal;
                 break;
         }
     }
