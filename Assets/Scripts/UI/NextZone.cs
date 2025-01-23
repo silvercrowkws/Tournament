@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class NextZone : MonoBehaviour
 {
@@ -19,6 +20,16 @@ public class NextZone : MonoBehaviour
     /// 컨트롤 존 클래스
     /// </summary>
     ControlZone controlZone;
+
+    /// <summary>
+    /// 플레이어를 움직이는 클래스
+    /// </summary>
+    ActivePlayer activePlayer;
+
+    /// <summary>
+    /// 플레이스 카드 클래스
+    /// </summary>
+    PlaceCard placeCard;
 
     /// <summary>
     /// NextRound 버튼
@@ -40,17 +51,53 @@ public class NextZone : MonoBehaviour
     /// </summary>
     GameManager gameManager;
 
+    /// <summary>
+    /// 턴 매니저
+    /// </summary>
+    TurnManager turnManager;
+
+    /// <summary>
+    /// 카드 뒷면
+    /// </summary>
+    public Sprite cardBack;
+
+    /// <summary>
+    /// 플레이어의 카드 3장
+    /// </summary>
+    Image[] playerNext = new Image[3];
+
+    /// <summary>
+    /// 적 플레이어의 카드 3장
+    /// </summary>
+    Image[] enermyPlayerNext = new Image[3];
+
+    /// <summary>
+    /// 각 캐릭터의 카드를 복사하는 배열
+    /// </summary>
+    public Sprite[] characterCardNext;
+
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
 
         nextButton = GetComponentInChildren<Button>();
         nextButton.onClick.AddListener(ChangeAlphaZero);
+        
+        for(int i = 0; i< 3; i++)
+        {
+            Transform playerChild = transform.GetChild(0);
+            Transform enermyChild = transform.GetChild(1);
+            playerNext[i] = playerChild.GetChild(i).GetComponent<Image>();
+            enermyPlayerNext[i] = enermyChild.GetChild(i).GetComponent<Image>();
+        }
     }
 
     private void Start()
     {
         cardFrame = FindAnyObjectByType<Card_Frame>();
+
+        activePlayer = FindAnyObjectByType<ActivePlayer>();
+        activePlayer.onNextCard += OnNextCard;
 
         controlZone = FindAnyObjectByType<ControlZone>();
         controlZone.onContinue += ChangeAlpha;
@@ -58,10 +105,78 @@ public class NextZone : MonoBehaviour
         gameManager = GameManager.Instance;
         gameManager.onBothPlayersDone += OnBothPlayersDone;
 
+        turnManager = TurnManager.Instance;
+
+        placeCard = FindAnyObjectByType<PlaceCard>();
+
+        // 스프라이트 배열 복사
+        switch (gameManager.playerCharacterIndex)
+        {
+            case 0:
+                characterCardNext = placeCard.AdelCards.ToArray();
+                break;
+            case 1:
+                characterCardNext = placeCard.AkstarCards.ToArray();
+                break;
+            case 2:
+                characterCardNext = placeCard.AmeliaCards.ToArray();
+                break;
+            case 3:
+                characterCardNext = placeCard.ArngrimCards.ToArray();
+                break;
+            case 4:
+                characterCardNext = placeCard.BarbaricciaCards.ToArray();
+                break;
+            case 5:
+                characterCardNext = placeCard.BlackMageCards.ToArray();
+                break;
+            case 6:
+                characterCardNext = placeCard.CloudCards.ToArray();
+                break;
+            case 7:
+                characterCardNext = placeCard.ElleCards.ToArray();
+                break;
+            case 8:
+                characterCardNext = placeCard.JadeCards.ToArray();
+                break;
+            case 9:
+                characterCardNext = placeCard.NaluCards.ToArray();
+                break;
+        }
+
         // 상호작용 불가능하게 설정
         canvasGroup.alpha = 0f;
         canvasGroup.interactable = false;
         nextButton.gameObject.SetActive(false);     // 버튼은 비활성화
+    }
+
+
+    /// <summary>
+    /// 행동에 맞게 카드를 보여주는 함수
+    /// </summary>
+    /// <param name="activeNumber">몇번째 행동인지(0부터 시작)</param>
+    private void OnNextCard(int activeNumber)
+    {
+        // activeNumber가 0, 1, 2 범위 내에 있는지 확인
+        if (activeNumber >= 0 && activeNumber < 3)
+        {
+            if (activeNumber == 0)
+            {
+                playerNext[activeNumber].sprite = characterCardNext[controlZone.firstTurnCardIndex];
+            }
+            else if (activeNumber == 1)
+            {
+                playerNext[activeNumber].sprite = characterCardNext[controlZone.secondTurnCardIndex];
+            }
+            else if (activeNumber == 2)
+            {
+                playerNext[activeNumber].sprite = characterCardNext[controlZone.thirdTurnCardIndex];
+            }
+        }
+        else
+        {
+            Debug.LogError("activeNumber 값이 배열 인덱스를 초과했습니다. activeNumber: " + activeNumber);
+        }
     }
 
     /// <summary>
@@ -86,6 +201,12 @@ public class NextZone : MonoBehaviour
         nextButton.gameObject.SetActive(false);     // 버튼은 비활성화
         gameManager.isPlayerDone = false;
         gameManager.isEnemyPlayerDone = false;
+
+        for(int i = 0; i< 3; i++)
+        {
+            playerNext[i].sprite = cardBack;
+        }
+        turnManager.OnTurnEnd2();                    // 턴 종료
         onFramSetActive?.Invoke();
     }
 

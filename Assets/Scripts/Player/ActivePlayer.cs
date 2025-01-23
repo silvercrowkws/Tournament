@@ -30,6 +30,11 @@ public class ActivePlayer : MonoBehaviour
     /// </summary>
     Board board;
 
+    /// <summary>
+    /// 행동에 맞는 카드를 보이라고 알리는 델리게이트
+    /// </summary>
+    public Action<int> onNextCard;
+
     private void Start()
     {
         gameManager = GameManager.Instance;
@@ -61,25 +66,35 @@ public class ActivePlayer : MonoBehaviour
         Debug.Log($"플레이어의 2번째 카드 인덱스 : {controlZone.secondTurnCardIndex}");
         Debug.Log($"플레이어의 3번째 카드 인덱스 : {controlZone.thirdTurnCardIndex}");
 
+        int activeNumber = 0;                               // 몇번째 행동인지 확인하는 변수
+
         // 턴 시작시 턴매니저에서 플레이어가 턴 중임을 표시 isPlayerDone = false;
         yield return new WaitForSeconds(1);                 // 1초 대기
 
         // 첫번째 행동
         player.playerActiveEnd = false;                     // 플레이어가 행동 중임을 표시
+        onNextCard?.Invoke(activeNumber);                   // 카드를 보이라고 알림
+        yield return new WaitForSeconds(1);                 // 1초 대기
         ActiveCard(controlZone.firstTurnCardIndex);         // 첫 번째 카드 행동 실행
         yield return StartCoroutine(WaitForPlayerAction()); // 행동 완료 대기
         Debug.Log("첫 번째 행동 완료");
-        yield return new WaitForSeconds(3);                 // 3초 대기
+        yield return new WaitForSeconds(2);                 // 2초 대기
 
         // 두번째 행동
+        activeNumber++;
         player.playerActiveEnd = false;
+        onNextCard?.Invoke(activeNumber);                   // 카드를 보이라고 알림
+        yield return new WaitForSeconds(1);                 // 1초 대기
         ActiveCard(controlZone.secondTurnCardIndex);
         yield return StartCoroutine(WaitForPlayerAction());
         Debug.Log("두 번째 행동 완료");
-        yield return new WaitForSeconds(3);                 // 3초 대기
+        yield return new WaitForSeconds(2);                 // 2초 대기
 
         // 세번째 행동
+        activeNumber++;
         player.playerActiveEnd = false;
+        onNextCard?.Invoke(activeNumber);                   // 카드를 보이라고 알림
+        yield return new WaitForSeconds(1);                 // 1초 대기
         ActiveCard(controlZone.thirdTurnCardIndex);
         yield return StartCoroutine(WaitForPlayerAction());
         Debug.Log("세 번째 행동 완료");

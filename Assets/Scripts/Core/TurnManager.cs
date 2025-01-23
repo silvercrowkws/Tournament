@@ -55,7 +55,11 @@ public class TurnManager : Singleton<TurnManager>       // 나중에 리스타�
     /// </summary>
     public Action<int> onTurnOver;
 
+    /// <summary>
+    /// 게임 매니저
+    /// </summary>
     GameManager gameManager;
+
     private void Start()
     {
         gameManager = GameManager.Instance;
@@ -120,7 +124,7 @@ public class TurnManager : Singleton<TurnManager>       // 나중에 리스타�
             Debug.Log($"{turnNumber}턴 종료");
 
             isEndProcess = false;   // 종료 처리가 끝났다고 표시
-            OnTurnStart();          // 다음 턴 시작
+            //OnTurnStart();          // 다음 턴 시작
         }
     }
 

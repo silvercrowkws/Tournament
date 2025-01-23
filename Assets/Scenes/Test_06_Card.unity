@@ -2763,7 +2763,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 41ab30fb7079d414186d17176decf95f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5030eb5af4f1d204ca40747a182b5d24, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9076,7 +9076,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5842909937481397350, guid: c3a8c9cde7e0e7e4c87ebbcb878121ea, type: 3}
       propertyPath: playerCharacterIndex
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11126,7 +11126,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0a951b8dbd1b84c4e929519cdac24a70, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5030eb5af4f1d204ca40747a182b5d24, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13230,7 +13230,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 22f592106367f3048b876ad260e0c978, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5030eb5af4f1d204ca40747a182b5d24, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -19465,6 +19465,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb66bdf7a47b1a43a0165b4500c6d04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardBack: {fileID: 21300000, guid: 5030eb5af4f1d204ca40747a182b5d24, type: 3}
+  characterCardNext: []
 --- !u!1 &1894917135
 GameObject:
   m_ObjectHideFlags: 0
