@@ -165,7 +165,7 @@ public class Player : MonoBehaviour
                 //currentEnergy = value;
                 currentEnergy = Mathf.Clamp(value, 0, 100);
                 Debug.Log($"남은 에너지 : {currentEnergy}");
-                //energyChange?.Invoke(currentEnergy);
+                energyChange?.Invoke(currentEnergy);
             }
         }
     }
@@ -1724,7 +1724,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log($"Energy 감소: {cost}");
         Energy -= cost;                         // 에너지 차감
-        energyChange?.Invoke(currentEnergy);    // UI 업데이트용 델리게이트 호출
+        //energyChange?.Invoke(currentEnergy);    // UI 업데이트용 델리게이트 호출 => 에너지가 변경되면 프로퍼티에서 델리게이트 보냄
     }
 
     /// <summary>

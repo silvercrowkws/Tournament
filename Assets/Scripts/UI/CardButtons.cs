@@ -201,7 +201,7 @@ public class CardButtons : MonoBehaviour
     }
 
     /// <summary>
-    /// 해당하는 카드를 활성화 하기 위한 함수(PlaceCard 에서 확인 후 알파값 조절)
+    /// 해당하는 카드를 활성화 하기 위한 함수(PlaceCard 에서 확인 후 알파값 조절/선택이 취소된 카드용)
     /// </summary>
     /// <param name="cardIndex"></param>
     private void OnCardEnable(int cardIndex)
@@ -211,7 +211,7 @@ public class CardButtons : MonoBehaviour
     }
 
     /// <summary>
-    /// 해당하는 카드를 비활성화 하기 위한 함수(PlaceCard 에서 확인 후 알파값 조절)
+    /// 해당하는 카드를 비활성화 하기 위한 함수(PlaceCard 에서 확인 후 알파값 조절/선택한 카드용)
     /// </summary>
     /// <param name="cardIndex"></param>
     private void OnCardDisable(int cardIndex)

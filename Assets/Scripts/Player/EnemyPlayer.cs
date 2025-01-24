@@ -15,12 +15,12 @@ public class EnemyPlayer : MonoBehaviour
     /// <summary>
     /// 체력이 변경되었음을 알리는 델리게이트(UI 수정용)
     /// </summary>
-    public Action<int> hpChange;
+    public Action<int> EhpChange;
 
     /// <summary>
     /// 에너지가 변경되었음을 알리는 델리게이트(UI 수정용)
     /// </summary>
-    public Action<int> energyChange;
+    public Action<int> EenergyChange;
 
     /// <summary>
     /// 현재 가지고 있는 체력
@@ -45,7 +45,7 @@ public class EnemyPlayer : MonoBehaviour
                 //currentHP = value;
                 currentHP = Mathf.Clamp(value, 0, 100);
                 Debug.Log($"남은 체력 : {currentHP}");
-                hpChange?.Invoke(currentHP);
+                EhpChange?.Invoke(currentHP);
             }
         }
     }
@@ -64,7 +64,7 @@ public class EnemyPlayer : MonoBehaviour
                 //currentEnergy = value;
                 currentEnergy = Mathf.Clamp(value, 0, 100);
                 Debug.Log($"남은 에너지 : {currentEnergy}");
-                //energyChange?.Invoke(currentEnergy);
+                EenergyChange?.Invoke(currentEnergy);
             }
         }
     }
