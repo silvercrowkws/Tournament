@@ -159,7 +159,7 @@ public class Player : MonoBehaviour
         get => currentEnergy;
         set
         {
-            Debug.Log($"Energy set 호출: {value}");
+            Debug.Log($"Energy 프로퍼티 set 호출: {value}");
             if (currentEnergy != value)
             {
                 //currentEnergy = value;

@@ -73,6 +73,11 @@ public class CardButtons : MonoBehaviour
     PlaceCard placeCard;
 
     /// <summary>
+    /// 플레이어
+    /// </summary>
+    Player player;
+
+    /// <summary>
     /// Adel의 스프라이트
     /// 0 : move(0,1,2,3,9,10)
     /// 1 : 가드, 퍼팩트 가드
@@ -98,6 +103,8 @@ public class CardButtons : MonoBehaviour
     private void Awake()
     {
         gameManager = GameManager.Instance;
+        player = GameManager.Instance.Player;
+        player.energyChange += OnCardAlphaChange;
     }
 
     private void Start()
@@ -218,6 +225,82 @@ public class CardButtons : MonoBehaviour
     {
         canvasGroup[cardIndex].alpha = 0;                   // 알파값 0으로 조절
         canvasGroup[cardIndex].interactable = false;        // 상호작용 안되게 변경
+    }
+
+    /// <summary>
+    /// 내가 가진 에너지를 초과하는 카드를 불투명하게 바꾸기 위한 함수
+    /// </summary>
+    /// <param name="currentEnergy">현재 남은 에너지</param>
+    private void OnCardAlphaChange(int currentEnergy)
+    {
+        // NextRound 버튼을 누르면 에너지 15 회복되는 부분을 이용
+
+        // 퍼펙트 가드는 에너지 소비 동일
+        if (currentEnergy < 25)
+        {
+            canvasGroup[11].alpha = 0.5f;                // 알파값 불투명하게 변경
+            canvasGroup[11].interactable = false;        // 상호작용 안되게 변경
+        }
+        else
+        {
+            canvasGroup[11].alpha = 1f;                  // 알파값 불투명하게 변경
+            canvasGroup[11].interactable = true;         // 상호작용 가능하게 변경
+        }
+
+        // 캐릭터에 따라 에너지 사용량이 다름
+        switch (gameManager.playerCharacterIndex)
+        {
+            // Adel
+            case 0:
+                // Attack 15, MagicAttack 25, LimitAttack 40
+                if(currentEnergy < 15)
+                {
+                    canvasGroup[5].alpha = 0.5f;                // 알파값 불투명하게 변경
+                    canvasGroup[5].interactable = false;        // 상호작용 안되게 변경
+                }
+                else
+                {
+                    canvasGroup[5].alpha = 1f;
+                    canvasGroup[5].interactable = true;
+                }
+
+                if(currentEnergy < 25)
+                {
+                    canvasGroup[6].alpha = 0.5f;
+                    canvasGroup[6].interactable = false;
+                }
+                else
+                {
+                    canvasGroup[6].alpha = 1f;
+                    canvasGroup[6].interactable = true;
+                }
+
+                if (currentEnergy < 40)
+                {
+                    //Debug.Log($"{canvasGroup[7].alpha}");
+                    //Debug.Log($"{canvasGroup[7].interactable}");
+
+                    StartCoroutine(AlphaChangeDelayCoroutine(7));
+                }
+                else
+                {
+                    canvasGroup[7].alpha = 1f;
+                    canvasGroup[7].interactable = true;
+                }
+                break;
+        }
+    }
+
+    /// <summary>
+    /// 알파값 바꾸는 부분에 딜레이를 넣는 코루틴
+    /// (NextZone 버튼을 누르면 Clear가 일어나서 이 클래스의 OnCardEnable 함수 때문에 알파값이 1이 됨)
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator AlphaChangeDelayCoroutine(int index)
+    {
+        yield return new WaitForSeconds(0.1f);
+        canvasGroup[index].alpha = 0.5f;
+        canvasGroup[index].interactable = false;
     }
 
     /// <summary>

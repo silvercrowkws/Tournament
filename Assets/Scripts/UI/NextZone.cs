@@ -76,6 +76,11 @@ public class NextZone : MonoBehaviour
     /// </summary>
     public Sprite[] characterCardNext;
 
+    /// <summary>
+    /// 플레이어
+    /// </summary>
+    Player player;
+
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
@@ -94,6 +99,8 @@ public class NextZone : MonoBehaviour
 
     private void Start()
     {
+        player = GameManager.Instance.Player;
+
         cardFrame = FindAnyObjectByType<Card_Frame>();
 
         activePlayer = FindAnyObjectByType<ActivePlayer>();
@@ -196,6 +203,7 @@ public class NextZone : MonoBehaviour
     /// </summary>
     private void ChangeAlphaZero()
     {
+        player.Energy += 15;                        // 에너지 15 회복(나중에 적 플레이어도 같은 것 필요할 지 모름)
         canvasGroup.alpha = 0f;
         canvasGroup.interactable = false;
         nextButton.gameObject.SetActive(false);     // 버튼은 비활성화

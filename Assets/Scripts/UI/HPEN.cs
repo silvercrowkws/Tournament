@@ -72,10 +72,15 @@ public class HPEN : MonoBehaviour
         child = transform.GetChild(1);                  // 1번째 자식 PlayerHE
         playerHPSlider = child.GetChild(0).GetComponent<Slider>();
         playerEnergySlider = child.GetChild(1).GetComponent<Slider>();
+        playerHPSlider.value = 1;                       // 시작이 값을 1로 고정
+        playerEnergySlider.value = 1;
 
         child = transform.GetChild(2);                  // 2번째 자식 EnermyPlayerHE
         enemyHPSlider = child.GetChild(0).GetComponent<Slider>();
         enemyEnergySlider = child.GetChild(1).GetComponent<Slider>();
+        enemyHPSlider.value = 1;
+        enemyEnergySlider.value = 1;
+
     }
 
     private void Start()
@@ -101,7 +106,7 @@ public class HPEN : MonoBehaviour
     /// <param name="currentHP">현재 남은 체력</param>
     private void OnPlayerHPChange(int currentHP)
     {
-        playerHPSlider.value = currentHP/maxHp;
+        playerHPSlider.value = (float)currentHP /maxHp;
     }
 
     /// <summary>
@@ -110,7 +115,7 @@ public class HPEN : MonoBehaviour
     /// <param name="currentEnergy">현재 남은 에너지</param>
     private void OnPlayerEnergyChange(int currentEnergy)
     {
-        playerEnergySlider.value = currentEnergy/maxEnergy;
+        playerEnergySlider.value = (float)currentEnergy / maxEnergy;
     }
 
     /// <summary>
@@ -119,7 +124,7 @@ public class HPEN : MonoBehaviour
     /// <param name="EcurrentHP">적의 현재 남은 체력</param>
     private void OnEnemyHPChange(int EcurrentHP)
     {
-        enemyHPSlider.value = EcurrentHP/maxHp;
+        enemyHPSlider.value = (float)EcurrentHP /maxHp;
     }
 
     /// <summary>
@@ -128,7 +133,7 @@ public class HPEN : MonoBehaviour
     /// <param name="EcurrentEnergy">적의 현재 남은 에너지</param>
     private void OnEnemyEnergyChange(int EcurrentEnergy)
     {
-        enemyEnergySlider.value = EcurrentEnergy/maxEnergy;
+        enemyEnergySlider.value = (float)EcurrentEnergy /maxEnergy;
     }
 
 
