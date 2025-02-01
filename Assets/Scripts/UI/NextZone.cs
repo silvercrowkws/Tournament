@@ -203,7 +203,6 @@ public class NextZone : MonoBehaviour
     /// </summary>
     private void ChangeAlphaZero()
     {
-        player.Energy += 15;                        // 에너지 15 회복(나중에 적 플레이어도 같은 것 필요할 지 모름)
         canvasGroup.alpha = 0f;
         canvasGroup.interactable = false;
         nextButton.gameObject.SetActive(false);     // 버튼은 비활성화
@@ -216,6 +215,7 @@ public class NextZone : MonoBehaviour
         }
         turnManager.OnTurnEnd2();                    // 턴 종료
         onFramSetActive?.Invoke();
+        player.Energy += 15;                        // 에너지 15 회복(나중에 적 플레이어도 같은 것 필요할 지 모름)
     }
 
     /// <summary>

@@ -23,7 +23,7 @@ public class CardButtons : MonoBehaviour
     Image[] guardImages;
 
     /// <summary>
-    /// attack 3가지 이미지의 배열(자리)
+    /// attackCost 3가지 이미지의 배열(자리)
     /// </summary>
     Image[] attackImages;
 
@@ -63,9 +63,9 @@ public class CardButtons : MonoBehaviour
     CanvasGroup[] canvasGroup;
 
     /// <summary>
-    /// 카드를 클릭했다고 알리는 델리게이트
+    /// 카드를 클릭했다고 알리는 델리게이트(버튼 숫자, 그 카드의 코스트)
     /// </summary>
-    public Action<int> onCardButton;
+    public Action<int, int> onCardButton;
 
     /// <summary>
     /// PlaceCard 클래스
@@ -100,11 +100,79 @@ public class CardButtons : MonoBehaviour
     public Sprite[] Jades;
     public Sprite[] Nalus;
 
+    /// <summary>
+    /// 캐릭터마다 다른 코스트를 계산하기 위함
+    /// </summary>
+    int attackCost = 0;
+    int magicAttackCost = 0;
+    int limitAttackCost = 0;
+
+    /// <summary>
+    /// 퍼펙트 가드 코스트
+    /// </summary>
+    int perfectGuardCost = 25;
+
     private void Awake()
     {
         gameManager = GameManager.Instance;
         player = GameManager.Instance.Player;
         player.energyChange += OnCardAlphaChange;
+
+        // 캐릭터에 따라 에너지 사용량이 다름
+        switch (gameManager.playerCharacterIndex)
+        {
+            // Adel : Attack 15, MagicAttack 25, LimitAttack 40
+            case 0:
+                attackCost = 15;
+                magicAttackCost = 25;
+                limitAttackCost = 40;
+                break;
+            case 1:
+                attackCost = 15;
+                magicAttackCost = 25;
+                limitAttackCost = 45;
+                break;
+            case 2:
+                attackCost = 15;
+                magicAttackCost = 25;
+                limitAttackCost = 45;
+                break;
+            case 3:
+                attackCost = 25;
+                magicAttackCost = 25;
+                limitAttackCost = 40;
+                break;
+            case 4:
+                attackCost = 15;
+                magicAttackCost = 25;
+                limitAttackCost = 45;
+                break;
+            case 5:
+                attackCost = 15;
+                magicAttackCost = 25;
+                limitAttackCost = 40;
+                break;
+            case 6:
+                attackCost = 15;
+                magicAttackCost = 25;
+                limitAttackCost = 40;
+                break;
+            case 7:
+                attackCost = 15;
+                magicAttackCost = 25;
+                limitAttackCost = 45;
+                break;
+            case 8:
+                attackCost = 25;
+                magicAttackCost = 25;
+                limitAttackCost = 45;
+                break;
+            case 9:
+                attackCost = 15;
+                magicAttackCost = 25;
+                limitAttackCost = 40;
+                break;
+        }
     }
 
     private void Start()
@@ -112,6 +180,7 @@ public class CardButtons : MonoBehaviour
         placeCard = FindAnyObjectByType<PlaceCard>();
         placeCard.onCardDisable += OnCardDisable;
         placeCard.onCardEnable += OnCardEnable;
+        placeCard.onTotalCostChange += UpdateCardAlpha;  // 코스트 합 변경 이벤트 구독
 
         // 배열 크기 초기화
         moveImages = new Image[6];
@@ -147,7 +216,7 @@ public class CardButtons : MonoBehaviour
         child = transform.GetChild(11);
         guardImages[1] = child.GetChild(0).GetComponent<Image>();
 
-        // attack 3가지 5, 6, 7
+        // attackCost 3가지 5, 6, 7
         for(int i = 0; i< 3; i++)
         {
             child = transform.GetChild(i + 5);
@@ -208,6 +277,52 @@ public class CardButtons : MonoBehaviour
     }
 
     /// <summary>
+    /// 현재 에너지 - 코스트 총합 보다 코스트가 큰 카드를 반투명하게 만드는 함수
+    /// </summary>
+    /// <param name="totalCost">코스트의 총 합</param>
+    private void UpdateCardAlpha(int totalCost)
+    {
+        // 현재 에너지 - 코스트 총합
+        int remainingEnergy = player.Energy - totalCost;
+
+        if (attackCost > remainingEnergy)
+        {
+            AlphaTranslucentChange(5);
+        }
+        else
+        {
+            AlphaOpaqueChange(5);
+        }
+
+        if (magicAttackCost > remainingEnergy)
+        {
+            AlphaTranslucentChange(6);
+        }
+        else
+        {
+            AlphaOpaqueChange(6);
+        }
+
+        if (limitAttackCost > remainingEnergy)
+        {
+            AlphaTranslucentChange(7);
+        }
+        else
+        {
+            AlphaOpaqueChange(7);
+        }
+
+        if (perfectGuardCost > remainingEnergy)
+        {
+            AlphaTranslucentChange(11);
+        }
+        else
+        {
+            AlphaOpaqueChange(11);
+        }
+    }
+
+    /// <summary>
     /// 해당하는 카드를 활성화 하기 위한 함수(PlaceCard 에서 확인 후 알파값 조절/선택이 취소된 카드용)
     /// </summary>
     /// <param name="cardIndex"></param>
@@ -229,78 +344,74 @@ public class CardButtons : MonoBehaviour
 
     /// <summary>
     /// 내가 가진 에너지를 초과하는 카드를 불투명하게 바꾸기 위한 함수
+    /// NextRound 버튼을 누르면 에너지 15 회복되는 부분을 이용해서
     /// </summary>
     /// <param name="currentEnergy">현재 남은 에너지</param>
     private void OnCardAlphaChange(int currentEnergy)
     {
-        // NextRound 버튼을 누르면 에너지 15 회복되는 부분을 이용
-
         // 퍼펙트 가드는 에너지 소비 동일
-        if (currentEnergy < 25)
+        if (currentEnergy < perfectGuardCost)
         {
-            canvasGroup[11].alpha = 0.5f;                // 알파값 불투명하게 변경
-            canvasGroup[11].interactable = false;        // 상호작용 안되게 변경
+            AlphaTranslucentChange(11);
         }
         else
         {
-            canvasGroup[11].alpha = 1f;                  // 알파값 불투명하게 변경
-            canvasGroup[11].interactable = true;         // 상호작용 가능하게 변경
+            AlphaOpaqueChange(11);
         }
 
-        // 캐릭터에 따라 에너지 사용량이 다름
-        switch (gameManager.playerCharacterIndex)
+        if (currentEnergy < attackCost)             // 현재 에너지 < 기본 공격 코스트
         {
-            // Adel
-            case 0:
-                // Attack 15, MagicAttack 25, LimitAttack 40
-                if(currentEnergy < 15)
-                {
-                    canvasGroup[5].alpha = 0.5f;                // 알파값 불투명하게 변경
-                    canvasGroup[5].interactable = false;        // 상호작용 안되게 변경
-                }
-                else
-                {
-                    canvasGroup[5].alpha = 1f;
-                    canvasGroup[5].interactable = true;
-                }
+            AlphaTranslucentChange(5);
+        }
+        else
+        {
+            AlphaOpaqueChange(5);
+        }
 
-                if(currentEnergy < 25)
-                {
-                    canvasGroup[6].alpha = 0.5f;
-                    canvasGroup[6].interactable = false;
-                }
-                else
-                {
-                    canvasGroup[6].alpha = 1f;
-                    canvasGroup[6].interactable = true;
-                }
+        if (currentEnergy < magicAttackCost)        // 현재 에너지 < 마법 공격 코스트
+        {
+            AlphaTranslucentChange(6);
+        }
+        else
+        {
+            AlphaOpaqueChange(6);
+        }
 
-                if (currentEnergy < 40)
-                {
-                    //Debug.Log($"{canvasGroup[7].alpha}");
-                    //Debug.Log($"{canvasGroup[7].interactable}");
-
-                    StartCoroutine(AlphaChangeDelayCoroutine(7));
-                }
-                else
-                {
-                    canvasGroup[7].alpha = 1f;
-                    canvasGroup[7].interactable = true;
-                }
-                break;
+        if (currentEnergy < limitAttackCost)        // 현재 에너지 < 특수 공격 코스트
+        {
+            AlphaTranslucentChange(7);
+        }
+        else
+        {
+            AlphaOpaqueChange(7);
         }
     }
 
     /// <summary>
-    /// 알파값 바꾸는 부분에 딜레이를 넣는 코루틴
-    /// (NextZone 버튼을 누르면 Clear가 일어나서 이 클래스의 OnCardEnable 함수 때문에 알파값이 1이 됨)
+    /// 알파값 반투명하게 바꾸는 함수
     /// </summary>
-    /// <returns></returns>
-    IEnumerator AlphaChangeDelayCoroutine(int index)
+    /// <param name="index">바꿔야되는 카드의 인덱스</param>
+    private void AlphaTranslucentChange(int index)
     {
-        yield return new WaitForSeconds(0.1f);
-        canvasGroup[index].alpha = 0.5f;
-        canvasGroup[index].interactable = false;
+        // 현재 해당하는 카드가 알파값이 0이다 = 이미 선택되어서 안보인다
+        if (canvasGroup[index].alpha != 0)
+        {
+            canvasGroup[index].alpha = 0.5f;            // 알파값 반투명하게 변경
+            canvasGroup[index].interactable = false;    // 상호작용 안되게 변경
+        }
+    }
+
+    /// <summary>
+    /// 알파값을 불투명하게 바꾸는 함수
+    /// </summary>
+    /// <param name="index">바꿔야되는 카드의 인덱스</param>
+    private void AlphaOpaqueChange(int index)
+    {
+        if (canvasGroup[index].alpha != 0)
+        {
+            canvasGroup[index].alpha = 1f;              // 알파값 불투명하게 변경
+            canvasGroup[index].interactable = true;     // 상호작용 가능하게 변경
+        }
     }
 
     /// <summary>
@@ -310,7 +421,26 @@ public class CardButtons : MonoBehaviour
     private void SendCard(int buttonNumber)
     {
         //Debug.Log($"{buttonNumber} 버튼 클릭");
-        onCardButton?.Invoke(buttonNumber);
+        if(buttonNumber == 5)
+        {
+            onCardButton?.Invoke(buttonNumber, attackCost);
+        }
+        else if(buttonNumber == 6)
+        {
+            onCardButton?.Invoke(buttonNumber, magicAttackCost);
+        }
+        else if (buttonNumber == 7)
+        {
+            onCardButton?.Invoke(buttonNumber, limitAttackCost);
+        }
+        else if (buttonNumber == 11)
+        {
+            onCardButton?.Invoke(buttonNumber, perfectGuardCost);
+        }
+        else
+        {
+            onCardButton?.Invoke(buttonNumber, 0);
+        }
     }
 
     /// <summary>
@@ -334,7 +464,7 @@ public class CardButtons : MonoBehaviour
                     guardImages[i].sprite = Adels[1];
                 }
 
-                // attack 3가지 이미지 변경 5, 6, 7(2,3,4 번 이미지)
+                // attackCost 3가지 이미지 변경 5, 6, 7(2,3,4 번 이미지)
                 for(int i = 0; i< attackImages.Length; i++)
                 {
                     attackImages[i].sprite = Adels[i + 2];
@@ -375,7 +505,7 @@ public class CardButtons : MonoBehaviour
                     guardImages[i].sprite = Akstars[1];
                 }
 
-                // attack 3가지 이미지 변경 5, 6, 7(2,3,4 번 이미지)
+                // attackCost 3가지 이미지 변경 5, 6, 7(2,3,4 번 이미지)
                 for (int i = 0; i < attackImages.Length; i++)
                 {
                     attackImages[i].sprite = Akstars[i + 2];
@@ -416,7 +546,7 @@ public class CardButtons : MonoBehaviour
                     guardImages[i].sprite = Amelias[1];
                 }
 
-                // attack 3가지 이미지 변경 5, 6, 7(2,3,4 번 이미지)
+                // attackCost 3가지 이미지 변경 5, 6, 7(2,3,4 번 이미지)
                 for (int i = 0; i < attackImages.Length; i++)
                 {
                     attackImages[i].sprite = Amelias[i + 2];
@@ -457,7 +587,7 @@ public class CardButtons : MonoBehaviour
                     guardImages[i].sprite = Arngrims[1];
                 }
 
-                // attack 3가지 이미지 변경 5, 6, 7(2,3,4 번 이미지)
+                // attackCost 3가지 이미지 변경 5, 6, 7(2,3,4 번 이미지)
                 for (int i = 0; i < attackImages.Length; i++)
                 {
                     attackImages[i].sprite = Arngrims[i + 2];
@@ -498,7 +628,7 @@ public class CardButtons : MonoBehaviour
                     guardImages[i].sprite = Barbariccias[1];
                 }
 
-                // attack 3가지 이미지 변경 5, 6, 7(2,3,4 번 이미지)
+                // attackCost 3가지 이미지 변경 5, 6, 7(2,3,4 번 이미지)
                 for (int i = 0; i < attackImages.Length; i++)
                 {
                     attackImages[i].sprite = Barbariccias[i + 2];
@@ -539,7 +669,7 @@ public class CardButtons : MonoBehaviour
                     guardImages[i].sprite = BlackMages[1];
                 }
 
-                // attack 3가지 이미지 변경 5, 6, 7(2,3,4 번 이미지)
+                // attackCost 3가지 이미지 변경 5, 6, 7(2,3,4 번 이미지)
                 for (int i = 0; i < attackImages.Length; i++)
                 {
                     attackImages[i].sprite = BlackMages[i + 2];
@@ -580,7 +710,7 @@ public class CardButtons : MonoBehaviour
                     guardImages[i].sprite = Clouds[1];
                 }
 
-                // attack 3가지 이미지 변경 5, 6, 7(2,3,4 번 이미지)
+                // attackCost 3가지 이미지 변경 5, 6, 7(2,3,4 번 이미지)
                 for (int i = 0; i < attackImages.Length; i++)
                 {
                     attackImages[i].sprite = Clouds[i + 2];
@@ -621,7 +751,7 @@ public class CardButtons : MonoBehaviour
                     guardImages[i].sprite = Elles[1];
                 }
 
-                // attack 3가지 이미지 변경 5, 6, 7(2,3,4 번 이미지)
+                // attackCost 3가지 이미지 변경 5, 6, 7(2,3,4 번 이미지)
                 for (int i = 0; i < attackImages.Length; i++)
                 {
                     attackImages[i].sprite = Elles[i + 2];
@@ -662,7 +792,7 @@ public class CardButtons : MonoBehaviour
                     guardImages[i].sprite = Jades[1];
                 }
 
-                // attack 3가지 이미지 변경 5, 6, 7(2,3,4 번 이미지)
+                // attackCost 3가지 이미지 변경 5, 6, 7(2,3,4 번 이미지)
                 for (int i = 0; i < attackImages.Length; i++)
                 {
                     attackImages[i].sprite = Jades[i + 2];
@@ -703,7 +833,7 @@ public class CardButtons : MonoBehaviour
                     guardImages[i].sprite = Nalus[1];
                 }
 
-                // attack 3가지 이미지 변경 5, 6, 7(2,3,4 번 이미지)
+                // attackCost 3가지 이미지 변경 5, 6, 7(2,3,4 번 이미지)
                 for (int i = 0; i < attackImages.Length; i++)
                 {
                     attackImages[i].sprite = Nalus[i + 2];

@@ -89,6 +89,11 @@ public class VSImage : MonoBehaviour
     /// </summary>
     GameManager gameManager;
 
+    /// <summary>
+    /// fightControlButtons 클래스에 캔버스 그룹 조절하라고 알리는 델리게이트
+    /// </summary>
+    public Action<bool> onInteract;
+
     private void Awake()
     {
         leftCharacter = transform.GetChild(0).GetComponent<Image>();
@@ -126,6 +131,9 @@ public class VSImage : MonoBehaviour
             tournamentImages[i].color = tournamentColor;
             frameImages[i].gameObject.SetActive(false);
         }
+
+        leftStartPos = leftCharacter.rectTransform.localPosition;
+        rightStartPos = rightCharacter.rectTransform.localPosition;
     }
 
     private void Start()
@@ -142,7 +150,8 @@ public class VSImage : MonoBehaviour
         // 비활성화 처리
         if (fightControlButtons != null)
         {
-            fightControlButtons.gameObject.SetActive(false);  // 비활성화
+            //fightControlButtons.gameObject.SetActive(false);  // 비활성화 => 캔버스 그룹으로 조절
+            onInteract?.Invoke(false);
         }
     }
 
@@ -212,7 +221,8 @@ public class VSImage : MonoBehaviour
         }
 
         rightCharacter.sprite = characters[tournamentList[0]];      // 오른쪽 캐릭터 이미지 할당
-        fightControlButtons.gameObject.SetActive(true);             // 버튼 활성화
+        //fightControlButtons.gameObject.SetActive(true);             // 버튼 활성화 => 캔버스 그룹 조절로 변경
+        onInteract?.Invoke(true);
     }
 
     /// <summary>
@@ -224,8 +234,8 @@ public class VSImage : MonoBehaviour
         float duration = 0.3f;        // 0.3초 동안
         float elapsedTime = 0f;
 
-        leftStartPos = leftCharacter.rectTransform.localPosition;
-        rightStartPos = rightCharacter.rectTransform.localPosition;
+        //leftStartPos = leftCharacter.rectTransform.localPosition;
+        //rightStartPos = rightCharacter.rectTransform.localPosition;
 
         // 상대적인 이동 거리 (기존 위치에서 450만큼 이동)
         Vector3 leftEndPos = new Vector3(leftStartPos.x + 450f, leftStartPos.y, leftStartPos.z);

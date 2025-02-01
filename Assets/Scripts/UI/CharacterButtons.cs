@@ -18,6 +18,16 @@ public class CharacterButtons : MonoBehaviour
     /// </summary>
     Button[] characterButtons;
 
+    /// <summary>
+    /// 캔버스 그룹
+    /// </summary>
+    CanvasGroup canvasGroup;
+
+    /// <summary>
+    /// 파이트컨트롤버튼
+    /// </summary>
+    FightControlButtons fightControlButtons;
+
     private void Awake()
     {
         // 자식의 개수
@@ -35,6 +45,23 @@ public class CharacterButtons : MonoBehaviour
             
             characterButtons[index].onClick.AddListener(() => PickCharacter(index));
         }
+
+        canvasGroup = GetComponent<CanvasGroup>();
+    }
+
+    private void Start()
+    {
+        fightControlButtons = FindAnyObjectByType<FightControlButtons>();
+        fightControlButtons.onChangeFighter += OnInteractiveThis;
+    }
+
+    /// <summary>
+    /// 캔버스 그룹으로 상호작용을 조절하는 함수
+    /// </summary>
+    private void OnInteractiveThis()
+    {
+        canvasGroup.alpha = 1.0f;
+        canvasGroup.interactable = true;
     }
 
     /// <summary>
@@ -45,7 +72,10 @@ public class CharacterButtons : MonoBehaviour
     {
         onPickCharacter.Invoke(index);
 
-        // 이 게임 오브젝트 비활성화 필요
-        gameObject.SetActive(false);
+        // 이 게임 오브젝트 비활성화 필요 => 상호작용 불가능으로 변경
+        //gameObject.SetActive(false);
+
+        canvasGroup.alpha = 0.0f;
+        canvasGroup.interactable = false;
     }
 }

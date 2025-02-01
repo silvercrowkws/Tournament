@@ -36,6 +36,10 @@ public class PlaceCard : MonoBehaviour
     int secondCardNumber = 0;
     int thirdCardNumber = 0;
 
+    int firstCardCost = 0;
+    int secondCardCost = 0;
+    int thirdCardCost = 0;
+
     /// <summary>
     /// 카드 공간이 전부 차있는지 확인하기 위함(0,1,2)
     /// </summary>
@@ -86,6 +90,16 @@ public class PlaceCard : MonoBehaviour
     ControlZone controlZone;
 
     /// <summary>
+    /// 넥스트 존
+    /// </summary>
+    NextZone nextZone;
+
+    /// <summary>
+    /// 플레이어
+    /// </summary>
+    Player player;
+
+    /// <summary>
     /// 첫번째 공간이 비었는지(true : 비어있다, false : 차있다)
     /// </summary>
     bool emptyFirstCard = true;
@@ -98,9 +112,14 @@ public class PlaceCard : MonoBehaviour
     public bool pullCard = false;
 
     /// <summary>
-    /// 넥스트 존
+    /// 세팅된 카드들의 코스트 총 합
     /// </summary>
-    NextZone nextZone;
+    public int totalCardCost = 0;
+
+    /// <summary>
+    /// 누적 코스트 변경을 알리는 델리게이트
+    /// </summary>
+    public Action<int> onTotalCostChange;
 
     private void Awake()
     {
@@ -120,6 +139,7 @@ public class PlaceCard : MonoBehaviour
     private void Start()
     {
         gameManager = GameManager.Instance;
+        player = GameManager.Instance.Player;
         controlZone = FindAnyObjectByType<ControlZone>();
         controlZone.onClearPlace += OnClearPlace;
 
@@ -219,6 +239,8 @@ public class PlaceCard : MonoBehaviour
                 buttonImages[0].sprite = defaultCard[0];        // 버튼의 이미지 초기화
                 onCardEnable?.Invoke(firstCardNumber);          // 카드 다시 활성화 하라고 델리게이트 전달
                 firstCardNumber = 0;                            // 기록 초기화
+                totalCardCost -= firstCardCost;                 // 총 합에서 차감
+                firstCardCost = 0;                              // 코스트 초기화
                 //SendCardNumber();                               // 카드 순서 넘겨줌
                 emptyFirstCard = true;                          // 배치할 수 있게 bool 변수 초기화
                 break;
@@ -226,6 +248,8 @@ public class PlaceCard : MonoBehaviour
                 buttonImages[1].sprite = defaultCard[1];
                 onCardEnable?.Invoke(secondCardNumber);
                 secondCardNumber = 0;
+                totalCardCost -= secondCardCost;
+                secondCardCost = 0;
                 //SendCardNumber();
                 emptySecondCard = true;
                 break;
@@ -233,10 +257,13 @@ public class PlaceCard : MonoBehaviour
                 buttonImages[2].sprite = defaultCard[2];
                 onCardEnable?.Invoke(thirdCardNumber);
                 thirdCardNumber = 0;
+                totalCardCost -= thirdCardCost;
+                thirdCardCost = 0;
                 //SendCardNumber();
                 emptyThirdCard = true;
                 break;
         }
+        onTotalCostChange?.Invoke(totalCardCost);
         pullCard = false;
         SendCardNumber();
 
@@ -254,9 +281,21 @@ public class PlaceCard : MonoBehaviour
         onCardEnable?.Invoke(firstCardNumber);          // 카드 다시 활성화 하라고 델리게이트 전달
         onCardEnable?.Invoke(secondCardNumber);
         onCardEnable?.Invoke(thirdCardNumber);
+
         firstCardNumber = 0;                            // 기록 초기화
+        totalCardCost -= firstCardCost;                 // 총합 차감
+        firstCardCost = 0;
+
         secondCardNumber = 0;
+        totalCardCost -= secondCardCost;
+        secondCardCost = 0;
+
         thirdCardNumber = 0;
+        totalCardCost -= thirdCardCost;
+        thirdCardCost = 0;
+
+        onTotalCostChange?.Invoke(totalCardCost);
+
         emptyFirstCard = true;                          // 배치할 수 있게 bool 변수 초기화
         emptySecondCard = true;
         emptyThirdCard = true;
@@ -303,76 +342,90 @@ public class PlaceCard : MonoBehaviour
     /// 델리게이트를 받아 플레이스 존 버튼의 이미지를 변경하는 함수
     /// </summary>
     /// <param name="cardIndex">CardButtons에서 넘겨받은 카드의 인덱스</param>
-    private void OnCardPlace(int cardIndex)
+    /// <param name="cardCost">CardButtons에서 넘겨받은 카드의 코스트</param>
+    private void OnCardPlace(int cardIndex, int cardCost)
     {
-        // 만약 카드 공간이 3개 전부 차있지 않으면
-        if(emptyFirstCard || emptySecondCard || emptyThirdCard)
+        // 누적된 코스트 + 카드 코스트 < 현재 에너지
+        if (totalCardCost + cardCost < player.Energy)
         {
-            // 첫번째 카드 공간이 비어있으면
-            if(emptyFirstCard)
+            // 만약 카드 공간이 3개 전부 차있지 않으면
+            if(emptyFirstCard || emptySecondCard || emptyThirdCard)
             {
-                // 버튼에 이미지 할당
-                buttonImages[0].sprite = ChangeCards[cardIndex];
-                firstCardNumber = cardIndex;
-                SendCardNumber();
-                emptyFirstCard = false;
-
-                if (buttonImages[1].sprite == defaultCard[1])       // 버튼 1번의 이미지가 디폴트면
+                // 첫번째 카드 공간이 비어있으면
+                if(emptyFirstCard)
                 {
-                    buttonImages[1].sprite = placeHereCard[1];
+                    // 버튼에 이미지 할당
+                    buttonImages[0].sprite = ChangeCards[cardIndex];
+                    firstCardNumber = cardIndex;
+                    firstCardCost = cardCost;
+                    totalCardCost += firstCardCost;
+                    //onTotalCostChange?.Invoke(totalCardCost);
+                    SendCardNumber();
+                    emptyFirstCard = false;
+
+                    if (buttonImages[1].sprite == defaultCard[1])       // 버튼 1번의 이미지가 디폴트면
+                    {
+                        buttonImages[1].sprite = placeHereCard[1];
+                    }
+                    // 버튼 1번의 이미지가 플레이스가 아니고, 버튼 2번의 이미지가 기본 상태이면
+                    else if(buttonImages[1].sprite != placeHereCard[1] && buttonImages[2].sprite == defaultCard[2])
+                    {
+                        buttonImages[2].sprite = placeHereCard[2];
+                    }
                 }
-                // 버튼 1번의 이미지가 플레이스가 아니고, 버튼 2번의 이미지가 기본 상태이면
-                else if(buttonImages[1].sprite != placeHereCard[1] && buttonImages[2].sprite == defaultCard[2])
+
+                // 두번째 카드 공간이 비어있으면
+                else if (emptySecondCard)
                 {
-                    buttonImages[2].sprite = placeHereCard[2];
+                    // 버튼에 이미지 할당
+                    buttonImages[1].sprite = ChangeCards[cardIndex];
+                    secondCardNumber = cardIndex;
+                    secondCardCost = cardCost;
+                    totalCardCost += secondCardCost;
+                    SendCardNumber();
+                    emptySecondCard = false;
+
+                    if (buttonImages[2].sprite == defaultCard[2])       // 버튼 2번의 이미지가 디폴트면
+                    {
+                        buttonImages[2].sprite = placeHereCard[2];
+                    }
                 }
-            }
 
-            // 두번째 카드 공간이 비어있으면
-            else if (emptySecondCard)
-            {
-                // 버튼에 이미지 할당
-                buttonImages[1].sprite = ChangeCards[cardIndex];
-                secondCardNumber = cardIndex;
-                SendCardNumber();
-                emptySecondCard = false;
-
-                if (buttonImages[2].sprite == defaultCard[2])       // 버튼 2번의 이미지가 디폴트면
+                // 세번째 카드 공간이 비어있으면
+                else if (emptyThirdCard)
                 {
-                    buttonImages[2].sprite = placeHereCard[2];
+                    // 버튼에 이미지 할당
+                    buttonImages[2].sprite = ChangeCards[cardIndex];
+                    thirdCardNumber = cardIndex;
+                    thirdCardCost = cardCost;
+                    totalCardCost += thirdCardCost;
+                    SendCardNumber();
+                    emptyThirdCard = false;
+                }
+
+                onTotalCostChange?.Invoke(totalCardCost);
+                pullCard = false;
+
+                // CardButtons 에서 해당하는 카드 비활성화 시키는 부분
+                onCardDisable?.Invoke(cardIndex);
+
+                // 모든 카드가 배치되었는지 확인
+                if (!emptyFirstCard && !emptySecondCard && !emptyThirdCard)
+                {
+                    pullCard = true;        // 카드가 3개 전부 배치되었을 때 pullCard를 true로 설정
                 }
             }
-
-            // 세번째 카드 공간이 비어있으면
-            else if (emptyThirdCard)
+            else
             {
-                // 버튼에 이미지 할당
-                buttonImages[2].sprite = ChangeCards[cardIndex];
-                thirdCardNumber = cardIndex;
-                SendCardNumber();
-                emptyThirdCard = false;
+                Debug.LogWarning("모든 카드 공간이 이미 차 있다.");
+                pullCard = true;
             }
 
-            pullCard = false;
-
-            // CardButtons 에서 해당하는 카드 비활성화 시키는 부분
-            onCardDisable?.Invoke(cardIndex);
-
-            // 모든 카드가 배치되었는지 확인
-            if (!emptyFirstCard && !emptySecondCard && !emptyThirdCard)
-            {
-                pullCard = true;        // 카드가 3개 전부 배치되었을 때 pullCard를 true로 설정
-            }
-        }
-        else
-        {
-            Debug.LogWarning("모든 카드 공간이 이미 차 있다.");
-            pullCard = true;
-        }
+        }        
     }
 
     /// <summary>
-    /// 카드 순서를 넘겨주는 함수
+    /// 델리게이트로 카드 순서를 넘겨주는 함수
     /// </summary>
     void SendCardNumber()
     {

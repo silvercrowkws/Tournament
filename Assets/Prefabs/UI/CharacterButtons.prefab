@@ -1550,6 +1550,7 @@ GameObject:
   - component: {fileID: 7770118002321607191}
   - component: {fileID: 4356367629994757722}
   - component: {fileID: 812585681752456914}
+  - component: {fileID: 5399237507429437108}
   m_Layer: 5
   m_Name: CharacterButtons
   m_TagString: Untagged
@@ -1622,6 +1623,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbd0456ba35e0dd49b605f1d50fc6360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &5399237507429437108
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6289980908358360382}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6680955360444275068
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,6 +29,16 @@ public class FightControlButtons : MonoBehaviour
 
     public Action onFight;
 
+    /// <summary>
+    /// 캔버스 그룹
+    /// </summary>
+    CanvasGroup canvasGroup;
+
+    /// <summary>
+    /// 버서스 이미지 클래스
+    /// </summary>
+    VSImage vsImage;
+
     private void Awake()
     {
         Transform child = transform.GetChild(1);                        // 이 오브젝트의 1번째 자식 Buttons
@@ -38,11 +48,15 @@ public class FightControlButtons : MonoBehaviour
 
         fight = child.GetChild(1).GetComponent<Button>();               // Buttons의 1번째 자식 Fight
         fight.onClick.AddListener(FightFC);
+
+        canvasGroup = GetComponent<CanvasGroup>();
     }
 
     private void Start()
     {
         characterButtons = FindAnyObjectByType<CharacterButtons>();
+        vsImage = FindAnyObjectByType<VSImage>();
+        vsImage.onInteract += OnInteractFalse;
     }
 
     /// <summary>
@@ -56,9 +70,24 @@ public class FightControlButtons : MonoBehaviour
         // 4. VSImage의 tournamentList 초기화
         // 5. 이 게임 오브젝트 비활성화
 
-        characterButtons.gameObject.SetActive(true);        // 1
-        onChangeFighter?.Invoke();                          // 2, 3, 4
-        this.gameObject.SetActive(false);                   // 5
+        //characterButtons.gameObject.SetActive(true);        // 1
+        onChangeFighter?.Invoke();                          // 1, 2, 3, 4
+        //this.gameObject.SetActive(false);                   // 5 => 캔버스 그룹 조절하는 것으로 변경
+        OnInteractFalse(false);
+    }
+
+    private void OnInteractFalse(bool tf)
+    {
+        if (tf)
+        {
+            canvasGroup.alpha = 1.0f;
+            canvasGroup.interactable = true;
+        }
+        else
+        {
+            canvasGroup.alpha = 0.0f;
+            canvasGroup.interactable = false;
+        }
     }
 
     /// <summary>
