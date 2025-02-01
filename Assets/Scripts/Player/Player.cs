@@ -1736,7 +1736,7 @@ public class Player : MonoBehaviour
         {
             case PlayerProtect.Guard:
                 StartCoroutine(GuardCoroutine());
-                // 데미지 감소시키는 부분 필요
+                // 데미지 감소시키는 부분 필요 
                 break;
             case PlayerProtect.PerfectGuard:
                 StartCoroutine(GuardCoroutine());
