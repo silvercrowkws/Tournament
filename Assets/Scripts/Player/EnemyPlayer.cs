@@ -175,6 +175,21 @@ public class EnemyPlayer : MonoBehaviour
     /// </summary>
     public int EcurrentSectionIndex = 0;
 
+    /// <summary>
+    /// 현재 위치가 달라지면 델리게이트를 보내는 프로퍼티
+    /// </summary>
+    public int CurrentSectionIndex
+    {
+        get => EcurrentSectionIndex;
+        set
+        {
+            if (EcurrentSectionIndex != value)
+            {
+                currentSection?.Invoke(EcurrentSectionIndex);
+            }
+        }
+    }
+
     private void Awake()
     {
         
@@ -1528,14 +1543,14 @@ public class EnemyPlayer : MonoBehaviour
 
                 for (int i = 0; i < attackRange.Length; i++)
                 {
-
-                    // 만약 플레이어가 공격 범위에 있으면 데미지
-                    if (player.transform.position == board.player1_Position[attackRange[i]].transform.position)
+                    // 만약 적 플레이어가 공격 범위에 있으면 데미지
+                    if (player.currentSectionIndex == attackRange[i])
                     {
                         // 데미지
-
+                        player.HP -= attackDamage;
+                        Debug.Log($"적 플레이어의 남은 체력 : {player.HP}");
                     }
-                    targetAttack = board.player1_Position[attackRange[i]];      // 바닥 빨갛게 보이기 위해
+                    targetAttack = board.player2_Position[attackRange[i]];      // 바닥 빨갛게 보이기 위해
                     StartCoroutine(AttackRed());
                 }
                 break;
@@ -1550,11 +1565,12 @@ public class EnemyPlayer : MonoBehaviour
 
                 for (int i = 0; i < magicAttackRange.Length; i++)
                 {
-
                     // 만약 플레이어가 공격 범위에 있으면 데미지
-                    if (player.transform.position == board.player1_Position[magicAttackRange[i]].transform.position)
+                    if (player.currentSectionIndex == magicAttackRange[i])
                     {
                         // 데미지
+                        player.HP -= magicAttackDamage;
+                        Debug.Log($"적 플레이어의 남은 체력 : {player.HP}");
                     }
                     targetAttack = board.player1_Position[magicAttackRange[i]];
                     StartCoroutine(AttackRed());
@@ -1571,11 +1587,12 @@ public class EnemyPlayer : MonoBehaviour
 
                 for (int i = 0; i < limitAttackRange.Length; i++)
                 {
-
                     // 만약 플레이어가 공격 범위에 있으면 데미지
-                    if (player.transform.position == board.player1_Position[limitAttackRange[i]].transform.position)
+                    if (player.currentSectionIndex == limitAttackRange[i])
                     {
                         // 데미지
+                        player.HP -= limitAttackDamage;
+                        Debug.Log($"적 플레이어의 남은 체력 : {player.HP}");
                     }
                     targetAttack = board.player1_Position[limitAttackRange[i]];
                     StartCoroutine(AttackRed());

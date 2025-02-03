@@ -196,6 +196,21 @@ public class Player : MonoBehaviour
     /// </summary>
     public int currentSectionIndex = 0;
 
+    /// <summary>
+    /// 현재 위치가 달라지면 델리게이트를 보내는 프로퍼티
+    /// </summary>
+    public int CurrentSectionIndex
+    {
+        get => currentSectionIndex;
+        set
+        {
+            if(currentSectionIndex != value)
+            {
+                currentSection?.Invoke(currentSectionIndex);
+            }
+        }
+    }
+
     private void Awake()
     {
         /*GameObject newCharacter = null;     // 생성된 캐릭터를 저장할 변수
@@ -1667,7 +1682,6 @@ public class Player : MonoBehaviour
 
                 for (int i = 0; i < limitAttackRange.Length; i++)
                 {
-
                     // 만약 적 플레이어가 공격 범위에 있으면 데미지
                     if (enemyPlayer.EcurrentSectionIndex == limitAttackRange[i])
                     {
