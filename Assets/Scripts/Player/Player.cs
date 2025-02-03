@@ -185,6 +185,7 @@ public class Player : MonoBehaviour
     public bool playerActiveEnd = false;
 
     // 애니메이터 관련 끝 ----------------------------------------------------------------------------------------------------
+
     /// <summary>
     /// 현재 위치 정보를 전달하는 델리게이트
     /// </summary>
@@ -532,9 +533,6 @@ public class Player : MonoBehaviour
 
         float elapsedTime = 0f;
         Vector3 startPosition = transform.position;
-
-
-        //Transform parent = board.player1_Position[currentSectionIndex].transform.parent;
 
         // targetObject의 부모 색상을 초록색으로 변경
         Transform parent = targetObgect.transform.parent;
@@ -1609,7 +1607,7 @@ public class Player : MonoBehaviour
 
         }
 
-        switch(selectedAttack)
+        switch (selectedAttack)
         {
             case PlayerAttack.Attack:
 
@@ -1625,12 +1623,12 @@ public class Player : MonoBehaviour
 
                 for(int i = 0; i< attackRange.Length; i++)
                 {
-
                     // 만약 적 플레이어가 공격 범위에 있으면 데미지
-                    if (enemyPlayer.transform.position == board.player2_Position[attackRange[i]].transform.position)
+                    if(enemyPlayer.EcurrentSectionIndex == attackRange[i])
                     {
                         // 데미지
-
+                        enemyPlayer.HP -= attackDamage;
+                        Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
                     }
                     targetAttack = board.player2_Position[attackRange[i]];      // 바닥 빨갛게 보이기 위해
                     StartCoroutine(AttackRed());
@@ -1644,16 +1642,17 @@ public class Player : MonoBehaviour
 
                 // 에너지 감소
                 ReduceEnergy(magicAttackCost);
-                
+
                 for (int i = 0; i < magicAttackRange.Length; i++)
                 {
-
                     // 만약 적 플레이어가 공격 범위에 있으면 데미지
-                    if (enemyPlayer.transform.position == board.player2_Position[magicAttackRange[i]].transform.position)
+                    if (enemyPlayer.EcurrentSectionIndex == magicAttackRange[i])
                     {
                         // 데미지
+                        enemyPlayer.HP -= magicAttackDamage;
+                        Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
                     }
-                    targetAttack = board.player2_Position[magicAttackRange[i]];
+                    targetAttack = board.player2_Position[magicAttackRange[i]];      // 바닥 빨갛게 보이기 위해
                     StartCoroutine(AttackRed());
                 }
                 break;
@@ -1670,9 +1669,11 @@ public class Player : MonoBehaviour
                 {
 
                     // 만약 적 플레이어가 공격 범위에 있으면 데미지
-                    if (enemyPlayer.transform.position == board.player2_Position[limitAttackRange[i]].transform.position)
+                    if (enemyPlayer.EcurrentSectionIndex == limitAttackRange[i])
                     {
                         // 데미지
+                        enemyPlayer.HP -= limitAttackDamage;
+                        Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
                     }
                     targetAttack = board.player2_Position[limitAttackRange[i]];
                     StartCoroutine(AttackRed());

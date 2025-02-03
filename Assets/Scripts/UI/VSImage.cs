@@ -298,6 +298,7 @@ public class VSImage : MonoBehaviour
 
         tournamentList.Clear();
     }
+
     /// <summary>
     /// fightControlButtons의 델리게이트를 받아 리스트를 전달 하는 함수
     /// </summary>
@@ -305,6 +306,11 @@ public class VSImage : MonoBehaviour
     {
         gameManager.gameTournamentList.Clear();     // 기존에 있던 값을 초기화
         gameManager.gameTournamentList.AddRange(tournamentList);  // tournamentList의 내용을 gameTournamentList에 복사
+
+        if (gameManager.gameTournamentList.Count > 0)
+        {
+            gameManager.enemyPlayerCharacterIndex = gameManager.gameTournamentList[0];      // 첫 번째 값을 설정
+        }
 
         // gameTournamentList가 복사되었는지 확인 (디버깅 용)
         /*foreach (var item in gameManager.gameTournamentList)

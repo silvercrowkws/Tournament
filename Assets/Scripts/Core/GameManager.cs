@@ -19,6 +19,20 @@ public enum PlayerCharacter
     Character_Nalu,
 }
 
+public enum EnemyPlayerCharacter
+{
+    Character_Adel = 0,
+    Character_Akstar,
+    Character_Amelia,
+    Character_Arngrim,
+    Character_Barbariccia,
+    Character_BlackMage,
+    Character_Cloud,
+    Character_Elle,
+    Character_Jade,
+    Character_Nalu,
+}
+
 /// <summary>
 /// 게임상태
 /// </summary>
@@ -54,6 +68,16 @@ public class GameManager : Singleton<GameManager>
     /// 플레이어의 캐릭터 인덱스
     /// </summary>
     public int playerCharacterIndex = 0;
+
+    /// <summary>
+    /// 적 플레이어의 캐릭터 인덱스
+    /// </summary>
+    public int enemyPlayerCharacterIndex = 0;
+
+    /// <summary>
+    /// 게임 매니저가 관리하는 토너먼트 리스트
+    /// </summary>
+    public List<int> gameTournamentList = new List<int>();
 
     /// <summary>
     /// 현재 게임상태
@@ -153,11 +177,6 @@ public class GameManager : Singleton<GameManager>
     /// 난이도 선택 클래스
     /// </summary>
     ChooseDif chooseDif;
-
-    /// <summary>
-    /// 게임 매니저가 관리하는 토너먼트 리스트
-    /// </summary>
-    public List<int> gameTournamentList = new List<int>();
 
     /// <summary>
     /// 플레이어가 모든 행동을 완료했는지 확인하는 bool 변수(true : 행동을 완료했다, false : 행동을 완료하지 않았다.)
