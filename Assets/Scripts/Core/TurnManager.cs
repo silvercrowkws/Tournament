@@ -98,6 +98,7 @@ public class TurnManager : Singleton<TurnManager>       // 나중에 리스타�
         {
             turnNumber++;                           // 턴 숫자 증가
             gameManager.isPlayerDone = false;       // 플레이어의 턴 중임을 표시
+            gameManager.isEnemyPlayerDone = false;  // 적 플레이어의 턴 중임을 표시
             Debug.Log($"{turnNumber}턴 시작");
             turnState = TurnProcessState.Start;     // 턴 시작 상태
 

@@ -358,7 +358,7 @@ public class EnemyPlayer : MonoBehaviour
     void Move()
     {
         // 목표 위치
-        //Vector3 targetPosition = board.player1_Position[EcurrentSectionIndex].transform.position;
+        //Vector3 targetPosition = board.player2_Position[EcurrentSectionIndex].transform.position;
         Vector3 targetPosition;
 
         switch (EselectedMove)
@@ -411,13 +411,13 @@ public class EnemyPlayer : MonoBehaviour
         }
 
         // 배열 범위 검사를 추가하여 IndexOutOfRangeException을 방지
-        EcurrentSectionIndex = Mathf.Clamp(EcurrentSectionIndex, 0, board.player1_Position.Length - 1);
+        EcurrentSectionIndex = Mathf.Clamp(EcurrentSectionIndex, 0, board.player2_Position.Length - 1);
 
         // 이동 후 플레이어의 위치 업데이트 -> 순간이동이 아니라 서서히 이동하도록 수정        
-        //transform.position = board.player1_Position[EcurrentSectionIndex].transform.position;
+        //transform.position = board.player2_Position[EcurrentSectionIndex].transform.position;
 
         // 타겟 오브젝트
-        targetObgect = board.player1_Position[EcurrentSectionIndex];
+        targetObgect = board.player2_Position[EcurrentSectionIndex];
 
         if (targetObgect == null)
         {
@@ -452,7 +452,7 @@ public class EnemyPlayer : MonoBehaviour
         Vector3 startPosition = transform.position;
 
 
-        //Transform parent = board.player1_Position[EcurrentSectionIndex].transform.parent;
+        //Transform parent = board.player2_Position[EcurrentSectionIndex].transform.parent;
 
         // targetObject의 부모 색상을 초록색으로 변경
         Transform parent = targetObgect.transform.parent;
@@ -1550,7 +1550,7 @@ public class EnemyPlayer : MonoBehaviour
                         player.HP -= attackDamage;
                         Debug.Log($"적 플레이어의 남은 체력 : {player.HP}");
                     }
-                    targetAttack = board.player2_Position[attackRange[i]];      // 바닥 빨갛게 보이기 위해
+                    targetAttack = board.player1_Position[attackRange[i]];      // 바닥 빨갛게 보이기 위해
                     StartCoroutine(AttackRed());
                 }
                 break;
