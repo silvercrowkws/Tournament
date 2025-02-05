@@ -26,6 +26,11 @@ public class ActivePlayer : MonoBehaviour
     Player player;
 
     /// <summary>
+    /// 적 플레이어
+    /// </summary>
+    EnemyPlayer enemyPlayer;
+
+    /// <summary>
     /// 보드(플레이어의 위치를 표시하기 위함)
     /// </summary>
     Board board;
@@ -40,6 +45,7 @@ public class ActivePlayer : MonoBehaviour
         gameManager = GameManager.Instance;
         turnManager = TurnManager.Instance;
         player = gameManager.Player;
+        enemyPlayer = gameManager.EnemyPlayer;
         controlZone = FindAnyObjectByType<ControlZone>();
         board = FindAnyObjectByType<Board>();
 
@@ -77,6 +83,7 @@ public class ActivePlayer : MonoBehaviour
         yield return new WaitForSeconds(1);                 // 1초 대기
         ActiveCard(controlZone.firstTurnCardIndex);         // 첫 번째 카드 행동 실행
         yield return StartCoroutine(WaitForPlayerAction()); // 행동 완료 대기
+        yield return StartCoroutine(WaitForEnemyPlayerAction());
         Debug.Log("첫 번째 행동 완료");
         yield return new WaitForSeconds(2);                 // 2초 대기
 
@@ -87,6 +94,7 @@ public class ActivePlayer : MonoBehaviour
         yield return new WaitForSeconds(1);                 // 1초 대기
         ActiveCard(controlZone.secondTurnCardIndex);
         yield return StartCoroutine(WaitForPlayerAction());
+        yield return StartCoroutine(WaitForEnemyPlayerAction());
         Debug.Log("두 번째 행동 완료");
         yield return new WaitForSeconds(2);                 // 2초 대기
 
@@ -97,6 +105,7 @@ public class ActivePlayer : MonoBehaviour
         yield return new WaitForSeconds(1);                 // 1초 대기
         ActiveCard(controlZone.thirdTurnCardIndex);
         yield return StartCoroutine(WaitForPlayerAction());
+        yield return StartCoroutine(WaitForEnemyPlayerAction());
         Debug.Log("세 번째 행동 완료");
 
         gameManager.isPlayerDone = true;                    // 행동을 완료했다고 표시
@@ -177,6 +186,20 @@ public class ActivePlayer : MonoBehaviour
             yield return null;
         }
         Debug.Log("대기 코루틴 끝");
+    }
+
+    /// <summary>
+    /// 적의 행동이 끝날 때까지 기다리는 코루틴
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator WaitForEnemyPlayerAction()
+    {
+        Debug.Log("적 행동 끝을 기다리는 코루틴");
+        while (!enemyPlayer.enemyActiveEnd)
+        {
+            yield return null;
+        }
+        Debug.Log("적 행동 끝을 기다리는 코루틴 끝");
     }
 
     private void PlayerSction(int section)

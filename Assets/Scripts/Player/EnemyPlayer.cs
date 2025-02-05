@@ -502,6 +502,10 @@ public class EnemyPlayer : MonoBehaviour
         animator.SetTrigger("Idle");    // 대기 상태로 전환
     }
 
+    public int[] attackRange = null;          // 기본 공격 범위
+    public int[] magicAttackRange = null;     // 마법 공격 범위
+    public int[] limitAttackRange = null;     // 리미트 공격 범위
+
     /// <summary>
     /// 공격 함수(어떤 캐릭터가 어떤 공격을 했다)
     /// </summary>
@@ -511,10 +515,6 @@ public class EnemyPlayer : MonoBehaviour
     public void Attack(EnemyPlayerCharacter EselectedCharacter, EnemyPlayerAttack EselectedAttack, int where)
     {
         // 내 위치 EcurrentSectionIndex 를 기준으로 +1, -1 이면 ㅡ 모양으로 범위가 결정되는 거고
-        int[] attackRange = null;          // 기본 공격 범위
-        int[] magicAttackRange = null;     // 마법 공격 범위
-        int[] limitAttackRange = null;     // 리미트 공격 범위
-
         int attackCost = 0;         // 기본 공격 비용
         int magicAttackCost = 0;    // 마법 공격 비용
         int limitAttackCost = 0;    // 리미트 공격 비용

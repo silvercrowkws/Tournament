@@ -339,14 +339,14 @@ public class PlaceCard : MonoBehaviour
 
 
     /// <summary>
-    /// 델리게이트를 받아 플레이스 존 버튼의 이미지를 변경하는 함수
+    /// 델리게이트를 받아 플레이스 존 버튼의 이미지를 변경하는 함수(카드 세팅)
     /// </summary>
     /// <param name="cardIndex">CardButtons에서 넘겨받은 카드의 인덱스</param>
     /// <param name="cardCost">CardButtons에서 넘겨받은 카드의 코스트</param>
     private void OnCardPlace(int cardIndex, int cardCost)
     {
         // 누적된 코스트 + 카드 코스트 < 현재 에너지
-        if (totalCardCost + cardCost < player.Energy)
+        if (totalCardCost + cardCost <= player.Energy)
         {
             // 만약 카드 공간이 3개 전부 차있지 않으면
             if(emptyFirstCard || emptySecondCard || emptyThirdCard)

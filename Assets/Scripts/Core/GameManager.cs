@@ -59,7 +59,7 @@ public enum GameState
 public enum GameDifficulty
 {
     Normal = 0,                 // 노말 난이도(져도 재시작)
-    Hard,                       // 하드 난이도(지면 처음부터)
+    Hard,                       // 하드 난이도(지면 처음부터?)
 }
 
 public class GameManager : Singleton<GameManager>
