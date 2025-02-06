@@ -41,16 +41,16 @@ public class ActiveEnemyPlayer : MonoBehaviour
     /// </summary>
     public Action<int> onNextCard;
 
-    // 공격시 들어가는 코스트
+    // 행동시 들어가는 코스트
     int attackCost = 0;
     int magicAttackCost = 0;
     int limitAttackCost = 0;
     int perfectGuardCost = 0;
 
     // 행동들
-    int EfirstTurnCardIndex = 0;
-    int EsecondTurnCardIndex = 0;
-    int EthirdTurnCardIndex = 0;
+    public int EfirstTurnCardIndex = 0;
+    public int EsecondTurnCardIndex = 0;
+    public int EthirdTurnCardIndex = 0;
 
     private void Start()
     {
@@ -158,7 +158,54 @@ public class ActiveEnemyPlayer : MonoBehaviour
         enemyPlayer.enemyActiveEnd = false;                 // 적 플레이어가 행동 중임을 표시
         onNextCard?.Invoke(activeNumber);                   // 카드를 보이라고 알림
         yield return new WaitForSeconds(1);                 // 1초 대기
-        ActiveCard(EfirstTurnCardIndex);                    // 첫 번째 카드 행동 실행
+
+
+        // 만약 플레이어의 행동이 움직임이면 0 1 2 3 9 10
+        if (controlZone.firstTurnCardIndex == 0 || controlZone.firstTurnCardIndex == 1 || controlZone.firstTurnCardIndex == 2 || controlZone.firstTurnCardIndex == 3 ||
+            controlZone.firstTurnCardIndex == 9 || controlZone.firstTurnCardIndex == 10)
+        {
+            // 플레이어 먼저 행동을 완료할 때까지 기다림
+            yield return StartCoroutine(WaitForPlayerAction());
+            StartCoroutine(WaitForSecond(0.5f));
+            ActiveCard(EfirstTurnCardIndex);                        // 첫 번째 카드 행동 실행
+        }
+        // 만약 플레이어의 행동이 공격이면 5 6 7
+        else if(controlZone.firstTurnCardIndex == 5 || controlZone.firstTurnCardIndex == 6 || controlZone.firstTurnCardIndex == 7)
+        {
+            // 만약 적의 행동이 공격이 아니면 먼저 행동함 ! 5 6 7
+            if(EfirstTurnCardIndex != 5 && EfirstTurnCardIndex != 6 && EfirstTurnCardIndex != 7)
+            {
+                ActiveCard(EfirstTurnCardIndex);                    // 첫 번째 카드 행동 실행
+            }
+        }
+        // 플레이어의 행동이 움직임, 공격이 아니다 => 수비이다
+        else
+        {
+            // 적의 행동이 움직임일 경우 먼저 행동함
+            if(EfirstTurnCardIndex == 0 || EfirstTurnCardIndex == 1 || EfirstTurnCardIndex == 2 || EfirstTurnCardIndex == 3 ||
+                EfirstTurnCardIndex == 9 || EfirstTurnCardIndex == 10)
+            {
+                ActiveCard(EfirstTurnCardIndex);                    // 첫 번째 카드 행동 실행
+            }
+            // 적의 행동이 공격일 경우 플레이어가 먼저 행동함
+            else if(EfirstTurnCardIndex == 5 || EfirstTurnCardIndex == 6 || EfirstTurnCardIndex == 7)
+            {
+                // 플레이어 먼저 행동을 완료할 때까지 기다림
+                yield return StartCoroutine(WaitForPlayerAction());
+                ActiveCard(EfirstTurnCardIndex);                        // 첫 번째 카드 행동 실행
+            }
+            // 적의 행동이 수비일 경우 플레이어가 먼저 행동함
+            else
+            {
+                // 플레이어 먼저 행동을 완료할 때까지 기다림
+                yield return StartCoroutine(WaitForPlayerAction());
+                ActiveCard(EfirstTurnCardIndex);                        // 첫 번째 카드 행동 실행
+            }
+        }
+
+
+
+        //PlayerActiveCard(EfirstTurnCardIndex);                    // 첫 번째 카드 행동 실행
         yield return StartCoroutine(WaitForEnemyPlayerAction()); // 행동 완료 대기
         yield return StartCoroutine(WaitForPlayerAction());
         Debug.Log("적의 첫 번째 행동 완료");
@@ -277,6 +324,15 @@ public class ActiveEnemyPlayer : MonoBehaviour
             yield return null;
         }
         Debug.Log("플레이어의 행동 끝을 기다리는 코루틴 끝");
+    }
+
+    /// <summary>
+    /// 잠시 기다리는 코루틴
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator WaitForSecond(float delay)
+    {
+        yield return new WaitForSeconds(delay);
     }
 
     private void PlayerSction(int section)
