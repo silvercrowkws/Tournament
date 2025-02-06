@@ -69,12 +69,17 @@ public class NextZone : MonoBehaviour
     /// <summary>
     /// 적 플레이어의 카드 3장
     /// </summary>
-    Image[] enermyPlayerNext = new Image[3];
+    Image[] enemyPlayerNext = new Image[3];
 
     /// <summary>
     /// 각 캐릭터의 카드를 복사하는 배열
     /// </summary>
     public Sprite[] characterCardNext;
+
+    /// <summary>
+    /// 적 플레이어의 카드를 복사하는 배열
+    /// </summary>
+    public Sprite[] enemyCharacterCardNext;
 
     /// <summary>
     /// 플레이어
@@ -93,7 +98,7 @@ public class NextZone : MonoBehaviour
             Transform playerChild = transform.GetChild(0);
             Transform enermyChild = transform.GetChild(1);
             playerNext[i] = playerChild.GetChild(i).GetComponent<Image>();
-            enermyPlayerNext[i] = enermyChild.GetChild(i).GetComponent<Image>();
+            enemyPlayerNext[i] = enermyChild.GetChild(i).GetComponent<Image>();
         }
     }
 
@@ -151,6 +156,41 @@ public class NextZone : MonoBehaviour
                 break;
         }
 
+        // 적이 쓸 스프라이트 배열 복사
+        switch (gameManager.enemyPlayerCharacterIndex)
+        {
+            case 0:
+                enemyCharacterCardNext = placeCard.AdelCards.ToArray();
+                break;
+            case 1:
+                enemyCharacterCardNext = placeCard.AkstarCards.ToArray();
+                break;
+            case 2:
+                enemyCharacterCardNext = placeCard.AmeliaCards.ToArray();
+                break;
+            case 3:
+                enemyCharacterCardNext = placeCard.ArngrimCards.ToArray();
+                break;
+            case 4:
+                enemyCharacterCardNext = placeCard.BarbaricciaCards.ToArray();
+                break;
+            case 5:
+                enemyCharacterCardNext = placeCard.BlackMageCards.ToArray();
+                break;
+            case 6:
+                enemyCharacterCardNext = placeCard.CloudCards.ToArray();
+                break;
+            case 7:
+                enemyCharacterCardNext = placeCard.ElleCards.ToArray();
+                break;
+            case 8:
+                enemyCharacterCardNext = placeCard.JadeCards.ToArray();
+                break;
+            case 9:
+                enemyCharacterCardNext = placeCard.NaluCards.ToArray();
+                break;
+        }
+
         // 상호작용 불가능하게 설정
         canvasGroup.alpha = 0f;
         canvasGroup.interactable = false;
@@ -170,14 +210,17 @@ public class NextZone : MonoBehaviour
             if (activeNumber == 0)
             {
                 playerNext[activeNumber].sprite = characterCardNext[controlZone.firstTurnCardIndex];
+                enemyPlayerNext[2 - activeNumber].sprite = enemyCharacterCardNext[activePlayer.EfirstTurnCardIndex];
             }
             else if (activeNumber == 1)
             {
                 playerNext[activeNumber].sprite = characterCardNext[controlZone.secondTurnCardIndex];
+                enemyPlayerNext[2 - activeNumber].sprite = enemyCharacterCardNext[activePlayer.EsecondTurnCardIndex];
             }
             else if (activeNumber == 2)
             {
                 playerNext[activeNumber].sprite = characterCardNext[controlZone.thirdTurnCardIndex];
+                enemyPlayerNext[2 - activeNumber].sprite = enemyCharacterCardNext[activePlayer.EthirdTurnCardIndex];
             }
         }
         else
@@ -212,6 +255,8 @@ public class NextZone : MonoBehaviour
         for(int i = 0; i< 3; i++)
         {
             playerNext[i].sprite = cardBack;
+            enemyPlayerNext[i].sprite = cardBack;
+            
         }
         turnManager.OnTurnEnd2();                    // 턴 종료
         onFramSetActive?.Invoke();
