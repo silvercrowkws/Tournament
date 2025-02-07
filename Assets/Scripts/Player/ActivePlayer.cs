@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ActivePlayer : MonoBehaviour
@@ -605,6 +606,7 @@ public class ActivePlayer : MonoBehaviour
                     int randomCard;
                     int randomIndex;
                     int cardCost = 0;
+                    enemyPlayer.CharacterAttackRange(gameManager.enemyPlayerCharacterIndex, enemyPlayer.EcurrentSectionIndex);
                     // 1. 가드를 하거나 4 11
                     // 2. 공격을 하거나 5 6 7
                     do
@@ -651,6 +653,9 @@ public class ActivePlayer : MonoBehaviour
         else if (controlZone.firstTurnCardIndex == 0 || controlZone.firstTurnCardIndex == 1 || controlZone.firstTurnCardIndex == 2 || controlZone.firstTurnCardIndex == 3 ||
             controlZone.firstTurnCardIndex == 9 || controlZone.firstTurnCardIndex == 10)
         {
+            // 공격 범위 확인하고
+            enemyPlayer.CharacterAttackRange(gameManager.enemyPlayerCharacterIndex, enemyPlayer.EcurrentSectionIndex);
+
             // 공격 범위에 포함되는 카드들만 선택
             List<int> availableCards = new List<int>();
 
@@ -670,8 +675,34 @@ public class ActivePlayer : MonoBehaviour
                 availableCards.Add(6);
             }
 
+
+            if (enemyPlayer.limitAttackRange == null)
+            {
+                Debug.LogError("❌ 적의 특수 공격 범위가 null입니다!");
+            }
+            else
+            {
+                Debug.LogWarning($"✅ 적의 특수 공격 범위 길이: {enemyPlayer.limitAttackRange.Length}");
+
+                if (enemyPlayer.limitAttackRange.Length > 0)
+                {
+                    Debug.Log($"✅ 플레이어 위치: {player.currentSectionIndex}");
+                    // 아... 이건 지금 적이 플레이어의 카드를 보고 하는 거니까
+                    // 플레이어가 아직 움직인게 아니네..
+                    Debug.LogWarning($"적의 특수 공격 범위 값: {string.Join(", ", enemyPlayer.limitAttackRange)}");
+                }
+                else
+                {
+                    Debug.LogError("❌ 적의 특수 공격 범위 배열이 비어 있습니다!");
+                }
+            }
+
+
+
+
             // 적의 특수 공격 범위에 플레이어가 있다면
-            if (enemyPlayer.limitAttackRange != null && Array.Exists(enemyPlayer.limitAttackRange, element => element == player.currentSectionIndex))
+            //if (enemyPlayer.limitAttackRange != null && Array.Exists(enemyPlayer.limitAttackRange, element => element == player.currentSectionIndex))
+            if (enemyPlayer.limitAttackRange.Contains(player.currentSectionIndex + 1))
             {
                 Debug.Log("플레이어가 움직였는데 적의 특수 공격 범위에 포함됨");
                 inLimitAttackRange = true;
@@ -704,7 +735,8 @@ public class ActivePlayer : MonoBehaviour
                             break;
                     }
                 }
-                while (enemyPlayer.Energy < cardCost);      // 적의 에너지 < 코스트 면 다른게 뽑을 때까지 반복
+                while (enemyPlayer.Energy < cardCost && availableCards.Count > 1);
+                //while (enemyPlayer.Energy < cardCost);      // 적의 에너지 < 코스트 면 다른게 뽑을 때까지 반복
 
                 EfirstTurnCardIndex = randomCard;
 
@@ -716,15 +748,13 @@ public class ActivePlayer : MonoBehaviour
             // 적의 공격 범위에 하나라도 포함되지 않으면
             else
             {
-                Debug.LogWarning("적의 공격 범위에 하나도 포함되지 않음 => 랜덤으로 결정");
-                int randomIndex;
+                Debug.LogWarning("플레이어가 움직였는데 적의 공격 범위에 하나도 포함되지 않음 => 랜덤으로 결정");
                 int randomCard;
                 int cardCost = 0;
 
                 do
                 {
-                    randomIndex = UnityEngine.Random.Range(0, availableCards.Count);
-                    randomCard = availableCards[randomIndex];
+                    randomCard = UnityEngine.Random.Range(0, 13);
 
                     // 선택된 카드에 해당하는 코스트를 확인
                     switch (randomCard)
@@ -748,6 +778,8 @@ public class ActivePlayer : MonoBehaviour
                     }
                 }
                 while (enemyPlayer.Energy < cardCost);      // 적의 에너지 < 코스트 면 다른게 뽑을 때까지 반복
+
+                EfirstTurnCardIndex = randomCard;
             }
         }
         // 플레이어가 공격, 이동을 안했으면(가드, 에너지 업, 퍼펙트 가드, 힐)
