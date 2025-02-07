@@ -702,7 +702,7 @@ public class ActivePlayer : MonoBehaviour
 
             // 적의 특수 공격 범위에 플레이어가 있다면
             //if (enemyPlayer.limitAttackRange != null && Array.Exists(enemyPlayer.limitAttackRange, element => element == player.currentSectionIndex))
-            if (enemyPlayer.limitAttackRange.Contains(player.currentSectionIndex + 1))
+            if (enemyPlayer.limitAttackRange.Contains(player.currentSectionIndex))
             {
                 Debug.Log("플레이어가 움직였는데 적의 특수 공격 범위에 포함됨");
                 inLimitAttackRange = true;
