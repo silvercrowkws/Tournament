@@ -456,7 +456,7 @@ public class Player : MonoBehaviour
     void Move()
     {
         // 목표 위치
-        //Vector3 targetPosition = board.player1_Position[currentSectionIndex].transform.position;
+        //Vector3 targetPosition = board.player1_Position[Section2].transform.position;
         Vector3 targetPosition;
 
         switch (selectedMove)
@@ -512,7 +512,7 @@ public class Player : MonoBehaviour
         currentSectionIndex = Mathf.Clamp(currentSectionIndex, 0, board.player1_Position.Length - 1);
 
         // 이동 후 플레이어의 위치 업데이트 -> 순간이동이 아니라 서서히 이동하도록 수정        
-        //transform.position = board.player1_Position[currentSectionIndex].transform.position;
+        //transform.position = board.player1_Position[Section2].transform.position;
 
         // 타겟 오브젝트
         targetObgect = board.player1_Position[currentSectionIndex];
@@ -606,10 +606,10 @@ public class Player : MonoBehaviour
     /// </summary>
     /// <param name="selectedCharacter">어떤 캐릭터가 공격했는지(공격 범위, 공격력이 캐릭터마다 다름)</param>
     /// <param name="selectedAttack">어떤 공격을 했는지</param>
-    /// <param name="where">어디서 공격을 했는지(currentSectionIndex 기준)</param>
+    /// <param name="where">어디서 공격을 했는지(Section2 기준)</param>
     public void Attack(PlayerCharacter selectedCharacter, PlayerAttack selectedAttack, int where)
     {
-        // 내 위치 currentSectionIndex 를 기준으로 +1, -1 이면 ㅡ 모양으로 범위가 결정되는 거고
+        // 내 위치 Section2 를 기준으로 +1, -1 이면 ㅡ 모양으로 범위가 결정되는 거고
         int attackCost = 0;         // 기본 공격 비용
         int magicAttackCost = 0;    // 마법 공격 비용
         int limitAttackCost = 0;    // 리미트 공격 비용
@@ -1755,7 +1755,7 @@ public class Player : MonoBehaviour
                 break;
             case PlayerProtect.PerfectGuard:
                 StartCoroutine(GuardCoroutine());
-                // 데미지 상쇄시키는 부분 필요
+                // 데미지 상쇄시키는 부분 필요(에너지 감소되는 부분도)
                 break;
             case PlayerProtect.EnergyUp:
                 StartCoroutine(EnergyHealCoroutine());
