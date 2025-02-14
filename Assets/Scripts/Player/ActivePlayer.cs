@@ -812,11 +812,11 @@ public class ActivePlayer : MonoBehaviour
                 if (enemyPlayer.Energy >= limitAttackCost)
                 {
                     availableCards.Add(7);
-                    Debug.Log("에너지가 마법 공격 코스트 이상");
+                    Debug.Log("에너지가 특수 공격 코스트 이상");
                 }
                 else
                 {
-                    Debug.Log("하지만 에너지가 마법 공격 코스트 미만이라 할 수 없다");
+                    Debug.Log("하지만 에너지가 특수 공격 코스트 미만이라 할 수 없다");
                 }
             }
 
