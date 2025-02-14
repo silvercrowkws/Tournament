@@ -259,6 +259,7 @@ public class ActivePlayer : MonoBehaviour
         // 두번째 행동
         activeNumber++;
         player.playerActiveEnd = false;
+        enemyPlayer.enemyActiveEnd = false;
         onNextCard?.Invoke(activeNumber);                   // 카드를 보이라고 알림
         yield return StartCoroutine(WaitForSecond(1));                 // 1초 대기
 
@@ -343,6 +344,7 @@ public class ActivePlayer : MonoBehaviour
         // 세번째 행동
         activeNumber++;
         player.playerActiveEnd = false;
+        enemyPlayer.enemyActiveEnd = false;
         onNextCard?.Invoke(activeNumber);                   // 카드를 보이라고 알림
         yield return StartCoroutine(WaitForSecond(1));                 // 1초 대기
 
