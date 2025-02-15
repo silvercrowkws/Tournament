@@ -63,6 +63,11 @@ public class ActivePlayer : MonoBehaviour
     /// </summary>
     int enemyTargetSection = 0;
 
+    /// <summary>
+    /// 현재 진행된 라운드
+    /// </summary>
+    int round = 0;
+
     private void Start()
     {
         gameManager = GameManager.Instance;
@@ -128,16 +133,27 @@ public class ActivePlayer : MonoBehaviour
         }
 
         //turnManager.onTurnStart += OnPlayerActive;
-        turnManager.onTurnStart += (_) => OnPlay();
+        //turnManager.onTurnStart += (_) => OnPlay();
+        turnManager.onTurnStart += OnRoundPlay;
 
         player.currentSection += PlayerSction;
         enemyPlayer.currentSection += EnemyPlayerSction;
     }
 
-    void OnPlay()
+    /// <summary>
+    /// 라운드를 시작시키는 함수
+    /// </summary>
+    /// <param name="roundNumber">라운드 숫자</param>
+    private void OnRoundPlay(int roundNumber)
     {
+        round = roundNumber;
         StartCoroutine(OnPlayerActive());
     }
+
+    /*void OnPlay()
+    {
+        StartCoroutine(OnPlayerActive());
+    }*/
 
 
     /// <summary>
@@ -885,49 +901,77 @@ public class ActivePlayer : MonoBehaviour
             // 적의 공격 범위에 하나라도 포함되지 않으면
             else
             {
-                Debug.LogWarning("1턴 플레이어가 움직였는데 적의 공격 범위에 하나도 포함되지 않음 => 랜덤으로 결정");
+                Debug.LogWarning("1턴 플레이어가 움직였는데 적의 공격 범위에 하나도 포함되지 않음 => 랜덤으로 결정(에너지 회복 30% 추가)");
                 int randomCard;
+                int randomIndex;
                 int cardCost = 0;
 
-                do
+                if(UnityEngine.Random.value < 0.3f)     // 30% 확률로
                 {
-                    randomCard = UnityEngine.Random.Range(0, 13);
-
-                    // 선택된 카드에 해당하는 코스트를 확인
-                    switch (randomCard)
+                    EfirstTurnCardIndex = 8;            // 에너지 회복
+                }
+                else
+                {
+                    // 첫 라운드이면 왼쪽, 위로 움직임
+                    if(round == 1)
                     {
-                        case 5:
-                            cardCost = attackCost; // attackCost
-                            break;
-                        case 6:
-                            cardCost = magicAttackCost;  // magicAttackCost
-                            break;
-                        case 7:
-                            cardCost = limitAttackCost; // limitAttackCost
-                            break;
-                        case 11:
-                            cardCost = perfectGuardCost;
-                            break;
-                        default :
-                            cardCost = 0;
-                            break;
+                        Debug.LogWarning("첫 라운드에서는 무조건 왼쪽 or 위쪽으로 움직임");
+                        int[] numbers = { 1, 3, 10 };
+                        randomIndex = UnityEngine.Random.Range(0, numbers.Length);
+                        randomCard = numbers[randomIndex];      // 1 3 10 중에서 선택
+                        EfirstTurnCardIndex = randomCard;
+                    }
+                    // 첫 라운드가 아니면
+                    else
+                    {
+                        do
+                        {
+                            randomCard = UnityEngine.Random.Range(0, 13);
 
+                            // 선택된 카드에 해당하는 코스트를 확인
+                            switch (randomCard)
+                            {
+                                case 5:
+                                    cardCost = attackCost; // attackCost
+                                    break;
+                                case 6:
+                                    cardCost = magicAttackCost;  // magicAttackCost
+                                    break;
+                                case 7:
+                                    cardCost = limitAttackCost; // limitAttackCost
+                                    break;
+                                case 11:
+                                    cardCost = perfectGuardCost;
+                                    break;
+                                default :
+                                    cardCost = 0;
+                                    break;
+
+                            }
+                        }
+                        while (enemyPlayer.Energy < cardCost);      // 적의 에너지 < 코스트 면 다른게 뽑을 때까지 반복
+
+                        EfirstTurnCardIndex = randomCard;
+                        EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
                     }
                 }
-                while (enemyPlayer.Energy < cardCost);      // 적의 에너지 < 코스트 면 다른게 뽑을 때까지 반복
-
-                EfirstTurnCardIndex = randomCard;
-                EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
             }
         }
         // 플레이어가 공격, 이동을 안했으면(가드, 에너지 업, 퍼펙트 가드, 힐)
         else
         {
-            // 진짜 랜덤
-            Debug.Log("1턴 플레이어가 공격, 이동을 안해서 진짜 랜덤");
-            int randomCard = UnityEngine.Random.Range(0, 13);
-            EfirstTurnCardIndex = randomCard;
-            EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
+            // 진짜 랜덤 => 에너지 회복 확률 추가
+            Debug.Log("1턴 플레이어가 공격, 이동을 안해서 진짜 랜덤 => 에너지 회복 확률 추가");
+            if(UnityEngine.Random.value < 0.3f)
+            {
+                EfirstTurnCardIndex = 8;
+            }
+            else
+            {
+                int randomCard = UnityEngine.Random.Range(0, 13);
+                EfirstTurnCardIndex = randomCard;
+                EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
+            }
         }
 
         // 첫번째 턴 카드 끝 ----------------------------------------------------------------------------------------------------
@@ -1165,10 +1209,79 @@ public class ActivePlayer : MonoBehaviour
             // 적의 공격 범위에 하나라도 포함되지 않으면
             else
             {
-                Debug.LogWarning("2턴 플레이어가 움직였는데 적의 공격 범위에 하나도 포함되지 않음 => 랜덤으로 결정");
+                Debug.LogWarning("2턴 플레이어가 움직였는데 적의 공격 범위에 하나도 포함되지 않음 => 랜덤으로 결정(에너지 회복 30% 추가)");
                 int randomCard;
+                int randomIndex;
                 int cardCost = 0;
 
+                if(EfirstTurnCardIndex != 8 && UnityEngine.Random.value < 0.3f)
+                {
+                    EsecondTurnCardIndex = 8;
+                }
+                else
+                {
+                    // 첫 라운드이면 왼쪽, 위로 움직임
+                    if (round == 1)
+                    {
+                        Debug.LogWarning("첫 라운드에서는 무조건 왼쪽 or 위쪽으로 움직임");
+                        int[] numbers = { 1, 3, 10 };
+                        do
+                        {
+                            randomIndex = UnityEngine.Random.Range(0, numbers.Length);
+                            randomCard = numbers[randomIndex];      // 1 3 10 중에서 선택
+                        }
+                        while (randomCard == EfirstTurnCardIndex);
+                        EsecondTurnCardIndex = randomCard;
+                    }
+                    else
+                    {
+                        do
+                        {
+                            randomCard = UnityEngine.Random.Range(0, 13);
+
+                            // 선택된 카드에 해당하는 코스트를 확인
+                            switch (randomCard)
+                            {
+                                case 5:
+                                    cardCost = attackCost; // attackCost
+                                    break;
+                                case 6:
+                                    cardCost = magicAttackCost;  // magicAttackCost
+                                    break;
+                                case 7:
+                                    cardCost = limitAttackCost; // limitAttackCost
+                                    break;
+                                case 11:
+                                    cardCost = perfectGuardCost;
+                                    break;
+                                default:
+                                    cardCost = 0;
+                                    break;
+
+                            }
+                        }
+                        while (randomCard == EfirstTurnCardIndex || enemyPlayer.Energy < cardCost);      // 적의 에너지 < 코스트 면 다른게 뽑을 때까지 반복
+
+                        EsecondTurnCardIndex = randomCard;
+                        EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
+                    }
+                }
+            }
+        }
+        // 플레이어가 공격, 이동을 안했으면(가드, 에너지 업, 퍼펙트 가드, 힐)
+        else
+        {
+            // 진짜 랜덤
+            Debug.Log("2턴 플레이어가 공격, 이동을 안해서 진짜 랜덤 => 에너지 회복 확률 추가");
+            int randomCard;
+            int cardCost = 0;
+
+            if (EfirstTurnCardIndex != 8 && UnityEngine.Random.value < 0.3f)
+            {
+                EsecondTurnCardIndex = 8;
+            }
+            else
+            {
                 do
                 {
                     randomCard = UnityEngine.Random.Range(0, 13);
@@ -1199,44 +1312,6 @@ public class ActivePlayer : MonoBehaviour
                 EsecondTurnCardIndex = randomCard;
                 EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
             }
-        }
-        // 플레이어가 공격, 이동을 안했으면(가드, 에너지 업, 퍼펙트 가드, 힐)
-        else
-        {
-            // 진짜 랜덤
-            Debug.Log("2턴 플레이어가 공격, 이동을 안해서 진짜 랜덤");
-            int randomCard;
-            int cardCost = 0;
-
-            do
-            {
-                randomCard = UnityEngine.Random.Range(0, 13);
-
-                // 선택된 카드에 해당하는 코스트를 확인
-                switch (randomCard)
-                {
-                    case 5:
-                        cardCost = attackCost; // attackCost
-                        break;
-                    case 6:
-                        cardCost = magicAttackCost;  // magicAttackCost
-                        break;
-                    case 7:
-                        cardCost = limitAttackCost; // limitAttackCost
-                        break;
-                    case 11:
-                        cardCost = perfectGuardCost;
-                        break;
-                    default:
-                        cardCost = 0;
-                        break;
-
-                }
-            }
-            while (randomCard == EfirstTurnCardIndex || enemyPlayer.Energy < cardCost);      // 적의 에너지 < 코스트 면 다른게 뽑을 때까지 반복
-
-            EsecondTurnCardIndex = randomCard;
-            EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
         }
 
         // 두번째 턴 카드 끝 ----------------------------------------------------------------------------------------------------
@@ -1468,10 +1543,79 @@ public class ActivePlayer : MonoBehaviour
             // 적의 공격 범위에 하나라도 포함되지 않으면
             else
             {
-                Debug.LogWarning("3턴 플레이어가 움직였는데 적의 공격 범위에 하나도 포함되지 않음 => 랜덤으로 결정");
+                Debug.LogWarning("3턴 플레이어가 움직였는데 적의 공격 범위에 하나도 포함되지 않음 => 랜덤으로 결정(에너지 회복 30% 추가)");
                 int randomCard;
+                int randomIndex;
                 int cardCost = 0;
 
+                if (EfirstTurnCardIndex != 8 && EsecondTurnCardIndex != 8 && UnityEngine.Random.value < 0.3f)
+                {
+                    EthirdTurnCardIndex = 8;
+                }
+                else
+                {
+                    // 첫 라운드이면 왼쪽, 위로 움직임
+                    if (round == 1)
+                    {
+                        Debug.LogWarning("첫 라운드에서는 무조건 왼쪽 or 위쪽으로 움직임");
+                        int[] numbers = { 1, 3, 10 };
+                        do
+                        {
+                            randomIndex = UnityEngine.Random.Range(0, numbers.Length);
+                            randomCard = numbers[randomIndex];      // 1 3 10 중에서 선택
+                        }
+                        while (randomCard == EfirstTurnCardIndex || randomCard == EsecondTurnCardIndex);
+                        EsecondTurnCardIndex = randomCard;
+                    }
+                    else
+                    {
+                        do
+                        {
+                            randomCard = UnityEngine.Random.Range(0, 13);
+
+                            // 선택된 카드에 해당하는 코스트를 확인
+                            switch (randomCard)
+                            {
+                                case 5:
+                                    cardCost = attackCost; // attackCost
+                                    break;
+                                case 6:
+                                    cardCost = magicAttackCost;  // magicAttackCost
+                                    break;
+                                case 7:
+                                    cardCost = limitAttackCost; // limitAttackCost
+                                    break;
+                                case 11:
+                                    cardCost = perfectGuardCost;
+                                    break;
+                                default:
+                                    cardCost = 0;
+                                    break;
+
+                            }
+                        }
+                        while (enemyPlayer.Energy <= cardCost);      // 적의 에너지 <= 코스트 면 다른게 뽑을 때까지 반복
+
+                        EthirdTurnCardIndex = randomCard;
+                        EnemyCharacterMove(EthirdTurnCardIndex, enemyTargetSection);
+                    }
+                }
+            }
+        }
+        // 플레이어가 공격, 이동을 안했으면(가드, 에너지 업, 퍼펙트 가드, 힐)
+        else
+        {
+            // 진짜 랜덤
+            Debug.Log("3턴 플레이어가 공격, 이동을 안해서 진짜 랜덤 => 에너지 회복 확률 추가");
+            int randomCard;
+            int cardCost = 0;
+
+            if (EfirstTurnCardIndex != 8 && EsecondTurnCardIndex != 8 && UnityEngine.Random.value < 0.3f)
+            {
+                EthirdTurnCardIndex = 8;
+            }
+            else
+            {
                 do
                 {
                     randomCard = UnityEngine.Random.Range(0, 13);
@@ -1497,49 +1641,11 @@ public class ActivePlayer : MonoBehaviour
 
                     }
                 }
-                while (enemyPlayer.Energy <= cardCost);      // 적의 에너지 <= 코스트 면 다른게 뽑을 때까지 반복
+                while (randomCard == EfirstTurnCardIndex || randomCard == EsecondTurnCardIndex || enemyPlayer.Energy < cardCost);      // 적의 에너지 < 코스트 면 다른게 뽑을 때까지 반복
 
                 EthirdTurnCardIndex = randomCard;
                 EnemyCharacterMove(EthirdTurnCardIndex, enemyTargetSection);
             }
-        }
-        // 플레이어가 공격, 이동을 안했으면(가드, 에너지 업, 퍼펙트 가드, 힐)
-        else
-        {
-            // 진짜 랜덤
-            Debug.Log("3턴 플레이어가 공격, 이동을 안해서 진짜 랜덤");
-            int randomCard;
-            int cardCost = 0;
-
-            do
-            {
-                randomCard = UnityEngine.Random.Range(0, 13);
-
-                // 선택된 카드에 해당하는 코스트를 확인
-                switch (randomCard)
-                {
-                    case 5:
-                        cardCost = attackCost; // attackCost
-                        break;
-                    case 6:
-                        cardCost = magicAttackCost;  // magicAttackCost
-                        break;
-                    case 7:
-                        cardCost = limitAttackCost; // limitAttackCost
-                        break;
-                    case 11:
-                        cardCost = perfectGuardCost;
-                        break;
-                    default:
-                        cardCost = 0;
-                        break;
-
-                }
-            }
-            while (randomCard == EfirstTurnCardIndex || randomCard == EsecondTurnCardIndex || enemyPlayer.Energy < cardCost);      // 적의 에너지 < 코스트 면 다른게 뽑을 때까지 반복
-
-            EthirdTurnCardIndex = randomCard;
-            EnemyCharacterMove(EthirdTurnCardIndex, enemyTargetSection);
         }
 
     }
