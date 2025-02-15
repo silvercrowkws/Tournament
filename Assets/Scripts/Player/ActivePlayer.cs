@@ -1090,7 +1090,7 @@ public class ActivePlayer : MonoBehaviour
         {
             Debug.Log($"두번째로 움직이기 전 플레이어의 위치 {playerTargetSection}");
             // 현재 위치로부터 움직일 위치 계산하고
-            PlayerCharacterMove(controlZone.secondTurnCardIndex, playerTargetSection);a
+            PlayerCharacterMove(controlZone.secondTurnCardIndex, playerTargetSection);
             Debug.Log($"두번째로 플레이어의 움직일 위치 {playerTargetSection}");
 
             // 적의 공격 범위 확인하고
@@ -2464,6 +2464,8 @@ public class ActivePlayer : MonoBehaviour
     /// <param name="Section">현재 위치</param>
     private void PlayerCharacterMove(int cardIndex, int Section)
     {
+        Debug.Log($"PlayerCharacterMove 실행 전 - Section: {Section}, playerTargetSection: {playerTargetSection}");
+
         switch (cardIndex)
         {
             // 아래로 이동
@@ -2486,7 +2488,7 @@ public class ActivePlayer : MonoBehaviour
             case 2:
                 if (Section != 3 && Section != 7 && Section != 11)        // 현재 위치가 3, 7, 11 이 아닐 때(맨 오른쪽)
                 {
-                    playerTargetSection = Section++;          // 오른쪽으로 이동할 때는 +1 만큼
+                    playerTargetSection = Section + 1;          // 오른쪽으로 이동할 때는 +1 만큼
                 }
                 break;
 
@@ -2494,7 +2496,7 @@ public class ActivePlayer : MonoBehaviour
             case 3:
                 if (Section != 0 && Section != 4 && Section != 8)        // 현재 위치가 0, 4, 8 이 아닐 때(맨 왼쪽)
                 {
-                    playerTargetSection = Section--;          // 왼쪽으로 이동할 때는 -1 만큼
+                    playerTargetSection = Section - 1;          // 왼쪽으로 이동할 때는 -1 만큼
                 }
                 break;
 
@@ -2502,7 +2504,7 @@ public class ActivePlayer : MonoBehaviour
             case 9:
                 if (Section == 2 || Section == 6 || Section == 10)
                 {
-                    playerTargetSection = Section++;
+                    playerTargetSection = Section + 1;
                 }
                 else if (Section != 2 && Section != 3 && Section != 6 && Section != 7 && Section != 10 && Section != 11)
                 {
@@ -2514,7 +2516,7 @@ public class ActivePlayer : MonoBehaviour
             case 10:
                 if (Section == 1 || Section == 5 || Section == 9)
                 {
-                    playerTargetSection = Section--;
+                    playerTargetSection = Section - 1;
                 }
                 else if (Section != 0 && Section != 1 && Section != 4 && Section != 5 && Section != 8 && Section != 9)
                 {
@@ -2522,6 +2524,7 @@ public class ActivePlayer : MonoBehaviour
                 }
                 break;
         }
+        Debug.Log($"PlayerCharacterMove 실행 후 - playerTargetSection: {playerTargetSection}");
     }
 
     /// <summary>
@@ -2531,6 +2534,7 @@ public class ActivePlayer : MonoBehaviour
     /// <param name="Section">현재 위치</param>
     private void EnemyCharacterMove(int cardIndex, int Section)
     {
+        Debug.Log($"EnemyCharacterMove 실행 전 - Section: {Section}, enemyTargetSection: {enemyTargetSection}");
         switch (cardIndex)
         {
             // 아래로 이동
@@ -2553,7 +2557,7 @@ public class ActivePlayer : MonoBehaviour
             case 2:
                 if (Section != 3 && Section != 7 && Section != 11)        // 현재 위치가 3, 7, 11 이 아닐 때(맨 오른쪽)
                 {
-                    enemyTargetSection = Section++;          // 오른쪽으로 이동할 때는 +1 만큼
+                    enemyTargetSection = Section + 1;          // 오른쪽으로 이동할 때는 +1 만큼
                 }
                 break;
 
@@ -2561,7 +2565,7 @@ public class ActivePlayer : MonoBehaviour
             case 3:
                 if (Section != 0 && Section != 4 && Section != 8)        // 현재 위치가 0, 4, 8 이 아닐 때(맨 왼쪽)
                 {
-                    enemyTargetSection = Section--;          // 왼쪽으로 이동할 때는 -1 만큼
+                    enemyTargetSection = Section - 1;          // 왼쪽으로 이동할 때는 -1 만큼     후위 연산자라 계산에 적용 안되는 경우가 있었음
                 }
                 break;
 
@@ -2569,7 +2573,7 @@ public class ActivePlayer : MonoBehaviour
             case 9:
                 if (Section == 2 || Section == 6 || Section == 10)
                 {
-                    enemyTargetSection = Section++;
+                    enemyTargetSection = Section + 1;
                 }
                 else if (Section != 2 && Section != 3 && Section != 6 && Section != 7 && Section != 10 && Section != 11)
                 {
@@ -2581,7 +2585,7 @@ public class ActivePlayer : MonoBehaviour
             case 10:
                 if (Section == 1 || Section == 5 || Section == 9)
                 {
-                    enemyTargetSection = Section--;
+                    enemyTargetSection = Section + 1;
                 }
                 else if (Section != 0 && Section != 1 && Section != 4 && Section != 5 && Section != 8 && Section != 9)
                 {
@@ -2592,5 +2596,6 @@ public class ActivePlayer : MonoBehaviour
                 enemyTargetSection = Section;
                 break;
         }
+        Debug.Log($"EnemyCharacterMove 실행 후 - enemyTargetSection: {enemyTargetSection}");
     }
 }
