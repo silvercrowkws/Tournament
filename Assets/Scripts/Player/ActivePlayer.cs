@@ -615,6 +615,13 @@ public class ActivePlayer : MonoBehaviour
         playerTargetSection = player.currentSectionIndex;           // 움직일 위치 초기값을 현재 위치와 동기화
         enemyTargetSection = enemyPlayer.EcurrentSectionIndex;
 
+        Debug.Log($"하드모드로 초기화된 플레이어와 적의 위치");
+        Debug.Log($"플레이어 : {playerTargetSection}");
+        Debug.Log($"플레이어 : {player.currentSectionIndex}");
+        
+        Debug.Log($"적 : {enemyTargetSection}");
+        Debug.Log($"적 : {enemyPlayer.EcurrentSectionIndex}");
+
         // 첫번째 턴 카드 시작 ----------------------------------------------------------------------------------------------------
 
         // 만약 플레이어가 첫턴에 기본 공격 or 마법 공격 or 특수 공격을 할 예정이면
@@ -744,28 +751,48 @@ public class ActivePlayer : MonoBehaviour
                     else
                     {
                         // 에너지업, 움직임 0 1 2 3 8
-                        int[] numbers = { 0, 1, 2, 3, 8 };
-                        int randomIndex = UnityEngine.Random.Range(0, numbers.Length);
-                        EfirstTurnCardIndex = numbers[randomIndex];
+                        if(UnityEngine.Random.value < 0.3f)     // 30% 확률로
+                        {
+                            EfirstTurnCardIndex = 8;            // 에너지 회복
+                        }
+                        else
+                        {
+                            int[] numbers = { 0, 1, 2, 3, 8 };
+                            int randomIndex = UnityEngine.Random.Range(0, numbers.Length);
+                            EfirstTurnCardIndex = numbers[randomIndex];
+                            EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
+                        }
                     }
                 }
             }
             // 플레이어가 공격을 했으나 적이 공격 범위에 없음
             else
             {
+                // 여기에 에너지 회복하는 부분을 우선적으로 하는게?
                 Debug.LogWarning("1턴 플레이어가 공격할건데, 적이 공격 범위에 없음");
-                Debug.Log("그래서 움직이기로 함");
-                int randomCard = UnityEngine.Random.Range(0, 4);        // 0 1 2 3 중 1개 선택
-                EfirstTurnCardIndex = randomCard;                       // 나중에 썼던 카드 또 쓰면 안됨
-                EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
+
+                if(UnityEngine.Random.value < 0.3f)     // 30% 확률로 에너지 회복 먼저
+                {
+                    Debug.Log("30% 확률로 에너지 회복 하기로 함");
+                    EfirstTurnCardIndex = 8;            // 8이 에너지 회복
+                }
+                else
+                {
+                    Debug.Log("70% 확률로 움직이기로 함");
+                    int randomCard = UnityEngine.Random.Range(0, 4);        // 0 1 2 3 중 1개 선택
+                    EfirstTurnCardIndex = randomCard;                       // 나중에 썼던 카드 또 쓰면 안됨
+                    EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
+                }
             }
         }
         // 플레이어가 첫턴에 움직일 예정이면
         else if (controlZone.firstTurnCardIndex == 0 || controlZone.firstTurnCardIndex == 1 || controlZone.firstTurnCardIndex == 2 || controlZone.firstTurnCardIndex == 3 ||
             controlZone.firstTurnCardIndex == 9 || controlZone.firstTurnCardIndex == 10)
         {
+            Debug.Log($"첫번째로 움직이기 전 플레이어의 위치 {playerTargetSection}");
             // 현재 위치로부터 움직일 위치 계산하고
             PlayerCharacterMove(controlZone.firstTurnCardIndex, playerTargetSection);
+            Debug.Log($"첫번째로 플레이어의 움직일 위치 {playerTargetSection}");
 
             // 적의 공격 범위 확인하고
             CharacterAttackRange(gameManager.enemyPlayerCharacterIndex, enemyTargetSection);
@@ -1017,9 +1044,18 @@ public class ActivePlayer : MonoBehaviour
                     else
                     {
                         // 에너지업, 움직임 0 1 2 3 8
-                        int[] numbers = { 0, 1, 2, 3, 8 };
-                        int randomIndex = UnityEngine.Random.Range(0, numbers.Length);
-                        EsecondTurnCardIndex = numbers[randomIndex];
+
+                        if (UnityEngine.Random.value < 0.3f)     // 30% 확률로
+                        {
+                            EsecondTurnCardIndex = 8;            // 에너지 회복
+                        }
+                        else
+                        {
+                            int[] numbers = { 0, 1, 2, 3, 8 };
+                            int randomIndex = UnityEngine.Random.Range(0, numbers.Length);
+                            EsecondTurnCardIndex = numbers[randomIndex];
+                            EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
+                        }
                     }
                 }
             }
@@ -1027,24 +1063,35 @@ public class ActivePlayer : MonoBehaviour
             else
             {
                 Debug.LogWarning("2턴 플레이어가 공격할건데, 적이 공격 범위에 없음");
-                Debug.Log("그래서 움직이기로 함");
-                int randomCard;
-                do
-                {
-                    randomCard = UnityEngine.Random.Range(0, 4);        // 0, 1, 2, 3 중 하나 선택
-                }
-                while (randomCard == EfirstTurnCardIndex);              // 같은 값이면 다시 뽑기
 
-                EsecondTurnCardIndex = randomCard;                      // 중복되지 않는 값 저장
-                EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
+                if (EfirstTurnCardIndex != 8 && UnityEngine.Random.value < 0.3f)     // 30% 확률로 에너지 회복 먼저
+                {
+                    Debug.Log("30% 확률로 에너지 회복 하기로 함");
+                    EsecondTurnCardIndex = 8;            // 8이 에너지 회복
+                }
+                else
+                {
+                    Debug.Log("70% 확률로 움직이기로 함");
+                    int randomCard;
+                    do
+                    {
+                        randomCard = UnityEngine.Random.Range(0, 4);        // 0, 1, 2, 3 중 하나 선택
+                    }
+                    while (randomCard == EfirstTurnCardIndex);              // 같은 값이면 다시 뽑기
+
+                    EsecondTurnCardIndex = randomCard;                      // 중복되지 않는 값 저장
+                    EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
+                }
             }
         }
         // 플레이어가 두번째 턴에 움직일 예정이면
         else if (controlZone.secondTurnCardIndex == 0 || controlZone.secondTurnCardIndex == 1 || controlZone.secondTurnCardIndex == 2 || controlZone.secondTurnCardIndex == 3 ||
             controlZone.secondTurnCardIndex == 9 || controlZone.secondTurnCardIndex == 10)
         {
+            Debug.Log($"두번째로 움직이기 전 플레이어의 위치 {playerTargetSection}");
             // 현재 위치로부터 움직일 위치 계산하고
-            PlayerCharacterMove(controlZone.secondTurnCardIndex, playerTargetSection);
+            PlayerCharacterMove(controlZone.secondTurnCardIndex, playerTargetSection);a
+            Debug.Log($"두번째로 플레이어의 움직일 위치 {playerTargetSection}");
 
             // 적의 공격 범위 확인하고
             CharacterAttackRange(gameManager.enemyPlayerCharacterIndex, enemyTargetSection);
@@ -1293,7 +1340,7 @@ public class ActivePlayer : MonoBehaviour
                         randomIndex = UnityEngine.Random.Range(0, availableCards.Count);
                         randomCard = availableCards[randomIndex];
 
-                        EsecondTurnCardIndex = randomCard;
+                        EthirdTurnCardIndex = randomCard;
 
                         availableCards.Clear();
                     }
@@ -1301,9 +1348,17 @@ public class ActivePlayer : MonoBehaviour
                     else
                     {
                         // 에너지업, 움직임 0 1 2 3 8
-                        int[] numbers = { 0, 1, 2, 3, 8 };
-                        int randomIndex = UnityEngine.Random.Range(0, numbers.Length);
-                        EsecondTurnCardIndex = numbers[randomIndex];
+                        if (UnityEngine.Random.value < 0.3f)     // 30% 확률로
+                        {
+                            EthirdTurnCardIndex = 8;            // 에너지 회복
+                        }
+                        else
+                        {
+                            int[] numbers = { 0, 1, 2, 3, 8 };
+                            int randomIndex = UnityEngine.Random.Range(0, numbers.Length);
+                            EthirdTurnCardIndex = numbers[randomIndex];
+                            EnemyCharacterMove(EthirdTurnCardIndex, enemyTargetSection);
+                        }
                     }
                 }
             }
@@ -1311,24 +1366,35 @@ public class ActivePlayer : MonoBehaviour
             else
             {
                 Debug.LogWarning("3턴 플레이어가 공격할건데, 적이 공격 범위에 없음");
-                Debug.Log("그래서 움직이기로 함");
-                int randomCard;
-                do
-                {
-                    randomCard = UnityEngine.Random.Range(0, 4);        // 0, 1, 2, 3 중 하나 선택
-                }
-                while (randomCard == EfirstTurnCardIndex || randomCard == EsecondTurnCardIndex);              // 같은 값이면 다시 뽑기
 
-                EthirdTurnCardIndex = randomCard;                      // 중복되지 않는 값 저장
-                EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
+                if (EfirstTurnCardIndex != 8 && EsecondTurnCardIndex != 8 && UnityEngine.Random.value < 0.3f)     // 30% 확률로 에너지 회복 먼저
+                {
+                    Debug.Log("30% 확률로 에너지 회복 하기로 함");
+                    EthirdTurnCardIndex = 8;            // 8이 에너지 회복
+                }
+                else
+                {
+                    Debug.Log("70% 확률로 움직이기로 함");
+                    int randomCard;
+                    do
+                    {
+                        randomCard = UnityEngine.Random.Range(0, 4);        // 0, 1, 2, 3 중 하나 선택
+                    }
+                    while (randomCard == EfirstTurnCardIndex || randomCard == EsecondTurnCardIndex);              // 같은 값이면 다시 뽑기
+
+                    EthirdTurnCardIndex = randomCard;                      // 중복되지 않는 값 저장
+                    EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
+                }
             }
         }
         // 플레이어가 세번째 턴에 움직일 예정이면
         else if (controlZone.thirdTurnCardIndex == 0 || controlZone.thirdTurnCardIndex == 1 || controlZone.thirdTurnCardIndex == 2 || controlZone.thirdTurnCardIndex == 3 ||
             controlZone.thirdTurnCardIndex == 9 || controlZone.thirdTurnCardIndex == 10)
         {
+            Debug.Log($"세번째로 움직이기 전 플레이어의 위치 {playerTargetSection}");
             // 현재 위치로부터 움직일 위치 계산하고
             PlayerCharacterMove(controlZone.thirdTurnCardIndex, playerTargetSection);
+            Debug.Log($"세번째로 플레이어의 움직일 위치 {playerTargetSection}");
 
             // 적의 공격 범위 확인하고
             CharacterAttackRange(gameManager.enemyPlayerCharacterIndex, enemyTargetSection);
