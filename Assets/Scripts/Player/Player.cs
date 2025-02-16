@@ -1823,23 +1823,27 @@ public class Player : MonoBehaviour
         {
             case PlayerProtect.Guard:
                 StartCoroutine(GuardCoroutine());
-                // 데미지 감소시키는 부분 필요 
-                // 만약 데미지를 받는 상황이면 +15?
-
                 break;
+
             case PlayerProtect.PerfectGuard:
                 StartCoroutine(GuardCoroutine());
-                // 데미지 상쇄시키는 부분 필요(에너지 감소되는 부분도)
-
                 ReduceEnergy(25);
                 break;
+
             case PlayerProtect.EnergyUp:
                 StartCoroutine(EnergyHealCoroutine());
                 // 에너지 회복하는 부분 필요
+                //Debug.LogWarning($"<플레이어의 에너지 회복 전> 남은 에너지 : {Energy}");
+                Energy += 15;
+                //Debug.LogWarning($"<플레이어의 에너지 회복> 남은 에너지 : {Energy}");
                 break;
+
             case PlayerProtect.Heal:
                 StartCoroutine(EnergyHealCoroutine());
                 // HP 회복 시키는 부분 필요
+                //Debug.LogWarning($"<플레이어의 체력 회복 전> 남은 체력 : {HP}");
+                HP += 15;
+                //Debug.LogWarning($"<플레이어의 체력 회복> 남은 체력 : {HP}");
                 break;
         }
     }

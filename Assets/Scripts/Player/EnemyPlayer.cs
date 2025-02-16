@@ -1730,20 +1730,24 @@ public class EnemyPlayer : MonoBehaviour
         switch (EselectedProtect)
         {
             case EnemyPlayerProtect.Guard:
-                StartCoroutine(GuardCoroutine());
-                // 데미지 감소시키는 부분 필요 
+                StartCoroutine(GuardCoroutine());                
                 break;
+
             case EnemyPlayerProtect.PerfectGuard:
                 StartCoroutine(GuardCoroutine());
-                // 데미지 상쇄시키는 부분 필요
+                ReduceEnergy(25);
                 break;
+
             case EnemyPlayerProtect.EnergyUp:
                 StartCoroutine(EnergyHealCoroutine());
                 // 에너지 회복하는 부분 필요
+                Energy += 15;
                 break;
+
             case EnemyPlayerProtect.Heal:
                 StartCoroutine(EnergyHealCoroutine());
                 // HP 회복 시키는 부분 필요
+                HP += 15;
                 break;
         }
     }

@@ -954,10 +954,7 @@ public class ActivePlayer : MonoBehaviour
             // 진짜 랜덤 => 에너지 회복 확률 추가
             Debug.Log("1턴 플레이어가 공격, 이동을 안해서 진짜 랜덤 => 에너지 회복 확률 추가");
 
-            EfirstTurnCardIndex = 7;
-            //여기
-
-            /*if (UnityEngine.Random.value < 0.3f)
+            if (UnityEngine.Random.value < 0.3f)
             {
                 EfirstTurnCardIndex = 8;
             }
@@ -966,7 +963,7 @@ public class ActivePlayer : MonoBehaviour
                 int randomCard = UnityEngine.Random.Range(0, 13);
                 EfirstTurnCardIndex = randomCard;
                 EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
-            }*/
+            }
         }
 
         // 첫번째 턴 카드 끝 ----------------------------------------------------------------------------------------------------
