@@ -215,9 +215,8 @@ public class ActivePlayer : MonoBehaviour
             {
                 // 적이 먼저 행동
                 EnemyActiveCard(EfirstTurnCardIndex);                           // 적이 먼저 행동 후(수비인 경우) 0.5초 후에 공격을 실행하면 공격이 끝날때 수비도 끝남
-                yield return StartCoroutine(WaitForEnemyPlayerAction());
                 yield return StartCoroutine(WaitForSecond(1.5f));               // 적의 행동이 끝나고 잠시 기다림
-                PlayerActiveCard(controlZone.firstTurnCardIndex);               // 적의 행동이 끝나고 플레이어의 행동 시작
+                PlayerActiveCard(controlZone.firstTurnCardIndex);               // 적의 행동이 끝나고 플레이어의 행동 시작(수비면 행동이 끝나는 상황이 아님)
                 yield return StartCoroutine(WaitForPlayerAction());
             }
             else
@@ -247,7 +246,6 @@ public class ActivePlayer : MonoBehaviour
             else if(EfirstTurnCardIndex == 5 || EfirstTurnCardIndex == 6 || EfirstTurnCardIndex == 7)
             {
                 PlayerActiveCard(controlZone.firstTurnCardIndex);
-                yield return StartCoroutine(WaitForPlayerAction());             // 플레이어의 행동이 끝날때까지 대기
                 yield return StartCoroutine(WaitForSecond(1.5f));               // 플레이어의 행동이 끝나고 잠시 기다림
                 EnemyActiveCard(EfirstTurnCardIndex);                           // 적의 행동 실행
                 yield return StartCoroutine(WaitForEnemyPlayerAction());
@@ -256,10 +254,10 @@ public class ActivePlayer : MonoBehaviour
             else
             {
                 PlayerActiveCard(controlZone.firstTurnCardIndex);
-                yield return StartCoroutine(WaitForPlayerAction());
+                //yield return StartCoroutine(WaitForPlayerAction());
                 yield return StartCoroutine(WaitForSecond(1.5f));               // 모두의 행동을 잠시 지속
                 EnemyActiveCard(EfirstTurnCardIndex);
-                yield return StartCoroutine(WaitForEnemyPlayerAction());
+                //yield return StartCoroutine(WaitForEnemyPlayerAction());
                 player.playerActiveEnd = true;          // 플레이어의 행동이 끝났음을 표시
                 enemyPlayer.enemyActiveEnd = true;      // 적의 행동이 끝났음을 표시
             }
@@ -299,7 +297,6 @@ public class ActivePlayer : MonoBehaviour
             {
                 // 적이 먼저 행동
                 EnemyActiveCard(EsecondTurnCardIndex);                          // 적이 먼저 행동 후(수비인 경우) 0.5초 후에 공격을 실행하면 공격이 끝날때 수비도 끝남
-                yield return StartCoroutine(WaitForEnemyPlayerAction());
                 yield return StartCoroutine(WaitForSecond(1.5f));               // 적의 행동이 끝나고 잠시 기다림
                 PlayerActiveCard(controlZone.secondTurnCardIndex);              // 적의 행동이 끝나고 플레이어의 행동 시작
                 yield return StartCoroutine(WaitForPlayerAction());
@@ -331,7 +328,6 @@ public class ActivePlayer : MonoBehaviour
             else if (EsecondTurnCardIndex == 5 || EsecondTurnCardIndex == 6 || EsecondTurnCardIndex == 7)
             {
                 PlayerActiveCard(controlZone.secondTurnCardIndex);
-                yield return StartCoroutine(WaitForPlayerAction());             // 플레이어의 행동이 끝날때까지 대기
                 yield return StartCoroutine(WaitForSecond(1.5f));               // 플레이어의 행동이 끝나고 잠시 기다림
                 EnemyActiveCard(EsecondTurnCardIndex);                          // 적의 행동 실행
                 yield return StartCoroutine(WaitForEnemyPlayerAction());
@@ -340,10 +336,8 @@ public class ActivePlayer : MonoBehaviour
             else
             {
                 PlayerActiveCard(controlZone.secondTurnCardIndex);
-                yield return StartCoroutine(WaitForPlayerAction());
                 yield return StartCoroutine(WaitForSecond(1.5f));               // 모두의 행동을 잠시 지속
                 EnemyActiveCard(EsecondTurnCardIndex);
-                yield return StartCoroutine(WaitForEnemyPlayerAction());
                 player.playerActiveEnd = true;          // 플레이어의 행동이 끝났음을 표시
                 enemyPlayer.enemyActiveEnd = true;      // 적의 행동이 끝났음을 표시
             }
@@ -416,7 +410,6 @@ public class ActivePlayer : MonoBehaviour
             else if (EthirdTurnCardIndex == 5 || EthirdTurnCardIndex == 6 || EthirdTurnCardIndex == 7)
             {
                 PlayerActiveCard(controlZone.thirdTurnCardIndex);
-                yield return StartCoroutine(WaitForPlayerAction());             // 플레이어의 행동이 끝날때까지 대기
                 yield return StartCoroutine(WaitForSecond(1.5f));               // 플레이어의 행동이 끝나고 잠시 기다림
                 EnemyActiveCard(EthirdTurnCardIndex);                           // 적의 행동 실행
                 yield return StartCoroutine(WaitForEnemyPlayerAction());
@@ -425,10 +418,8 @@ public class ActivePlayer : MonoBehaviour
             else
             {
                 PlayerActiveCard(controlZone.thirdTurnCardIndex);
-                yield return StartCoroutine(WaitForPlayerAction());
                 yield return StartCoroutine(WaitForSecond(1.5f));               // 모두의 행동을 잠시 지속
                 EnemyActiveCard(EthirdTurnCardIndex);
-                yield return StartCoroutine(WaitForEnemyPlayerAction());
                 player.playerActiveEnd = true;          // 플레이어의 행동이 끝났음을 표시
                 enemyPlayer.enemyActiveEnd = true;      // 적의 행동이 끝났음을 표시
             }
@@ -962,7 +953,11 @@ public class ActivePlayer : MonoBehaviour
         {
             // 진짜 랜덤 => 에너지 회복 확률 추가
             Debug.Log("1턴 플레이어가 공격, 이동을 안해서 진짜 랜덤 => 에너지 회복 확률 추가");
-            if(UnityEngine.Random.value < 0.3f)
+
+            EfirstTurnCardIndex = 7;
+            //여기
+
+            /*if (UnityEngine.Random.value < 0.3f)
             {
                 EfirstTurnCardIndex = 8;
             }
@@ -971,7 +966,7 @@ public class ActivePlayer : MonoBehaviour
                 int randomCard = UnityEngine.Random.Range(0, 13);
                 EfirstTurnCardIndex = randomCard;
                 EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
-            }
+            }*/
         }
 
         // 첫번째 턴 카드 끝 ----------------------------------------------------------------------------------------------------

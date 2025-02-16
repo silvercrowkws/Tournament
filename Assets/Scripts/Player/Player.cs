@@ -170,6 +170,9 @@ public class Player : MonoBehaviour
         }
     }
 
+    public bool playerGuard = false;
+    public bool playerPerfectGuard = false;
+
     // 체력 & 에너지 관련 끝 ----------------------------------------------------------------------------------------------------
 
     // 애니메이터 관련 시작 ----------------------------------------------------------------------------------------------------
@@ -1641,9 +1644,32 @@ public class Player : MonoBehaviour
                     // 만약 적 플레이어가 공격 범위에 있으면 데미지
                     if(enemyPlayer.EcurrentSectionIndex == attackRange[i])
                     {
-                        // 데미지
-                        enemyPlayer.HP -= attackDamage;
-                        Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
+                        int finalDamage = attackDamage;
+
+                        // 적 플레이어의 상태가 가드이면
+                        if (enemyPlayer.enemyPlayerGuard)
+                        {
+                            // 데미지
+                            finalDamage = attackDamage - 15;            // 데미지 15 감소
+                            finalDamage = Mathf.Max(0, finalDamage);    // 최소 0 이상의 데미지로 제한(음수 방지)
+                            enemyPlayer.HP -= finalDamage;
+
+                            Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
+                        }
+                        // 적 플레이어의 상태가 퍼펙트 가드이면
+                        else if(enemyPlayer.enemyPlayerPerfectGuard)
+                        {
+                            finalDamage = 0;
+                            enemyPlayer.HP -= finalDamage;
+                            Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
+                        }
+                        // 적 플레이어의 상태가 가드쪽이 아니면
+                        else
+                        {
+                            // 데미지
+                            enemyPlayer.HP -= finalDamage;
+                            Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
+                        }
                     }
                     targetAttack = board.player2_Position[attackRange[i]];      // 바닥 빨갛게 보이기 위해
                     StartCoroutine(AttackRed());
@@ -1663,9 +1689,32 @@ public class Player : MonoBehaviour
                     // 만약 적 플레이어가 공격 범위에 있으면 데미지
                     if (enemyPlayer.EcurrentSectionIndex == magicAttackRange[i])
                     {
-                        // 데미지
-                        enemyPlayer.HP -= magicAttackDamage;
-                        Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
+                        int finalDamage = magicAttackDamage;
+
+                        // 적 플레이어의 상태가 가드이면
+                        if (enemyPlayer.enemyPlayerGuard)
+                        {
+                            // 데미지
+                            finalDamage = magicAttackDamage - 15;            // 데미지 15 감소
+                            finalDamage = Mathf.Max(0, finalDamage);    // 최소 0 이상의 데미지로 제한(음수 방지)
+                            enemyPlayer.HP -= finalDamage;
+
+                            Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
+                        }
+                        // 적 플레이어의 상태가 퍼펙트 가드이면
+                        else if (enemyPlayer.enemyPlayerPerfectGuard)
+                        {
+                            finalDamage = 0;
+                            enemyPlayer.HP -= finalDamage;
+                            Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
+                        }
+                        // 적 플레이어의 상태가 가드쪽이 아니면
+                        else
+                        {
+                            // 데미지
+                            enemyPlayer.HP -= finalDamage;
+                            Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
+                        }
                     }
                     targetAttack = board.player2_Position[magicAttackRange[i]];      // 바닥 빨갛게 보이기 위해
                     StartCoroutine(AttackRed());
@@ -1685,9 +1734,32 @@ public class Player : MonoBehaviour
                     // 만약 적 플레이어가 공격 범위에 있으면 데미지
                     if (enemyPlayer.EcurrentSectionIndex == limitAttackRange[i])
                     {
-                        // 데미지
-                        enemyPlayer.HP -= limitAttackDamage;
-                        Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
+                        int finalDamage = limitAttackDamage;
+
+                        // 적 플레이어의 상태가 가드이면
+                        if (enemyPlayer.enemyPlayerGuard)
+                        {
+                            // 데미지
+                            finalDamage = limitAttackDamage - 15;            // 데미지 15 감소
+                            finalDamage = Mathf.Max(0, finalDamage);    // 최소 0 이상의 데미지로 제한(음수 방지)
+                            enemyPlayer.HP -= finalDamage;
+
+                            Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
+                        }
+                        // 적 플레이어의 상태가 퍼펙트 가드이면
+                        else if (enemyPlayer.enemyPlayerPerfectGuard)
+                        {
+                            finalDamage = 0;
+                            enemyPlayer.HP -= finalDamage;
+                            Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
+                        }
+                        // 적 플레이어의 상태가 가드쪽이 아니면
+                        else
+                        {
+                            // 데미지
+                            enemyPlayer.HP -= finalDamage;
+                            Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
+                        }
                     }
                     targetAttack = board.player2_Position[limitAttackRange[i]];
                     StartCoroutine(AttackRed());
@@ -1741,7 +1813,7 @@ public class Player : MonoBehaviour
         Energy -= cost;                         // 에너지 차감
         //energyChange?.Invoke(currentEnergy);    // UI 업데이트용 델리게이트 호출 => 에너지가 변경되면 프로퍼티에서 델리게이트 보냄
     }
-
+    
     /// <summary>
     /// 플레이어가 수비적인 행동을 할 때 실행되는 함수
     /// </summary>
@@ -1752,10 +1824,14 @@ public class Player : MonoBehaviour
             case PlayerProtect.Guard:
                 StartCoroutine(GuardCoroutine());
                 // 데미지 감소시키는 부분 필요 
+                // 만약 데미지를 받는 상황이면 +15?
+
                 break;
             case PlayerProtect.PerfectGuard:
                 StartCoroutine(GuardCoroutine());
                 // 데미지 상쇄시키는 부분 필요(에너지 감소되는 부분도)
+
+                ReduceEnergy(25);
                 break;
             case PlayerProtect.EnergyUp:
                 StartCoroutine(EnergyHealCoroutine());
@@ -1775,6 +1851,16 @@ public class Player : MonoBehaviour
     IEnumerator GuardCoroutine()
     {
         animator.SetTrigger("Protect");         // 가드, 에너지 업, 힐 애니메이터
+        
+        // 플레이어가 가드 상태이면
+        if(selectedProtect == PlayerProtect.Guard)
+        {
+            playerGuard = true;
+        }
+        else
+        {
+            playerPerfectGuard = true;
+        }
 
         yield return new WaitForSeconds(1);     // 1초 대기 => 가드를 먼저 시작하고 후에 적이 공격을 시작하기 때문에(공격 시작 전까지는 enemyActiveEnd 가 false임)
 
@@ -1786,6 +1872,17 @@ public class Player : MonoBehaviour
         playerActiveEnd = true;                 // 행동이 끝났음을 표시
 
         ResetTrigger();
+        
+        // 플레이어가 가드 상태이면
+        if (selectedProtect == PlayerProtect.Guard)
+        {
+            playerGuard = false;
+        }
+        else
+        {
+            playerPerfectGuard = false;
+        }
+
         animator.SetTrigger("Idle");
     }
 
