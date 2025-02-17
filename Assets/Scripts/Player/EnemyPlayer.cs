@@ -133,7 +133,14 @@ public class EnemyPlayer : MonoBehaviour
                 if(currentHP < 1)
                 {
                     Debug.Log("HP 1보다 작아짐");
-                    onEnemyHPZero?.Invoke();
+                    if (onEnemyHPZero == null)
+                    {
+                        Debug.LogError("onEnemyHPZero가 구독되지 않았음!");
+                    }
+                    else
+                    {
+                        onEnemyHPZero?.Invoke();
+                    }
                 }
                 EhpChange?.Invoke(currentHP);
             }
@@ -1849,6 +1856,7 @@ public class EnemyPlayer : MonoBehaviour
     /// <param name="result">게임 결과 true : 승리, false : 패배</param>
     private void OnEnemyResult(bool result)
     {
+        // 공격이던 하던 애니메이션이 있으면 그거 다 하고 넘어가야 할듯
         if (result)
         {
             // 적이 이긴 상황

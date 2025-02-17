@@ -318,28 +318,6 @@ public class GameManager : Singleton<GameManager>
         //turnManager.OnInitialize2();            // 씬이 시작될 때 
     }*/
 
-    /// <summary>
-    /// 플레이어나 적의 HP가 0이 되었을 때 실행되는 함수
-    /// </summary>
-    private void OnGameOver()
-    {
-        Debug.LogError("왜 실행이 안되는데 ㅅㅂ");
-        gameOver = true;
-
-        if (player.HP < 1)
-        {
-            // 플레이어가 진 상황
-            onEnemyResult?.Invoke(true);        // 적이 이김
-            onPlayerResult?.Invoke(false);      // 플레이어가 짐
-        }
-        else if (enemyPlayer.HP > 1)
-        {
-            // 적이 진 상황
-            onPlayerResult?.Invoke(true);       // 플레이어가 이김
-            onEnemyResult?.Invoke(false);       // 적이 짐
-        }
-    }
-
     private void OnSceneLoaded(Scene scene, LoadSceneMode arg1)
     {
         switch(scene.buildIndex)
@@ -356,16 +334,52 @@ public class GameManager : Singleton<GameManager>
                 Debug.Log("카드 선택 씬");
                 gameState = GameState.SelectCard;
 
-                if (player != null)
+                enemyPlayer = FindAnyObjectByType<EnemyPlayer>();
+                if (enemyPlayer == null)
                 {
-                    player.onPlayerHPZero += OnGameOver;
+                    Debug.LogError("2번 씬에서도 enemyPlayer를 못 찾음!");
                 }
-
-                if (enemyPlayer != null)
+                else
                 {
                     enemyPlayer.onEnemyHPZero += OnGameOver;
+                    Debug.Log("onEnemyHPZero 이벤트 구독 완료!");
+                }
+
+                player = FindAnyObjectByType<Player>();
+                if (player == null)
+                {
+                    Debug.LogError("2번 씬에서도 player를 못 찾음!");
+                }
+                else
+                {
+                    player.onPlayerHPZero += OnGameOver;
+                    Debug.Log("onPlayerHPZero 이벤트 구독 완료!");
                 }
                 break;
+        }
+    }
+
+    /// <summary>
+    /// 플레이어나 적의 HP가 0이 되었을 때 실행되는 함수
+    /// </summary>
+    private void OnGameOver()
+    {
+        gameOver = true;
+
+        Debug.Log($"게임 오버 : {gameOver}");
+        if (player.HP < 1)
+        {
+            Debug.LogWarning("플레이어가 진 상황");
+            // 플레이어가 진 상황
+            onEnemyResult?.Invoke(true);        // 적이 이김
+            onPlayerResult?.Invoke(false);      // 플레이어가 짐
+        }
+        else if (enemyPlayer.HP < 1)
+        {
+            // 적이 진 상황
+            Debug.LogWarning("플레이어가 이긴 상황");
+            onPlayerResult?.Invoke(true);       // 플레이어가 이김
+            onEnemyResult?.Invoke(false);       // 적이 짐
         }
     }
 
