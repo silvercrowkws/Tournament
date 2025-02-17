@@ -42,8 +42,8 @@ public class BoardSmallZone : MonoBehaviour
     EnemyPlayer enemyPlayer;
 
     // 이전 플레이어가 위치했던 인덱스
-    int oldPlayerSectionindex = 0;
-    int oldEnemySectionindex = 3;
+    int oldPlayerSectionindex = 4;
+    int oldEnemySectionindex = 7;
 
     /// <summary>
     /// 넥스트 존 클래스
@@ -86,15 +86,15 @@ public class BoardSmallZone : MonoBehaviour
         player.currentSection += PlayerUpdateBoardImage;
         enemyPlayer.currentSection += EnemyUpdateBoardImage;
 
-        SetImageAlpha(player1[0], 1f);                                                  // 플레이어 위치에 해당하는 이미지를 불투명하게
-        player1[0].sprite = characterSprites[gameManager.playerCharacterIndex];         // 플레이어의 초기 위치
+        SetImageAlpha(player1[4], 1f);                                                  // 플레이어 위치에 해당하는 이미지를 불투명하게
+        player1[4].sprite = characterSprites[gameManager.playerCharacterIndex];         // 플레이어의 초기 위치
 
-        SetImageAlpha(player2[3], 1f);                                                  // 적 플레이어 위치에 해당하는 이미지를 불투명하게
-        player2[3].sprite = characterSprites[gameManager.enemyPlayerCharacterIndex];    // 적 플레이어의 초기 위치
+        SetImageAlpha(player2[7], 1f);                                                  // 적 플레이어 위치에 해당하는 이미지를 불투명하게
+        player2[7].sprite = characterSprites[gameManager.enemyPlayerCharacterIndex];    // 적 플레이어의 초기 위치
 
         // 시작 시 플레이어와 적의 위치에 맞게 회전 설정
-        RotateImagesToFace(player1[0], player.gameObject.transform.position, enemyPlayer.gameObject.transform.position);
-        RotateImagesToFace(player2[3], enemyPlayer.gameObject.transform.position, player.gameObject.transform.position);
+        RotateImagesToFace(player1[4], player.gameObject.transform.position, enemyPlayer.gameObject.transform.position);
+        RotateImagesToFace(player2[7], enemyPlayer.gameObject.transform.position, player.gameObject.transform.position);
     }
 
     /// <summary>

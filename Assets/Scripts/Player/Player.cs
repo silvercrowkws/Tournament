@@ -312,7 +312,7 @@ public class Player : MonoBehaviour
         if (board == null)
             Debug.LogError("Board is null!");
 
-        currentSectionIndex = 0;
+        currentSectionIndex = 4;
         transform.position = board.player1_Position[currentSectionIndex].transform.position;       // 플레이어의 현재 위치
 
 

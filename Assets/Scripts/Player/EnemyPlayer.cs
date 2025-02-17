@@ -214,7 +214,7 @@ public class EnemyPlayer : MonoBehaviour
         if (board == null)
             Debug.LogError("Board is null!");
 
-        EcurrentSectionIndex = 3;
+        EcurrentSectionIndex = 7;
         transform.position = board.player2_Position[EcurrentSectionIndex].transform.position;       // 플레이어의 현재 위치
 
 

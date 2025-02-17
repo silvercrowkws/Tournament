@@ -897,22 +897,23 @@ public class ActivePlayer : MonoBehaviour
                 int randomIndex;
                 int cardCost = 0;
 
-                if(UnityEngine.Random.value < 0.3f)     // 30% 확률로
+                // 첫 라운드이면 왼쪽, 위쪽, 아래쪽으로 움직임
+                if (round == 1)
                 {
-                    EfirstTurnCardIndex = 8;            // 에너지 회복
+                    Debug.LogWarning("첫 라운드에서는 무조건 왼쪽 or 위쪽 or 아래쪽으로 움직임");
+                    int[] numbers = { 0, 1, 3, 10 };
+                    randomIndex = UnityEngine.Random.Range(0, numbers.Length);
+                    randomCard = numbers[randomIndex];      // 0 1 3 10 중에서 선택
+                    EfirstTurnCardIndex = randomCard;
+                    EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
                 }
+                // 첫 라운드가 아니면
                 else
                 {
-                    // 첫 라운드이면 왼쪽, 위로 움직임
-                    if(round == 1)
+                    if (UnityEngine.Random.value < 0.3f)     // 30% 확률로
                     {
-                        Debug.LogWarning("첫 라운드에서는 무조건 왼쪽 or 위쪽으로 움직임");
-                        int[] numbers = { 1, 3, 10 };
-                        randomIndex = UnityEngine.Random.Range(0, numbers.Length);
-                        randomCard = numbers[randomIndex];      // 1 3 10 중에서 선택
-                        EfirstTurnCardIndex = randomCard;
+                        EfirstTurnCardIndex = 8;             // 에너지 회복
                     }
-                    // 첫 라운드가 아니면
                     else
                     {
                         do
@@ -934,7 +935,7 @@ public class ActivePlayer : MonoBehaviour
                                 case 11:
                                     cardCost = perfectGuardCost;
                                     break;
-                                default :
+                                default:
                                     cardCost = 0;
                                     break;
 
@@ -1173,7 +1174,7 @@ public class ActivePlayer : MonoBehaviour
                 Debug.Log($"{playerTargetSection}이 포함");
                 if (EfirstTurnCardIndex != 7 && enemyPlayer.Energy >= limitAttackCost)
                 {
-                    availableCards.Add(6);
+                    availableCards.Add(7);
                     Debug.Log("첫 턴에 특수 공격을 안했고, 에너지가 특수 공격 코스트 이상");
                 }
                 else
@@ -1206,24 +1207,25 @@ public class ActivePlayer : MonoBehaviour
                 int randomIndex;
                 int cardCost = 0;
 
-                if(EfirstTurnCardIndex != 8 && UnityEngine.Random.value < 0.3f)
+                if (round == 1)
                 {
-                    EsecondTurnCardIndex = 8;
+                    Debug.LogWarning("첫 라운드에서는 무조건 왼쪽 or 위쪽 or 아래쪽으로 움직임");
+                    int[] numbers = { 0, 1, 3, 10 };
+                    do
+                    {
+                        randomIndex = UnityEngine.Random.Range(0, numbers.Length);
+                        randomCard = numbers[randomIndex];      // 1 3 10 중에서 선택
+                    }
+                    while (randomCard == EfirstTurnCardIndex);
+                    EsecondTurnCardIndex = randomCard;
+                    EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
                 }
+                // 첫 라운드가 아니면
                 else
                 {
-                    // 첫 라운드이면 왼쪽, 위로 움직임
-                    if (round == 1)
+                    if (EfirstTurnCardIndex != 8 && UnityEngine.Random.value < 0.3f)
                     {
-                        Debug.LogWarning("첫 라운드에서는 무조건 왼쪽 or 위쪽으로 움직임");
-                        int[] numbers = { 1, 3, 10 };
-                        do
-                        {
-                            randomIndex = UnityEngine.Random.Range(0, numbers.Length);
-                            randomCard = numbers[randomIndex];      // 1 3 10 중에서 선택
-                        }
-                        while (randomCard == EfirstTurnCardIndex);
-                        EsecondTurnCardIndex = randomCard;
+                        EsecondTurnCardIndex = 8;
                     }
                     else
                     {
@@ -1540,24 +1542,24 @@ public class ActivePlayer : MonoBehaviour
                 int randomIndex;
                 int cardCost = 0;
 
-                if (EfirstTurnCardIndex != 8 && EsecondTurnCardIndex != 8 && UnityEngine.Random.value < 0.3f)
+                if (round == 1)
                 {
-                    EthirdTurnCardIndex = 8;
+                    Debug.LogWarning("첫 라운드에서는 무조건 왼쪽 or 위쪽 or 아래쪽으로 움직임");
+                    int[] numbers = { 0, 1, 3, 10 };
+                    do
+                    {
+                        randomIndex = UnityEngine.Random.Range(0, numbers.Length);
+                        randomCard = numbers[randomIndex];      // 1 3 10 중에서 선택
+                    }
+                    while (randomCard == EfirstTurnCardIndex || randomCard == EsecondTurnCardIndex);
+                    EthirdTurnCardIndex = randomCard;
+                    EnemyCharacterMove(EthirdTurnCardIndex, enemyTargetSection);
                 }
                 else
                 {
-                    // 첫 라운드이면 왼쪽, 위로 움직임
-                    if (round == 1)
+                    if (EfirstTurnCardIndex != 8 && EsecondTurnCardIndex != 8 && UnityEngine.Random.value < 0.3f)
                     {
-                        Debug.LogWarning("첫 라운드에서는 무조건 왼쪽 or 위쪽으로 움직임");
-                        int[] numbers = { 1, 3, 10 };
-                        do
-                        {
-                            randomIndex = UnityEngine.Random.Range(0, numbers.Length);
-                            randomCard = numbers[randomIndex];      // 1 3 10 중에서 선택
-                        }
-                        while (randomCard == EfirstTurnCardIndex || randomCard == EsecondTurnCardIndex);
-                        EsecondTurnCardIndex = randomCard;
+                        EthirdTurnCardIndex = 8;
                     }
                     else
                     {
