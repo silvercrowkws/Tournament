@@ -268,7 +268,15 @@ public class ActivePlayer : MonoBehaviour
         yield return StartCoroutine(WaitForEnemyPlayerAction());
         Debug.Log("첫 번째 행동 완료");
         yield return StartCoroutine(WaitForSecond(2));                 // 2초 대기
-        
+
+
+        // 만약 첫번째 행동에서 게임이 종료된 상황이면
+        if (gameManager.gameOver)
+        {
+            Debug.Log("게임 오버");
+            yield break;        // 코루틴을 종료
+        }
+
 
         // 두번째 행동
         activeNumber++;
@@ -349,6 +357,13 @@ public class ActivePlayer : MonoBehaviour
         Debug.Log("두 번째 행동 완료");
         yield return StartCoroutine(WaitForSecond(2));                 // 2초 대기
 
+
+        // 만약 첫번째 행동에서 게임이 종료된 상황이면
+        if (gameManager.gameOver)
+        {
+            Debug.Log("게임 오버");
+            yield break;        // 코루틴을 종료
+        }
 
 
         // 세번째 행동

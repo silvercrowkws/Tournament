@@ -124,6 +124,11 @@ public class Player : MonoBehaviour
     public Action<int> energyChange;
 
     /// <summary>
+    /// 플레이어의 체력이 0이되었다고 알리는 델리게이트
+    /// </summary>
+    public Action onPlayerHPZero;
+
+    /// <summary>
     /// 현재 가지고 있는 체력
     /// </summary>
     int currentHP = 100;
@@ -146,6 +151,10 @@ public class Player : MonoBehaviour
                 //currentHP = value;
                 currentHP = Mathf.Clamp(value, 0, 100);
                 Debug.Log($"남은 체력 : {currentHP}");
+                if(currentHP < 1)       // 만약 현재 HP가 1보다 작으면
+                {
+                    onPlayerHPZero?.Invoke();
+                }
                 hpChange?.Invoke(currentHP);
             }
         }
@@ -300,7 +309,13 @@ public class Player : MonoBehaviour
     {
         gameManager = GameManager.Instance;
         if (gameManager == null)
+        {
             Debug.LogError("GameManager instance not found!");
+        }
+        else
+        {
+            gameManager.onPlayerResult += OnPlayerResult;
+        }
 
         enemyPlayer = gameManager.EnemyPlayer;
 
@@ -310,7 +325,9 @@ public class Player : MonoBehaviour
 
         board = FindAnyObjectByType<Board>();
         if (board == null)
+        {
             Debug.LogError("Board is null!");
+        }
 
         currentSectionIndex = 4;
         transform.position = board.player1_Position[currentSectionIndex].transform.position;       // 플레이어의 현재 위치
@@ -1920,5 +1937,23 @@ public class Player : MonoBehaviour
         animator.ResetTrigger("Idle");
         animator.ResetTrigger("Die");
         animator.ResetTrigger("Move");
+    }
+
+    /// <summary>
+    /// 플레이어의 승패 처리하는 함수
+    /// </summary>
+    /// <param name="result">게임 결과 true : 승리, false : 패배</param>
+    private void OnPlayerResult(bool result)
+    {
+        if (result)
+        {
+            // 플레이어가 이긴 상황
+            animator.SetTrigger("Win");
+        }
+        else
+        {
+            // 플레이어가 진 상황
+            animator.SetTrigger("Die");
+        }
     }
 }

@@ -198,9 +198,36 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public Action onBothPlayersDone;
 
+    /// <summary>
+    /// true : 승리, false : 패배
+    /// </summary>
+    public Action<bool> onPlayerResult;
+
+    /// <summary>
+    /// true : 승리, false : 패배
+    /// </summary>
+    public Action<bool> onEnemyResult;
+
+    /// <summary>
+    /// 게임이 끝났으니 행동을 멈추라고 알리는 델리게이트(true : 게임 종료, false : 게임 진행 중)
+    /// </summary>
+    public bool gameOver = false;
+
     private void Start()
     {
-        //chooseDif = FindAnyObjectByType<ChooseDif>();
+        if(player != null)
+        {
+            player.onPlayerHPZero += OnGameOver;
+        }
+        else
+        {
+            Debug.Log("플레이어 없음");
+        }
+
+        if(enemyPlayer != null)
+        {
+            enemyPlayer.onEnemyHPZero += OnGameOver;
+        }
     }
 
     private void OnEnable()
@@ -211,6 +238,8 @@ public class GameManager : Singleton<GameManager>
         {
             chooseDif.onNormalMode += GameDif;
         }
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
@@ -274,8 +303,6 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-
-
     /// <summary>
     /// 게임을 재시작 시킬때 초기화 시키는 함수
     /// </summary>
@@ -285,6 +312,27 @@ public class GameManager : Singleton<GameManager>
         
         //turnManager.turnNumber = 0;
         //turnManager.OnInitialize2();            // 씬이 시작될 때 
+    }
+
+    /// <summary>
+    /// 플레이어나 적의 HP가 0이 되었을 때 실행되는 함수
+    /// </summary>
+    private void OnGameOver()
+    {
+        gameOver = true;
+
+        if (player.HP < 1)
+        {
+            // 플레이어가 진 상황
+            onEnemyResult?.Invoke(true);        // 적이 이김
+            onPlayerResult?.Invoke(false);      // 플레이어가 짐
+        }
+        else if (enemyPlayer.HP > 1)
+        {
+            // 적이 진 상황
+            onPlayerResult?.Invoke(true);       // 플레이어가 이김
+            onEnemyResult?.Invoke(false);       // 적이 짐
+        }
     }
 
 
