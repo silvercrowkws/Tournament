@@ -132,6 +132,7 @@ public class EnemyPlayer : MonoBehaviour
                 Debug.Log($"남은 체력 : {currentHP}");
                 if(currentHP < 1)
                 {
+                    Debug.Log("HP 1보다 작아짐");
                     onEnemyHPZero?.Invoke();
                 }
                 EhpChange?.Invoke(currentHP);
@@ -1637,7 +1638,6 @@ public class EnemyPlayer : MonoBehaviour
                             // 데미지
                             player.HP -= finalDamage;
                             Debug.Log($"플레이어의 남은 체력 : {player.HP}");
-                            Debug.Log("플레이어의 상태가 가드가 아닌데?");
                         }
                     }
                     targetAttack = board.player1_Position[magicAttackRange[i]];

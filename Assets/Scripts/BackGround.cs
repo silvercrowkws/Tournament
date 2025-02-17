@@ -42,8 +42,8 @@ public class BackGround : MonoBehaviour
         // 인덱스를 셔플하여 순서대로 사용할 수 있도록 준비
         availableIndexes = availableIndexes.OrderBy(x => Random.value).ToList();
 
-        // 게임 상태가 캐릭터 선택 상태이면
-        if (gameManager.GameState == GameState.SelectCharacter)
+        // 게임 상태가 카드 선택 상태이면
+        if (gameManager.GameState == GameState.SelectCard)
         {
             // 셔플된 순서대로 배경을 설정
             int randomIndex = availableIndexes[0];              // 셔플된 첫 번째 인덱스를 선택

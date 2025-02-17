@@ -41,7 +41,7 @@ public enum GameState
     Main = 0,                   // 기본 상태
     SelectCharacter,            // 캐릭터 선택 상태
     SelectCard,                 // 카드 선택 상태
-    GameStart,                  // 내가 카드 선택한대로 움직이는 상태
+    //GameStart,                  // 내가 카드 선택한대로 움직이는 상태
     GameWin,                    // 내가 그 판을 이긴 상태
     GameOver                    // 내가 그 판을 진 상태
 
@@ -113,10 +113,10 @@ public class GameManager : Singleton<GameManager>
                         Debug.Log("카드 선택 상태");
                         onSelectCard?.Invoke();
                         break;
-                    case GameState.GameStart:
+                    /*case GameState.GameStart:
                         Debug.Log("게임스타트");
                         onGameStart?.Invoke();
-                        break;
+                        break;*/
                     case GameState.GameWin:
                         Debug.Log("게임 승리");
                         onGameWin?.Invoke();
@@ -215,7 +215,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        if(player != null)
+        /*if (player != null)
         {
             player.onPlayerHPZero += OnGameOver;
         }
@@ -224,10 +224,12 @@ public class GameManager : Singleton<GameManager>
             Debug.Log("플레이어 없음");
         }
 
-        if(enemyPlayer != null)
+        if (enemyPlayer != null)
         {
             enemyPlayer.onEnemyHPZero += OnGameOver;
         }
+
+        SceneManager.sceneLoaded += OnSceneLoaded;*/
     }
 
     private void OnEnable()
@@ -248,6 +250,8 @@ public class GameManager : Singleton<GameManager>
         {
             chooseDif.onNormalMode -= GameDif;
         }
+
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     protected override void OnInitialize()
@@ -303,7 +307,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    /// <summary>
+    /*/// <summary>
     /// 게임을 재시작 시킬때 초기화 시키는 함수
     /// </summary>
     public void GameRestart()
@@ -312,13 +316,14 @@ public class GameManager : Singleton<GameManager>
         
         //turnManager.turnNumber = 0;
         //turnManager.OnInitialize2();            // 씬이 시작될 때 
-    }
+    }*/
 
     /// <summary>
     /// 플레이어나 적의 HP가 0이 되었을 때 실행되는 함수
     /// </summary>
     private void OnGameOver()
     {
+        Debug.LogError("왜 실행이 안되는데 ㅅㅂ");
         gameOver = true;
 
         if (player.HP < 1)
@@ -335,9 +340,34 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    private void OnSceneLoaded(Scene scene, LoadSceneMode arg1)
+    {
+        switch(scene.buildIndex)
+        {
+            case 0:
+                Debug.Log("메인 씬");
+                gameState = GameState.Main;
+                break;
+            case 1:
+                Debug.Log("캐릭터 선택 씬");
+                gameState = GameState.SelectCharacter;
+                break;
+            case 2:
+                Debug.Log("카드 선택 씬");
+                gameState = GameState.SelectCard;
 
+                if (player != null)
+                {
+                    player.onPlayerHPZero += OnGameOver;
+                }
 
-
+                if (enemyPlayer != null)
+                {
+                    enemyPlayer.onEnemyHPZero += OnGameOver;
+                }
+                break;
+        }
+    }
 
 #if UNITY_EDITOR
 
