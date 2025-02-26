@@ -150,7 +150,7 @@ public class Player : MonoBehaviour
             {
                 //currentHP = value;
                 currentHP = Mathf.Clamp(value, 0, 100);
-                Debug.Log($"남은 체력 : {currentHP}");
+                Debug.Log($"플레이어 남은 체력 : {currentHP}");
                 if(currentHP < 1)       // 만약 현재 HP가 1보다 작으면
                 {
                     onPlayerHPZero?.Invoke();
@@ -1945,7 +1945,8 @@ public class Player : MonoBehaviour
     /// <param name="result">게임 결과 true : 승리, false : 패배</param>
     private void OnPlayerResult(bool result)
     {
-        if (result)
+        StartCoroutine(yieldPlayerResult(result));
+        /*if (result)
         {
             // 플레이어가 이긴 상황
             animator.SetTrigger("Win");
@@ -1953,6 +1954,30 @@ public class Player : MonoBehaviour
         else
         {
             // 플레이어가 진 상황
+            animator.SetTrigger("Die");
+        }*/
+    }
+
+    /// <summary>
+    /// 플레이어의 승패 처리하는 코루틴
+    /// </summary>
+    /// <param name="result"></param>
+    /// <returns></returns>
+    private IEnumerator yieldPlayerResult(bool result)
+    {
+        // 만약 플레이어와 적의 행동이 끝나지 않았으면
+        while(!playerActiveEnd || !enemyPlayer.enemyActiveEnd)
+        {
+            yield return null;      // 기다림
+        }
+        
+        yield return new WaitForSeconds(0.5f);
+        if (result)
+        {
+            animator.SetTrigger("Win");
+        }
+        else
+        {
             animator.SetTrigger("Die");
         }
     }

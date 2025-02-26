@@ -364,22 +364,32 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     private void OnGameOver()
     {
-        gameOver = true;
+        gameOver = true;        // 나중에 이거 초기화 필요
 
         Debug.Log($"게임 오버 : {gameOver}");
-        if (player.HP < 1)
+
+        if (player.HP < 1 && enemyPlayer.HP < 1)
         {
-            Debug.LogWarning("플레이어가 진 상황");
-            // 플레이어가 진 상황
-            onEnemyResult?.Invoke(true);        // 적이 이김
-            onPlayerResult?.Invoke(false);      // 플레이어가 짐
+            Debug.LogWarning("플레이어와 적이 동시에 패배!");
+            onPlayerResult?.Invoke(false); // 플레이어 패배
+            onEnemyResult?.Invoke(false);  // 적도 패배
         }
-        else if (enemyPlayer.HP < 1)
+        else
         {
-            // 적이 진 상황
-            Debug.LogWarning("플레이어가 이긴 상황");
-            onPlayerResult?.Invoke(true);       // 플레이어가 이김
-            onEnemyResult?.Invoke(false);       // 적이 짐
+            if (player.HP < 1)
+            {
+                Debug.LogWarning("플레이어가 진 상황");
+                // 플레이어가 진 상황
+                onEnemyResult?.Invoke(true);        // 적이 이김
+                onPlayerResult?.Invoke(false);      // 플레이어가 짐
+            }
+            else if (enemyPlayer.HP < 1)
+            {
+                // 적이 진 상황
+                Debug.LogWarning("적이 진 상황");
+                onPlayerResult?.Invoke(true);       // 플레이어가 이김
+                onEnemyResult?.Invoke(false);       // 적이 짐
+            }
         }
     }
 

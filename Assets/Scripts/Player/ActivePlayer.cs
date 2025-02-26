@@ -1104,7 +1104,12 @@ public class ActivePlayer : MonoBehaviour
                         else
                         {
                             int[] numbers = { 0, 1, 2, 3, 8 };
-                            int randomIndex = UnityEngine.Random.Range(0, numbers.Length);
+                            int randomIndex;
+                            do
+                            {
+                                randomIndex = UnityEngine.Random.Range(0, numbers.Length);
+                            }
+                            while (randomIndex == EfirstTurnCardIndex);
                             EsecondTurnCardIndex = numbers[randomIndex];
                             EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
                         }
@@ -1439,7 +1444,13 @@ public class ActivePlayer : MonoBehaviour
                         else
                         {
                             int[] numbers = { 0, 1, 2, 3, 8 };
-                            int randomIndex = UnityEngine.Random.Range(0, numbers.Length);
+                            int randomIndex;
+                            do
+                            {
+                                randomIndex = UnityEngine.Random.Range(0, numbers.Length);
+                            }
+                            while (randomIndex == EfirstTurnCardIndex || randomIndex == EsecondTurnCardIndex);
+
                             EthirdTurnCardIndex = numbers[randomIndex];
                             EnemyCharacterMove(EthirdTurnCardIndex, enemyTargetSection);
                         }
