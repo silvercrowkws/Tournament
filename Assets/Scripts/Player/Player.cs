@@ -1959,6 +1959,11 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
+    /// 플레이어의 승패 결과를 알리는 델리게이트(true : 이김, false : 짐)
+    /// </summary>
+    public Action<bool> onPlayerResult;
+
+    /// <summary>
     /// 플레이어의 승패 처리하는 코루틴
     /// </summary>
     /// <param name="result"></param>
@@ -1975,10 +1980,12 @@ public class Player : MonoBehaviour
         if (result)
         {
             animator.SetTrigger("Win");
+            onPlayerResult?.Invoke(true);
         }
         else
         {
             animator.SetTrigger("Die");
+            onPlayerResult?.Invoke(false);
         }
     }
 }
