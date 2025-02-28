@@ -274,6 +274,8 @@ public class ActivePlayer : MonoBehaviour
         if (gameManager.gameOver)
         {
             Debug.Log("게임 오버");
+            player.playerActiveEnd = true;      // 가끔 무한 루프 이유가 이거인것 같아서 해봄
+            enemyPlayer.enemyActiveEnd = true;
             yield break;        // 코루틴을 종료
         }
 
@@ -358,10 +360,12 @@ public class ActivePlayer : MonoBehaviour
         yield return StartCoroutine(WaitForSecond(2));                 // 2초 대기
 
 
-        // 만약 첫번째 행동에서 게임이 종료된 상황이면
+        // 만약 두번째 행동에서 게임이 종료된 상황이면
         if (gameManager.gameOver)
         {
             Debug.Log("게임 오버");
+            player.playerActiveEnd = true;      // 가끔 무한 루프 이유가 이거인것 같아서 해봄
+            enemyPlayer.enemyActiveEnd = true;
             yield break;        // 코루틴을 종료
         }
 
@@ -445,6 +449,15 @@ public class ActivePlayer : MonoBehaviour
         yield return StartCoroutine(WaitForEnemyPlayerAction());
         Debug.Log("세 번째 행동 완료");
         yield return StartCoroutine(WaitForSecond(2));                 // 2초 대기
+
+        // 만약 세번째 행동에서 게임이 종료된 상황이면
+        if (gameManager.gameOver)
+        {
+            Debug.Log("게임 오버");
+            player.playerActiveEnd = true;      // 가끔 무한 루프 이유가 이거인것 같아서 해봄
+            enemyPlayer.enemyActiveEnd = true;
+            yield break;        // 코루틴을 종료
+        }
 
         gameManager.isPlayerDone = true;                    // 행동을 완료했다고 표시
         gameManager.isEnemyPlayerDone = true;               // 행동을 완료했다고 표시
@@ -1097,7 +1110,7 @@ public class ActivePlayer : MonoBehaviour
                     {
                         // 에너지업, 움직임 0 1 2 3 8
 
-                        if (UnityEngine.Random.value < 0.3f)     // 30% 확률로
+                        if (EfirstTurnCardIndex != 8 && UnityEngine.Random.value < 0.3f)     // 30% 확률로
                         {
                             EsecondTurnCardIndex = 8;            // 에너지 회복
                         }
@@ -1437,7 +1450,7 @@ public class ActivePlayer : MonoBehaviour
                     else
                     {
                         // 에너지업, 움직임 0 1 2 3 8
-                        if (UnityEngine.Random.value < 0.3f)     // 30% 확률로
+                        if (EfirstTurnCardIndex != 8 && EsecondTurnCardIndex != 8 && UnityEngine.Random.value < 0.3f)     // 30% 확률로
                         {
                             EthirdTurnCardIndex = 8;            // 에너지 회복
                         }
