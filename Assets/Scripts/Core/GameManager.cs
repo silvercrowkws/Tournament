@@ -41,9 +41,7 @@ public enum GameState
     Main = 0,                   // 기본 상태
     SelectCharacter,            // 캐릭터 선택 상태
     SelectCard,                 // 카드 선택 상태
-    //GameStart,                  // 내가 카드 선택한대로 움직이는 상태
-    GameWin,                    // 내가 그 판을 이긴 상태
-    GameOver                    // 내가 그 판을 진 상태
+    GameComplete,               // 게임이 완료된 상태(다음 판 있음)
 
     // 1. 처음에 캐릭터 고르고
     // 2. 어떻게 움직일지 카드 선택하고
@@ -80,6 +78,16 @@ public class GameManager : Singleton<GameManager>
     public List<int> gameTournamentList = new List<int>();
 
     /// <summary>
+    /// FightControlButtons 클래스에서 캡쳐한 스프라이트
+    /// </summary>
+    public Sprite capturedSprite;
+
+    /// <summary>
+    /// 게임 완료에서 보여줄 뒷배경(캡쳐 스프라이트)
+    /// </summary>
+    GameCompleteBackGround gameCompleteBackGround;
+
+    /// <summary>
     /// 현재 게임상태
     /// </summary>
     public GameState gameState = GameState.Main;
@@ -113,17 +121,9 @@ public class GameManager : Singleton<GameManager>
                         Debug.Log("카드 선택 상태");
                         onSelectCard?.Invoke();
                         break;
-                    /*case GameState.GameStart:
-                        Debug.Log("게임스타트");
-                        onGameStart?.Invoke();
-                        break;*/
-                    case GameState.GameWin:
-                        Debug.Log("게임 승리");
-                        onGameWin?.Invoke();
-                        break;
-                    case GameState.GameOver:
-                        Debug.Log("게임 패배");
-                        onGameOver?.Invoke();
+                    case GameState.GameComplete:
+                        Debug.Log("게임 완료 상태");
+                        onGameComplete?.Invoke();
                         break;
                 }
             }
@@ -134,9 +134,7 @@ public class GameManager : Singleton<GameManager>
     // 게임상태 델리게이트
     public Action onSelectCharacter;
     public Action onSelectCard;
-    public Action onGameStart;
-    public Action onGameWin;
-    public Action onGameOver;
+    public Action onGameComplete;
 
     /// <summary>
     /// 플레이어
@@ -177,6 +175,11 @@ public class GameManager : Singleton<GameManager>
     /// 난이도 선택 클래스
     /// </summary>
     ChooseDif chooseDif;
+
+    /// <summary>
+    /// 전투시작 버튼(전투 전에 화면 캡쳐한 스프라이트 받기 위해 있음)
+    /// </summary>
+    FightControlButtons fightControlButtons;
 
     /// <summary>
     /// 플레이어가 모든 행동을 완료했는지 확인하는 bool 변수(true : 행동을 완료했다, false : 행동을 완료하지 않았다.)
@@ -329,6 +332,18 @@ public class GameManager : Singleton<GameManager>
             case 1:
                 Debug.Log("캐릭터 선택 씬");
                 gameState = GameState.SelectCharacter;
+
+                fightControlButtons = FindAnyObjectByType<FightControlButtons>();
+                if (fightControlButtons == null)
+                {
+                    Debug.LogError("1번 씬에서 fightControlButtons을 못찾음!");
+                }
+                else
+                {
+                    fightControlButtons.onScreenshotCaptured += OnScreenshotCaptured;
+                    Debug.Log("onScreenshotCaptured 구독 완료!");
+                }
+
                 break;
             case 2:
                 Debug.Log("카드 선택 씬");
@@ -356,7 +371,30 @@ public class GameManager : Singleton<GameManager>
                     Debug.Log("onPlayerHPZero 이벤트 구독 완료!");
                 }
                 break;
+            case 3:
+                Debug.Log("전투 완료 씬");
+                gameState = GameState.GameComplete;
+
+                gameCompleteBackGround = FindAnyObjectByType<GameCompleteBackGround>();
+                if(gameCompleteBackGround == null)
+                {
+                    Debug.Log("3번씬에서 gameCompleteBackGround 못찾음");
+                }
+                else
+                {
+
+                }
+                break;
         }
+    }
+
+    /// <summary>
+    /// 캡쳐된 스프라이트를 저장하는 함수
+    /// </summary>
+    /// <param name="sprite"></param>
+    private void OnScreenshotCaptured(Sprite sprite)
+    {
+        capturedSprite = sprite;
     }
 
     /// <summary>

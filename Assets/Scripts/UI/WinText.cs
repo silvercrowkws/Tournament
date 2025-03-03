@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WinText : MonoBehaviour
 {
@@ -74,5 +75,18 @@ public class WinText : MonoBehaviour
                 loseText.gameObject.SetActive(true);
             }
         }
+
+        StartCoroutine(Scene03());      // 씬전환
+    }
+
+    /// <summary>
+    /// 승패 결과에 상관없이 씬 전환하는 함수
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator Scene03()
+    {
+        yield return new WaitForSeconds(5);     // 5초 정도 기다리고
+
+        SceneManager.LoadScene(3);
     }
 }

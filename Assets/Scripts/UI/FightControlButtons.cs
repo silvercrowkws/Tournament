@@ -30,6 +30,11 @@ public class FightControlButtons : MonoBehaviour
     public Action onFight;
 
     /// <summary>
+    /// 스크린샷을 찍은 후 Sprite로 변환하여 전달하는 델리게이트
+    /// </summary>
+    public Action<Sprite> onScreenshotCaptured;
+
+    /// <summary>
     /// 캔버스 그룹
     /// </summary>
     CanvasGroup canvasGroup;
@@ -96,9 +101,78 @@ public class FightControlButtons : MonoBehaviour
     private void FightFC()
     {
         // 1. 배틀 순서를 게임 매니저에 전달
+        // 1.1 현재 화면 캡쳐해서 스프라이트로 게임매니저에 전달
         // 2. 씬 전환(카드 선택으로 작동하는 씬?)
 
         onFight?.Invoke();                                  // 1
+        StartCoroutine(CaptureRoutine());
         SceneManager.LoadScene(2);                          // 2
+    }
+
+    /// <summary>
+    /// 화면을 캡쳐하는 코루틴
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator CaptureRoutine()
+    {
+        yield return new WaitForEndOfFrame(); // 프레임이 끝날 때까지 대기 (화면이 다 그려진 후 캡처하기 위함)
+
+        int width = Screen.width;  // 현재 화면 너비 가져오기
+        int height = Screen.height; // 현재 화면 높이 가져오기
+
+        // RenderTexture 생성 (화면을 캡처할 임시 텍스처)
+        RenderTexture renderTexture = new RenderTexture(width, height, 24);
+        ScreenCapture.CaptureScreenshotIntoRenderTexture(renderTexture); // 화면을 RenderTexture에 캡처
+
+        // Texture2D 생성 (RenderTexture에서 읽어오기 위해)
+        Texture2D screenshot = new Texture2D(width, height, TextureFormat.RGB24, false);
+        RenderTexture.active = renderTexture; // RenderTexture를 활성화하여 읽을 준비
+        screenshot.ReadPixels(new Rect(0, 0, width, height), 0, 0); // 픽셀을 읽어서 Texture2D에 저장
+        screenshot.Apply(); // Texture2D 적용
+
+        // Y축 반전 함수 호출
+        FlipTextureVertically(screenshot);
+
+        // Texture2D를 Sprite로 변환
+        Sprite sprite = TextureToSprite(screenshot);
+
+        // 델리게이트 호출 (캡처된 Sprite를 이벤트 리스너들에게 전달)
+        onScreenshotCaptured?.Invoke(sprite);
+
+        // 메모리 해제 (RenderTexture 비활성화 후 삭제)
+        RenderTexture.active = null;
+        renderTexture.Release();
+        Destroy(renderTexture);
+    }
+
+    /// <summary>
+    /// Texture2D를 Sprite로 변환하는 함수
+    /// </summary>
+    /// <param name="texture"></param>
+    /// <returns></returns>
+    private Sprite TextureToSprite(Texture2D texture)
+    {
+        return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+    }
+
+    // 🔹 Y축 반전 함수
+    private void FlipTextureVertically(Texture2D texture)
+    {
+        Color[] pixels = texture.GetPixels();
+        int width = texture.width;
+        int height = texture.height;
+
+        Color[] flippedPixels = new Color[pixels.Length];
+
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                flippedPixels[x + y * width] = pixels[x + (height - y - 1) * width];
+            }
+        }
+
+        texture.SetPixels(flippedPixels);
+        texture.Apply();
     }
 }

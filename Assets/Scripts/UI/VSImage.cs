@@ -304,6 +304,8 @@ public class VSImage : MonoBehaviour
     /// </summary>
     private void SendListFC()
     {
+        characterAlphaZero();                       // 이미지 비활성화 후
+
         gameManager.gameTournamentList.Clear();     // 기존에 있던 값을 초기화
         gameManager.gameTournamentList.AddRange(tournamentList);  // tournamentList의 내용을 gameTournamentList에 복사
 
