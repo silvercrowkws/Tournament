@@ -23,6 +23,16 @@ public class VSImage2 : MonoBehaviour
     Image rightCharacter;
 
     /// <summary>
+    /// 토너먼트 차트 이미지 배열
+    /// </summary>
+    Image[] tournamentImages;
+
+    /// <summary>
+    /// 토너먼트 차트 프레임 이미지 배열
+    /// </summary>
+    Image[] frameImages;
+
+    /// <summary>
     /// 왼쪽 캐릭터의 color
     /// </summary>
     Color leftColor;
@@ -31,6 +41,21 @@ public class VSImage2 : MonoBehaviour
     /// 오른쪽 캐릭터의 color
     /// </summary>
     Color rightColor;
+
+    /// <summary>
+    /// 토너먼트 이미지의 color
+    /// </summary>
+    Color tournamentColor;
+
+    /// <summary>
+    /// 대결 순서 스프라이트 배열
+    /// </summary>
+    public Sprite[] tournaments;
+
+    /// <summary>
+    /// 상대의 수
+    /// </summary>
+    int tournamentsCount;
 
     // 각 캐릭터의 시작 위치
     Vector3 leftStartPos;
@@ -58,10 +83,30 @@ public class VSImage2 : MonoBehaviour
         leftCharacter = transform.GetChild(0).GetComponent<Image>();
         rightCharacter = transform.GetChild(1).GetComponent<Image>();
 
-        flashImage = transform.GetChild(2).GetComponent<Image>();
+        flashImage = transform.GetChild(3).GetComponent<Image>();
         flashImage.gameObject.SetActive(false);
 
         characterAlphaZero();
+
+        Transform child = transform.GetChild(2);        // 2번째 자식 TournamentChart
+
+        tournamentsCount = child.childCount;
+
+        // tournaments, frameImages 배열 초기화
+        tournamentImages = new Image[tournamentsCount];
+        frameImages = new Image[tournamentsCount];
+
+        for (int i = 0; i < tournamentsCount; i++)
+        {
+            tournamentImages[i] = child.GetChild(i).GetComponent<Image>();
+            frameImages[i] = tournamentImages[i].GetComponentInChildren<Image>();
+
+            // 알파값을 0으로 설정
+            tournamentColor = tournamentImages[i].color;
+            tournamentColor.a = 0f;
+            tournamentImages[i].color = tournamentColor;
+            frameImages[i].gameObject.SetActive(false);
+        }
 
         leftStartPos = leftCharacter.rectTransform.localPosition;
         rightStartPos = rightCharacter.rectTransform.localPosition;
@@ -81,13 +126,21 @@ public class VSImage2 : MonoBehaviour
     private void OnPickCharacter()
     {
         leftCharacter.sprite = characters[gameManager.playerCharacterIndex];
-        rightCharacter.sprite = characters[gameManager.gameTournamentList[0]];
+        rightCharacter.sprite = characters[gameManager.gameTournamentList[0]];      // 여긴 다음 대상을 보여야 하니까 기존 리스트
 
         leftColor.a = 1f;                   // 알파값을 1로 설정
         leftCharacter.color = leftColor;
 
         rightColor.a = 1f;                  // 알파값을 1로 설정
         rightCharacter.color = rightColor;
+
+        for (int i = 0; i < tournamentsCount; i++)
+        {
+            tournamentImages[i].sprite = tournaments[gameManager.tournamentList[i]];        // 여긴 원래 대진표를 보이는 곳이니까 복사한 리스트
+            tournamentColor.a = 1f;
+            tournamentImages[i].color = tournamentColor;
+            frameImages[i].gameObject.SetActive(true);
+        }
 
         StartCoroutine(MoveCharacters());
     }

@@ -44,8 +44,16 @@ public class ContinuePanel : MonoBehaviour
     /// </summary>
     private void PanelDisable()
     {
-        // 게임 매니저의 토너먼트 리스트의 0번 제거 필요
-        gameManager.gameTournamentList.RemoveAt(0);     // 리스트의 0번 제거
+        // 플레이어가 이긴 상황에서만 리스트 0번 제거
+        if (gameManager.playerResult)
+        {
+            if(gameManager.gameTournamentList.Count > 0)
+            {
+                gameManager.gameTournamentList.RemoveAt(0);     // 리스트의 0번 제거
+                gameManager.enemyPlayerCharacterIndex = gameManager.gameTournamentList[0];      // 적 플레이어의 번호 변경
+            }
+        }
+
         onPanelDisable?.Invoke();                       // VSImage2에 알림
         canvasGroup.alpha = 0.0f;
         canvasGroup.interactable = false;

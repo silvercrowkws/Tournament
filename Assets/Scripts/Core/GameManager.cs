@@ -73,9 +73,14 @@ public class GameManager : Singleton<GameManager>
     public int enemyPlayerCharacterIndex = 0;
 
     /// <summary>
-    /// 게임 매니저가 관리하는 토너먼트 리스트
+    /// 게임 매니저가 관리하는 게임 토너먼트 리스트
     /// </summary>
     public List<int> gameTournamentList = new List<int>();
+
+    /// <summary>
+    /// 위에 게임 토너먼트 리스트 복사본
+    /// </summary>
+    public List<int> tournamentList = new List<int>();
 
     /// <summary>
     /// FightControlButtons 클래스에서 캡쳐한 스프라이트
@@ -210,6 +215,11 @@ public class GameManager : Singleton<GameManager>
     /// true : 승리, false : 패배
     /// </summary>
     public Action<bool> onEnemyResult;
+
+    /// <summary>
+    /// 플레이어의 승패 결과(true : 이김, false : 짐 / 토너먼트 리스트의 0번을 제거할지 말지 때문)
+    /// </summary>
+    public bool playerResult;
 
     /// <summary>
     /// 게임이 끝났으니 행동을 멈추라고 알리는 델리게이트(true : 게임 종료, false : 게임 진행 중)
@@ -409,8 +419,9 @@ public class GameManager : Singleton<GameManager>
         if (player.HP < 1 && enemyPlayer.HP < 1)
         {
             Debug.LogWarning("플레이어와 적이 동시에 패배!");
-            onPlayerResult?.Invoke(false); // 플레이어 패배
-            onEnemyResult?.Invoke(false);  // 적도 패배
+            onPlayerResult?.Invoke(false);  // 플레이어 패배
+            onEnemyResult?.Invoke(false);   // 적도 패배
+            playerResult = false;           // 플레이어 패배
         }
         else
         {
@@ -420,6 +431,7 @@ public class GameManager : Singleton<GameManager>
                 // 플레이어가 진 상황
                 onEnemyResult?.Invoke(true);        // 적이 이김
                 onPlayerResult?.Invoke(false);      // 플레이어가 짐
+                playerResult = false;               // 플레이어 패배
             }
             else if (enemyPlayer.HP < 1)
             {
@@ -427,6 +439,7 @@ public class GameManager : Singleton<GameManager>
                 Debug.LogWarning("적이 진 상황");
                 onPlayerResult?.Invoke(true);       // 플레이어가 이김
                 onEnemyResult?.Invoke(false);       // 적이 짐
+                playerResult = true;                // 플레이어 승리
             }
         }
     }

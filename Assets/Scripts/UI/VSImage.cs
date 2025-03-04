@@ -308,6 +308,7 @@ public class VSImage : MonoBehaviour
 
         gameManager.gameTournamentList.Clear();     // 기존에 있던 값을 초기화
         gameManager.gameTournamentList.AddRange(tournamentList);  // tournamentList의 내용을 gameTournamentList에 복사
+        gameManager.tournamentList.AddRange(tournamentList);        // 위에거 복사(게임 매니저는 gameTournamentList 리스트의 0번을 지울 일이 있기 때문에 하나더 만듬)
 
         if (gameManager.gameTournamentList.Count > 0)
         {

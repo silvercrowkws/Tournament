@@ -155,7 +155,10 @@ public class FightControlButtons : MonoBehaviour
         return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
 
-    // 🔹 Y축 반전 함수
+    /// <summary>
+    /// Y축 반전 함수(캡쳐한 사진은 위아래가 뒤집힘)
+    /// </summary>
+    /// <param name="texture"></param>
     private void FlipTextureVertically(Texture2D texture)
     {
         Color[] pixels = texture.GetPixels();

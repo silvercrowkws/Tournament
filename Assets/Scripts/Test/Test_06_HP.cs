@@ -35,5 +35,11 @@ public class Test_06_HP : TestBase
         enemyPlayer.HP -= 10;
     }
 
+    protected override void OnTest2(InputAction.CallbackContext context)
+    {
+        Debug.Log("플레이어 HP 깎음");
+        player.HP -= 10;
+    }
+
 #endif
 }
