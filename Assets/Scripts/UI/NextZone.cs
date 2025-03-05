@@ -108,7 +108,8 @@ public class NextZone : MonoBehaviour
 
         cardFrame = FindAnyObjectByType<Card_Frame>();
 
-        activePlayer = FindAnyObjectByType<ActivePlayer>();
+        //activePlayer = FindAnyObjectByType<ActivePlayer>();
+        activePlayer = GameManager.Instance.ActivePlayer;
         activePlayer.onNextCard += OnNextCard;
 
         controlZone = FindAnyObjectByType<ControlZone>();
@@ -204,7 +205,7 @@ public class NextZone : MonoBehaviour
     /// <param name="activeNumber">몇번째 행동인지(0부터 시작)</param>
     private void OnNextCard(int activeNumber)
     {
-        // activeNumber가 0, 1, 2 범위 내에 있는지 확인
+        /*// activeNumber가 0, 1, 2 범위 내에 있는지 확인
         if (activeNumber >= 0 && activeNumber < 3)
         {
             if (activeNumber == 0)
@@ -221,6 +222,68 @@ public class NextZone : MonoBehaviour
             {
                 playerNext[activeNumber].sprite = characterCardNext[controlZone.thirdTurnCardIndex];
                 enemyPlayerNext[2 - activeNumber].sprite = enemyCharacterCardNext[activePlayer.EthirdTurnCardIndex];
+            }
+        }
+        else
+        {
+            Debug.LogError("activeNumber 값이 배열 인덱스를 초과했습니다. activeNumber: " + activeNumber);
+        }*/
+
+        // activeNumber가 0, 1, 2 범위 내에 있는지 확인
+
+        playerNext = new Image[3];
+        enemyPlayerNext = new Image[3];
+
+        for (int i = 0; i < 3; i++)
+        {
+            Transform playerChild = transform.GetChild(0);
+            Transform enermyChild = transform.GetChild(1);
+            playerNext[i] = playerChild.GetChild(i).GetComponent<Image>();
+            enemyPlayerNext[i] = enermyChild.GetChild(i).GetComponent<Image>();
+        }
+
+        if (activeNumber >= 0 && activeNumber < 3)
+        {
+            // playerNext와 enemyPlayerNext 배열 크기 및 인덱스 확인
+            if (playerNext.Length > activeNumber && enemyPlayerNext.Length > (2 - activeNumber))
+            {
+                if (playerNext[activeNumber] == null)
+                {
+                    Debug.LogWarning("playerNext[activeNumber]는 null입니다. activeNumber: " + activeNumber);
+                }
+
+                if (enemyPlayerNext[2 - activeNumber] == null)
+                {
+                    Debug.LogWarning("enemyPlayerNext[2 - activeNumber]는 null입니다. activeNumber: " + activeNumber);
+                }
+
+                // null 체크 후 sprite 설정
+                if (playerNext[activeNumber] != null && enemyPlayerNext[2 - activeNumber] != null)
+                {
+                    if (activeNumber == 0)
+                    {
+                        playerNext[activeNumber].sprite = characterCardNext[controlZone.firstTurnCardIndex];
+                        enemyPlayerNext[2 - activeNumber].sprite = enemyCharacterCardNext[activePlayer.EfirstTurnCardIndex];
+                    }
+                    else if (activeNumber == 1)
+                    {
+                        playerNext[activeNumber].sprite = characterCardNext[controlZone.secondTurnCardIndex];
+                        enemyPlayerNext[2 - activeNumber].sprite = enemyCharacterCardNext[activePlayer.EsecondTurnCardIndex];
+                    }
+                    else if (activeNumber == 2)
+                    {
+                        playerNext[activeNumber].sprite = characterCardNext[controlZone.thirdTurnCardIndex];
+                        enemyPlayerNext[2 - activeNumber].sprite = enemyCharacterCardNext[activePlayer.EthirdTurnCardIndex];
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("playerNext 또는 enemyPlayerNext가 null입니다. activeNumber: " + activeNumber);
+                }
+            }
+            else
+            {
+                Debug.LogError("배열 인덱스가 범위를 초과했습니다. activeNumber: " + activeNumber);
             }
         }
         else

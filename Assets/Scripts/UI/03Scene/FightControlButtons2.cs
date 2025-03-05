@@ -42,6 +42,35 @@ public class FightControlButtons2 : MonoBehaviour
     /// </summary>
     private void FightFC()
     {
+        TurnManager turnManager = TurnManager.Instance;        
+        turnManager.OnInitialize2();
         SceneManager.LoadScene(2);
     }
+
+    /*void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)
+    {
+        if (scene.buildIndex == 2)      // 2번 씬에서
+        {
+            NextZone nextZone = GameObject.FindObjectOfType<NextZone>();
+            if (nextZone != null)
+            {
+                // nextZone을 새로 할당하거나 재설정
+                Debug.Log("NextZone 오브젝트가 씬에 있습니다.");
+            }
+            else
+            {
+                Debug.LogWarning("NextZone 오브젝트가 씬에 없습니다.");
+            }
+        }
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }*/
 }

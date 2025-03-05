@@ -60,6 +60,12 @@ public class TurnManager : Singleton<TurnManager>       // 나중에 리스타�
     /// </summary>
     GameManager gameManager;
 
+    /// <summary>
+    /// 플레이어와 적을 움직이는 클래스
+    /// </summary>
+    //ActivePlayer activePlayer;
+
+
     private void Start()
     {
         gameManager = GameManager.Instance;
@@ -86,8 +92,31 @@ public class TurnManager : Singleton<TurnManager>       // 나중에 리스타�
 
         onInitialize2Start?.Invoke();
         //OnTurnStart();                          // 턴 시작
+
+        //Invoke("FindActivePlayer", 1f); // 1초 후에 `FindActivePlayer` 메서드를 호출
     }
 
+    /*void FindActivePlayer()
+    {
+        // 여기서 씬에 존재하는 ActivePlayer를 찾는 부분 필요할 듯
+        GameObject activeObject = GameObject.FindGameObjectWithTag("ActivePlayer");
+        if (activeObject != null)
+        {
+            activePlayer = activeObject.GetComponent<ActivePlayer>();
+            if (activePlayer != null)
+            {
+                Debug.Log("activePlayer 있음");
+            }
+            else
+            {
+                Debug.Log("activePlayer 없음");
+            }
+        }
+        else
+        {
+            Debug.Log("activeObject 가 null인데?");
+        }
+    }*/
 
     /// <summary>
     /// 턴 시작 처리용 함수

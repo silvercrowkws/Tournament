@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using static System.Collections.Specialized.BitVector32;
 
-public class ActivePlayer : MonoBehaviour
+public class ActivePlayer : Singleton<ActivePlayer>
 {
     /// <summary>
     /// 게임 매니저

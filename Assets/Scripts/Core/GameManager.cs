@@ -171,6 +171,18 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    ActivePlayer activePlayer;
+
+    public ActivePlayer ActivePlayer
+    {
+        get
+        {
+            if (activePlayer == null)
+                activePlayer = FindAnyObjectByType<ActivePlayer>();
+            return activePlayer;
+        }
+    }
+
     /// <summary>
     /// 턴 매니저
     /// </summary>
@@ -379,6 +391,17 @@ public class GameManager : Singleton<GameManager>
                 {
                     player.onPlayerHPZero += OnGameOver;
                     Debug.Log("onPlayerHPZero 이벤트 구독 완료!");
+                }
+
+                //NextZone nextZone = GameObject.FindObjectOfType<NextZone>();
+                NextZone nextZone = FindAnyObjectByType<NextZone>();
+                if (nextZone == null || nextZone.gameObject == null)
+                {
+                    Debug.LogWarning("NextZone 오브젝트는 씬에 존재하지 않거나 파괴되었습니다.");
+                }
+                else
+                {
+                    Debug.Log("NextZone 오브젝트가 씬에 있습니다.");
                 }
                 break;
             case 3:
