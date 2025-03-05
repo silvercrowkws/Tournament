@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static System.Collections.Specialized.BitVector32;
 
 public class ActivePlayer : Singleton<ActivePlayer>
@@ -77,6 +78,9 @@ public class ActivePlayer : Singleton<ActivePlayer>
         controlZone = FindAnyObjectByType<ControlZone>();
         board = FindAnyObjectByType<Board>();
 
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+
         // 적 캐릭터에 따라
         switch (gameManager.enemyPlayerCharacterIndex)
         {
@@ -138,6 +142,17 @@ public class ActivePlayer : Singleton<ActivePlayer>
 
         player.currentSection += PlayerSction;
         enemyPlayer.currentSection += EnemyPlayerSction;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode arg1)
+    {
+        if(scene.buildIndex == 2)
+        {
+            player = gameManager.Player;
+            enemyPlayer = gameManager.EnemyPlayer;
+            Debug.LogWarning("플레이어 새로 찾음!");
+            Debug.LogWarning("적 플레이어 새로 찾음!");
+        }
     }
 
     /// <summary>
@@ -469,6 +484,7 @@ public class ActivePlayer : Singleton<ActivePlayer>
     /// <param name="cardIndex">실행시킬 행동(카드)의 인덱스</param>
     private void PlayerActiveCard(int cardIndex)
     {
+        Debug.LogWarning("PlayerActiveCard 호출됨");
         switch (cardIndex)
         {
             case 0:

@@ -166,7 +166,9 @@ public class GameManager : Singleton<GameManager>
         get
         {
             if (enemyPlayer == null)
+            {
                 enemyPlayer = FindAnyObjectByType<EnemyPlayer>();
+            }
             return enemyPlayer;
         }
     }
@@ -407,6 +409,9 @@ public class GameManager : Singleton<GameManager>
             case 3:
                 Debug.Log("전투 완료 씬");
                 gameState = GameState.GameComplete;
+
+                playerResult = false;       // 초기화
+                gameOver = false;           // 초기화
 
                 gameCompleteBackGround = FindAnyObjectByType<GameCompleteBackGround>();
                 if(gameCompleteBackGround == null)

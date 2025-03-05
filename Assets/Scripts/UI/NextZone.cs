@@ -333,4 +333,14 @@ public class NextZone : MonoBehaviour
     {
         nextButton.gameObject.SetActive(true);     // 버튼은 활성화
     }
+
+    private void OnDestroy()
+    {
+        if (activePlayer != null)
+        {
+            // 파괴될때 델리게이트 연결 해제
+            activePlayer.onNextCard -= OnNextCard;
+            //nextButton.
+        }
+    }
 }
