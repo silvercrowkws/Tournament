@@ -1988,4 +1988,13 @@ public class Player : MonoBehaviour
             onPlayerResult?.Invoke(false);
         }
     }
+
+    private void OnDestroy()
+    {
+        if (gameManager != null)
+        {
+            // 파괴될때 델리게이트 연결 해제
+            gameManager.onPlayerResult -= OnPlayerResult;
+        }
+    }
 }

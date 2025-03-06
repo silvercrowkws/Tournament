@@ -373,6 +373,8 @@ public class GameManager : Singleton<GameManager>
                 Debug.Log("카드 선택 씬");
                 gameState = GameState.SelectCard;
 
+                playerResult = false;       // 초기화(3번 씬에서 하면 게임 토너먼트 리스트의 0번을 제거할 수 없음)
+
                 enemyPlayer = FindAnyObjectByType<EnemyPlayer>();
                 if (enemyPlayer == null)
                 {
@@ -410,8 +412,10 @@ public class GameManager : Singleton<GameManager>
                 Debug.Log("전투 완료 씬");
                 gameState = GameState.GameComplete;
 
-                playerResult = false;       // 초기화
                 gameOver = false;           // 초기화
+
+                /*enemyPlayer = null;
+                player = null;*/
 
                 gameCompleteBackGround = FindAnyObjectByType<GameCompleteBackGround>();
                 if(gameCompleteBackGround == null)

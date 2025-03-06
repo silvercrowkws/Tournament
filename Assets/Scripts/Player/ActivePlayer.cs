@@ -150,6 +150,8 @@ public class ActivePlayer : Singleton<ActivePlayer>
         {
             player = gameManager.Player;
             enemyPlayer = gameManager.EnemyPlayer;
+            controlZone = FindAnyObjectByType<ControlZone>();
+            Debug.Log("ControlZone 새로 찾음!");
             Debug.LogWarning("플레이어 새로 찾음!");
             Debug.LogWarning("적 플레이어 새로 찾음!");
         }
@@ -164,12 +166,6 @@ public class ActivePlayer : Singleton<ActivePlayer>
         round = roundNumber;
         StartCoroutine(OnPlayerActive());
     }
-
-    /*void OnPlay()
-    {
-        StartCoroutine(OnPlayerActive());
-    }*/
-
 
     /// <summary>
     /// 플레이어와 적 플레이어를 카드에 맞게 행동시키는 코루틴

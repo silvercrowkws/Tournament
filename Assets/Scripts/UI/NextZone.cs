@@ -102,6 +102,12 @@ public class NextZone : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        nextButton = GetComponentInChildren<Button>();
+        nextButton.onClick.AddListener(ChangeAlphaZero);
+    }
+
     private void Start()
     {
         player = GameManager.Instance.Player;
@@ -340,7 +346,7 @@ public class NextZone : MonoBehaviour
         {
             // 파괴될때 델리게이트 연결 해제
             activePlayer.onNextCard -= OnNextCard;
-            //nextButton.
+            nextButton = null;
         }
     }
 }
