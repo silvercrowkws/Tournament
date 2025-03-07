@@ -1,9 +1,25 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+
+public enum CharacterName2
+{
+    Adel = 0,
+    Akstar,
+    Amelia,
+    Arngrim,
+    Barbariccia,
+    BlackMage,
+    Cloud,
+    Elle,
+    Jade,
+    Nalu,
+}
 
 public class VSImage2 : MonoBehaviour
 {
@@ -78,6 +94,16 @@ public class VSImage2 : MonoBehaviour
     /// </summary>
     ContinuePanel continuePanel;
 
+    /// <summary>
+    /// 왼쪽 캐릭터 이름
+    /// </summary>
+    TextMeshProUGUI leftCharacterName;
+
+    /// <summary>
+    /// 오른쪽 캐릭터 이름
+    /// </summary>
+    TextMeshProUGUI rightCharacterName;
+
     private void Awake()
     {
         leftCharacter = transform.GetChild(0).GetComponent<Image>();
@@ -86,9 +112,15 @@ public class VSImage2 : MonoBehaviour
         flashImage = transform.GetChild(3).GetComponent<Image>();
         flashImage.gameObject.SetActive(false);
 
-        characterAlphaZero();
+        Transform child = transform.GetChild(4);
+        leftCharacterName = child.GetComponent<TextMeshProUGUI>();
 
-        Transform child = transform.GetChild(2);        // 2번째 자식 TournamentChart
+        child = transform.GetChild(5);
+        rightCharacterName = child.GetComponent<TextMeshProUGUI>();
+
+        //characterAlphaZero();
+
+        child = transform.GetChild(2);        // 2번째 자식 TournamentChart
 
         tournamentsCount = child.childCount;
 
@@ -110,6 +142,8 @@ public class VSImage2 : MonoBehaviour
 
         leftStartPos = leftCharacter.rectTransform.localPosition;
         rightStartPos = rightCharacter.rectTransform.localPosition;
+
+        characterAlphaZero();
     }
 
     private void Start()
@@ -133,6 +167,34 @@ public class VSImage2 : MonoBehaviour
 
         rightColor.a = 1f;                  // 알파값을 1로 설정
         rightCharacter.color = rightColor;
+
+        // 왼쪽 플레이어 이름 수정
+        if (Enum.IsDefined(typeof(CharacterName2), gameManager.playerCharacterIndex))
+        {
+            CharacterName2 character = (CharacterName2)gameManager.playerCharacterIndex;
+            string characterName = character.ToString().ToUpper();
+
+            // 각 글자마다 \n을 추가하여 세로로 표시
+            leftCharacterName.text = string.Join("\n", characterName.ToCharArray());
+        }
+        else
+        {
+            leftCharacterName.text = "Invalid Index";
+        }
+
+        // 오른쪽 플레이어(적) 이름 수정
+        if (Enum.IsDefined(typeof(CharacterName2), gameManager.gameTournamentList[0]))
+        {
+            CharacterName2 character = (CharacterName2)gameManager.gameTournamentList[0];
+            string characterName = character.ToString().ToUpper();
+
+            // 각 글자마다 \n을 추가하여 세로로 표시
+            rightCharacterName.text = string.Join("\n", characterName.ToCharArray());
+        }
+        else
+        {
+            rightCharacterName.text = "Invalid Index";
+        }
 
         for (int i = 0; i < tournamentsCount; i++)
         {
@@ -198,5 +260,15 @@ public class VSImage2 : MonoBehaviour
         rightColor = rightCharacter.color;
         rightColor.a = 0f;                  // 알파값을 0으로 설정
         rightCharacter.color = rightColor;
+
+        leftCharacterName.text = "";
+        rightCharacterName.text = "";
+
+        for (int i = 0; i < 9; i++)
+        {
+            tournamentColor.a = 0f;
+            tournamentImages[i].color = tournamentColor;
+            frameImages[i].gameObject.SetActive(false);
+        }
     }
 }

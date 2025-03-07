@@ -5,6 +5,22 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using Unity.VisualScripting;
+using TMPro;
+using System.Reflection;
+
+public enum CharacterName
+{
+    Adel = 0,
+    Akstar,
+    Amelia,
+    Arngrim,
+    Barbariccia,
+    BlackMage,
+    Cloud,
+    Elle,
+    Jade,
+    Nalu,
+}
 
 
 
@@ -94,6 +110,16 @@ public class VSImage : MonoBehaviour
     /// </summary>
     public Action<bool> onInteract;
 
+    /// <summary>
+    /// 왼쪽 캐릭터 이름
+    /// </summary>
+    TextMeshProUGUI leftCharacterName;
+
+    /// <summary>
+    /// 오른쪽 캐릭터 이름
+    /// </summary>
+    TextMeshProUGUI rightCharacterName;
+
     private void Awake()
     {
         leftCharacter = transform.GetChild(0).GetComponent<Image>();
@@ -110,9 +136,15 @@ public class VSImage : MonoBehaviour
         rightColor.a = 0f;                  // 알파값을 0으로 설정
         rightCharacter.color = rightColor;*/
 
-        characterAlphaZero();
+        Transform child = transform.GetChild(4);
+        leftCharacterName = child.GetComponent<TextMeshProUGUI>();
 
-        Transform child = transform.GetChild(2);        // 2번째 자식 TournamentChart
+        child = transform.GetChild(5);
+        rightCharacterName = child.GetComponent<TextMeshProUGUI>();
+
+        //characterAlphaZero();
+
+        child = transform.GetChild(2);        // 2번째 자식 TournamentChart
 
         tournamentsCount = child.childCount;
 
@@ -134,6 +166,8 @@ public class VSImage : MonoBehaviour
 
         leftStartPos = leftCharacter.rectTransform.localPosition;
         rightStartPos = rightCharacter.rectTransform.localPosition;
+
+        characterAlphaZero();
     }
 
     private void Start()
@@ -162,6 +196,19 @@ public class VSImage : MonoBehaviour
     private void OnPickCharacter(int index)
     {
         leftCharacter.sprite = characters[index];
+
+        if (Enum.IsDefined(typeof(CharacterName), index))
+        {
+            CharacterName character = (CharacterName)index;
+            string characterName = character.ToString().ToUpper();
+
+            // 각 글자마다 \n을 추가하여 세로로 표시
+            leftCharacterName.text = string.Join("\n", characterName.ToCharArray());
+        }
+        else
+        {
+            leftCharacterName.text = "Invalid Index";
+        }
 
         gameManager.playerCharacterIndex = index;       // 게임매니저의 플레이어의 캐릭터 인덱스 변경
 
@@ -221,6 +268,21 @@ public class VSImage : MonoBehaviour
         }
 
         rightCharacter.sprite = characters[tournamentList[0]];      // 오른쪽 캐릭터 이미지 할당
+
+        if (Enum.IsDefined(typeof(CharacterName), tournamentList[0]))
+        {
+            CharacterName character = (CharacterName)tournamentList[0];
+            string characterName = character.ToString().ToUpper();
+
+            // 각 글자마다 \n을 추가하여 세로로 표시
+            rightCharacterName.text = string.Join("\n", characterName.ToCharArray());
+        }
+        else
+        {
+            rightCharacterName.text = "Invalid Index";
+        }
+
+
         //fightControlButtons.gameObject.SetActive(true);             // 버튼 활성화 => 캔버스 그룹 조절로 변경
         onInteract?.Invoke(true);
     }
@@ -267,7 +329,7 @@ public class VSImage : MonoBehaviour
     }
 
     /// <summary>
-    /// 왼쪽 오른쪽 캐릭터의 알파값을 0으로 변경하는 함수
+    /// 왼쪽 오른쪽 캐릭터의 알파값을 0으로 변경하는 함수(텍스트 초기화, )
     /// </summary>
     void characterAlphaZero()
     {
@@ -278,6 +340,16 @@ public class VSImage : MonoBehaviour
         rightColor = rightCharacter.color;
         rightColor.a = 0f;                  // 알파값을 0으로 설정
         rightCharacter.color = rightColor;
+
+        leftCharacterName.text = "";
+        rightCharacterName.text = "";
+
+        for(int i = 0; i < tournamentList.Count; i++)
+        {
+            tournamentColor.a = 0f;
+            tournamentImages[i].color = tournamentColor;
+            frameImages[i].gameObject.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -308,6 +380,8 @@ public class VSImage : MonoBehaviour
 
         gameManager.gameTournamentList.Clear();     // 기존에 있던 값을 초기화
         gameManager.gameTournamentList.AddRange(tournamentList);  // tournamentList의 내용을 gameTournamentList에 복사
+
+        gameManager.tournamentList.Clear();
         gameManager.tournamentList.AddRange(tournamentList);        // 위에거 복사(게임 매니저는 gameTournamentList 리스트의 0번을 지울 일이 있기 때문에 하나더 만듬)
 
         if (gameManager.gameTournamentList.Count > 0)

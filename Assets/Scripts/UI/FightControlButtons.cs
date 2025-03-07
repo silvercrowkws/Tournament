@@ -106,6 +106,9 @@ public class FightControlButtons : MonoBehaviour
 
         onFight?.Invoke();                                  // 1
         StartCoroutine(CaptureRoutine());
+
+        TurnManager turnManager = TurnManager.Instance;
+        turnManager.OnInitialize2();
         SceneManager.LoadScene(2);                          // 2
     }
 

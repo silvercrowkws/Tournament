@@ -90,8 +90,8 @@ public class NextZone : MonoBehaviour
     {
         canvasGroup = GetComponent<CanvasGroup>();
 
-        nextButton = GetComponentInChildren<Button>();
-        nextButton.onClick.AddListener(ChangeAlphaZero);
+       /* nextButton = GetComponentInChildren<Button>();
+        nextButton.onClick.AddListener(ChangeAlphaZero);*/
         
         for(int i = 0; i< 3; i++)
         {
@@ -104,8 +104,35 @@ public class NextZone : MonoBehaviour
 
     private void OnEnable()
     {
-        nextButton = GetComponentInChildren<Button>();
-        nextButton.onClick.AddListener(ChangeAlphaZero);
+        //nextButton = GetComponentInChildren<Button>();
+        //nextButton.onClick.AddListener(ChangeAlphaZero);
+
+        /*nextButton = GetComponentInChildren<Button>();  // 다시 버튼 연결
+        if (nextButton != null)
+        {
+            Debug.Log("nextButton 있음!");
+            nextButton.onClick.AddListener(ChangeAlphaZero);
+        }
+        else
+        {
+            Debug.Log("nextButton 없음!");
+        }*/
+
+        Debug.Log("들어오기는 하는거지..?");
+
+        if (nextButton == null || ReferenceEquals(nextButton, null) || nextButton.gameObject == null)
+        {
+            nextButton = GetComponentInChildren<Button>();  // 다시 버튼 연결
+            nextButton.onClick.AddListener(ChangeAlphaZero);
+            if (nextButton == null)
+            {
+                Debug.Log("nextButton 다시 연결 안됨");
+            }
+            else
+            {
+                Debug.Log("nextButton 다시 연결됨");
+            }
+        }
     }
 
     private void Start()
@@ -346,6 +373,8 @@ public class NextZone : MonoBehaviour
         {
             // 파괴될때 델리게이트 연결 해제
             activePlayer.onNextCard -= OnNextCard;
+            gameManager.onBothPlayersDone -= OnBothPlayersDone;
+            //nextButton.gameObject.SetActive(true);
             nextButton = null;
         }
     }

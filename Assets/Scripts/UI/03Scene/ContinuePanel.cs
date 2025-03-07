@@ -67,7 +67,10 @@ public class ContinuePanel : MonoBehaviour
         {
             // 전체 대전 수 - 현재 남아있는 적 수 = 현재까지 이긴 횟수
             // +1 은 이겼을 때 PanelDisable를 눌러야 리스트에서 0번이 빠지기 때문에 따로 계산
-            numberText.text = $"({gameManager.tournamentList.Count - gameManager.gameTournamentList.Count + 1 } / 10)";
+            numberText.text = $"({(gameManager.tournamentList.Count - gameManager.gameTournamentList.Count) + 1 } / 10)";
+            Debug.Log($"gameManager.tournamentList.Count : {gameManager.tournamentList.Count}");
+            Debug.Log($"gameManager.gameTournamentList.Count : {gameManager.gameTournamentList.Count}");
+            Debug.Log($"gameManager.gameTournamentList.Count + 1 : {gameManager.gameTournamentList.Count + 1}");
             win.SetActive(true);
             lose.SetActive(false);
         }

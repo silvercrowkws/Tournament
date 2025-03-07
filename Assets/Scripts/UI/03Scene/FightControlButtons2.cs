@@ -30,11 +30,12 @@ public class FightControlButtons2 : MonoBehaviour
     }
 
     /// <summary>
-    /// 캐릭터 변경 버튼 클릭으로 실행되는 함수(씬 전환)
+    /// 캐릭터 변경 버튼 클릭으로 실행되는 함수(씬 전환) => 게임 종료로 변경
     /// </summary>
     private void ChangeFigherFC()
     {
         SceneManager.LoadScene(1);
+        //Application.Quit();
     }
 
     /// <summary>
