@@ -1940,15 +1940,8 @@ public class Player : MonoBehaviour
 
         ResetTrigger();
         
-        // 플레이어가 가드 상태이면
-        if (selectedProtect == PlayerProtect.Guard)
-        {
-            playerGuard = false;
-        }
-        else
-        {
-            playerPerfectGuard = false;
-        }
+        playerGuard = false;                    // 가드 상태 종료
+        playerPerfectGuard = false;
 
         animator.SetTrigger("Idle");
         Debug.Log("플레이어 가드 상태 종료");

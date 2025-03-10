@@ -1851,15 +1851,8 @@ public class EnemyPlayer : MonoBehaviour
 
         ResetTrigger();
 
-        // 적 플레이어가 가드 상태이면
-        if (EselectedProtect == EnemyPlayerProtect.Guard)
-        {
-            enemyPlayerGuard = false;
-        }
-        else
-        {
-            enemyPlayerPerfectGuard = false;
-        }
+        enemyPlayerGuard = false;               // 가드 상태 종료
+        enemyPlayerPerfectGuard = false;
 
         animator.SetTrigger("Idle");
         Debug.Log("적 가드 상태 종료");
