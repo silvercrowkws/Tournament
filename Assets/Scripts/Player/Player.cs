@@ -2027,7 +2027,7 @@ public class Player : MonoBehaviour
         // 만약 플레이어와 적의 행동이 끝나지 않았으면
         while(!playerActiveEnd || !enemyPlayer.enemyActiveEnd)
         {
-            yield return null;      // 기다림
+            yield return null;      // 기다림 
         }
         
         yield return new WaitForSeconds(0.5f);
