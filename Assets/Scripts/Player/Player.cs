@@ -129,6 +129,11 @@ public class Player : MonoBehaviour
     public Action onPlayerHPZero;
 
     /// <summary>
+    /// 플레이어가 적을 공격할 때 적이 가드 상태이면 알릴 델리게이트(int : 받는 데미지)
+    /// </summary>
+    public Action<int> onPlayerToEnemyGuardText;
+
+    /// <summary>
     /// 현재 가지고 있는 체력
     /// </summary>
     int currentHP = 100;
@@ -318,6 +323,7 @@ public class Player : MonoBehaviour
         }
 
         enemyPlayer = gameManager.EnemyPlayer;
+        enemyPlayer.onEnemyToPlayerGuardText += OnEnemyToPlayerGuardText;
 
         /*vsImage = FindAnyObjectByType<VSImage>();
         if (vsImage == null)
@@ -1671,6 +1677,8 @@ public class Player : MonoBehaviour
                             finalDamage = Mathf.Max(0, finalDamage);    // 최소 0 이상의 데미지로 제한(음수 방지)
                             enemyPlayer.HP -= finalDamage;
 
+                            onPlayerToEnemyGuardText?.Invoke(finalDamage);         // 적이 받는 데미지 표시
+
                             Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
                         }
                         // 적 플레이어의 상태가 퍼펙트 가드이면
@@ -1678,6 +1686,9 @@ public class Player : MonoBehaviour
                         {
                             finalDamage = 0;
                             enemyPlayer.HP -= finalDamage;
+
+                            onPlayerToEnemyGuardText?.Invoke(finalDamage);         // 적이 받는 데미지 표시
+
                             Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
                         }
                         // 적 플레이어의 상태가 가드쪽이 아니면
@@ -1685,6 +1696,8 @@ public class Player : MonoBehaviour
                         {
                             // 데미지
                             enemyPlayer.HP -= finalDamage;
+
+                            onPlayerToEnemyGuardText?.Invoke(finalDamage);         // 적이 받는 데미지 표시
                             Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
                         }
                     }
@@ -1712,9 +1725,11 @@ public class Player : MonoBehaviour
                         if (enemyPlayer.enemyPlayerGuard)
                         {
                             // 데미지
-                            finalDamage = magicAttackDamage - 15;            // 데미지 15 감소
+                            finalDamage = magicAttackDamage - 15;       // 데미지 15 감소
                             finalDamage = Mathf.Max(0, finalDamage);    // 최소 0 이상의 데미지로 제한(음수 방지)
                             enemyPlayer.HP -= finalDamage;
+
+                            onPlayerToEnemyGuardText?.Invoke(finalDamage);         // 적이 받는 데미지 표시
 
                             Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
                         }
@@ -1723,6 +1738,8 @@ public class Player : MonoBehaviour
                         {
                             finalDamage = 0;
                             enemyPlayer.HP -= finalDamage;
+
+                            onPlayerToEnemyGuardText?.Invoke(finalDamage);         // 적이 받는 데미지 표시
                             Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
                         }
                         // 적 플레이어의 상태가 가드쪽이 아니면
@@ -1730,6 +1747,8 @@ public class Player : MonoBehaviour
                         {
                             // 데미지
                             enemyPlayer.HP -= finalDamage;
+
+                            onPlayerToEnemyGuardText?.Invoke(finalDamage);         // 적이 받는 데미지 표시
                             Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
                         }
                     }
@@ -1757,9 +1776,11 @@ public class Player : MonoBehaviour
                         if (enemyPlayer.enemyPlayerGuard)
                         {
                             // 데미지
-                            finalDamage = limitAttackDamage - 15;            // 데미지 15 감소
+                            finalDamage = limitAttackDamage - 15;       // 데미지 15 감소
                             finalDamage = Mathf.Max(0, finalDamage);    // 최소 0 이상의 데미지로 제한(음수 방지)
                             enemyPlayer.HP -= finalDamage;
+
+                            onPlayerToEnemyGuardText?.Invoke(finalDamage);         // 적이 받는 데미지 표시
 
                             Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
                         }
@@ -1768,6 +1789,8 @@ public class Player : MonoBehaviour
                         {
                             finalDamage = 0;
                             enemyPlayer.HP -= finalDamage;
+
+                            onPlayerToEnemyGuardText?.Invoke(finalDamage);         // 적이 받는 데미지 표시
                             Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
                         }
                         // 적 플레이어의 상태가 가드쪽이 아니면
@@ -1775,6 +1798,8 @@ public class Player : MonoBehaviour
                         {
                             // 데미지
                             enemyPlayer.HP -= finalDamage;
+
+                            onPlayerToEnemyGuardText?.Invoke(finalDamage);         // 적이 받는 데미지 표시
                             Debug.Log($"적 플레이어의 남은 체력 : {enemyPlayer.HP}");
                         }
                     }
@@ -1987,6 +2012,15 @@ public class Player : MonoBehaviour
             animator.SetTrigger("Die");
             onPlayerResult?.Invoke(false);
         }
+    }
+
+    /// <summary>
+    /// 플레이어가 받는 데미지 표시용
+    /// </summary>
+    /// <param name="damage">받는 데미지</param>
+    private void OnEnemyToPlayerGuardText(int damage)
+    {
+        
     }
 
     private void OnDestroy()
