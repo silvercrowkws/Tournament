@@ -300,6 +300,19 @@ public class EnemyPlayer : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        // 적의 움직임이 모두 끝난후 UI 이동시키기 위해 LateUpdate 에서 함
+        if (enemyDamageText != null)
+        {
+            Vector3 worldPosition = transform.position + new Vector3(0, 0.0f, 0);       // 적 머리 위 위치
+            Vector2 screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
+
+            RectTransform rectTransform = enemyDamageText.GetComponent<RectTransform>();
+            rectTransform.position = screenPosition;                                    // UI의 위치를 화면 좌표로 설정
+        }
+    }
+
     /// <summary>
     /// 토너먼트 리스트의 0번으로 선택된 캐릭터를 생성하는 함수
     /// </summary>
@@ -1946,7 +1959,7 @@ public class EnemyPlayer : MonoBehaviour
     IEnumerator DamageCoroutine(int damage)
     {
         enemyDamageText.text = "-" + damage.ToString();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1);
         enemyDamageText.text = "";
     }
 

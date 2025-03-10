@@ -118,7 +118,7 @@ public class NextZone : MonoBehaviour
             Debug.Log("nextButton 없음!");
         }*/
 
-        Debug.Log("들어오기는 하는거지..?");
+        //Debug.Log("들어오기는 하는거지..?");
 
         if (nextButton == null || ReferenceEquals(nextButton, null) || nextButton.gameObject == null)
         {

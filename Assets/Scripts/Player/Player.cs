@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -132,6 +133,11 @@ public class Player : MonoBehaviour
     /// 플레이어가 적을 공격할 때 적이 가드 상태이면 알릴 델리게이트(int : 받는 데미지)
     /// </summary>
     public Action<int> onPlayerToEnemyGuardText;
+
+    /// <summary>
+    /// 플레이어가 받는 데미지 텍스트
+    /// </summary>
+    TextMeshProUGUI playerDamageText;
 
     /// <summary>
     /// 현재 가지고 있는 체력
@@ -351,6 +357,9 @@ public class Player : MonoBehaviour
         
         if (animator == null)
             Debug.LogError("Animator is null!");
+
+        playerDamageText = GetComponentInChildren<TextMeshProUGUI>();
+        playerDamageText.text = "";
     }
 
     private void Update()
@@ -377,6 +386,19 @@ public class Player : MonoBehaviour
             Protect();
             selectedProtect = PlayerProtect.None;
             //playerActiveEnd = true;                 // 행동이 끝났다고 표시
+        }
+    }
+
+    private void LateUpdate()
+    {
+        // 플레이어의 움직임이 모두 끝난후 UI 이동시키기 위해 LateUpdate 에서 함
+        if (playerDamageText != null)
+        {
+            Vector3 worldPosition = transform.position + new Vector3(0, 0.0f, 0);       // 플레이어의 머리 위 위치
+            Vector2 screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
+
+            RectTransform rectTransform = playerDamageText.GetComponent<RectTransform>();
+            rectTransform.position = screenPosition;                                    // UI의 위치를 화면 좌표로 설정
         }
     }
 
@@ -2020,7 +2042,20 @@ public class Player : MonoBehaviour
     /// <param name="damage">받는 데미지</param>
     private void OnEnemyToPlayerGuardText(int damage)
     {
-        
+        playerDamageText.color = Color.red;      // 빨간색으로 변경
+
+        StartCoroutine(DamageCoroutine(damage));
+    }
+
+    /// <summary>
+    /// 데미지 텍스트 수정용 코루틴
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator DamageCoroutine(int damage)
+    {
+        playerDamageText.text = "-" + damage.ToString();
+        yield return new WaitForSeconds(1);
+        playerDamageText.text = "";
     }
 
     private void OnDestroy()
