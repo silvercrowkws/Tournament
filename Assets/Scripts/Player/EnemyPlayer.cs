@@ -1824,12 +1824,13 @@ public class EnemyPlayer : MonoBehaviour
     }
 
     /// <summary>
-    /// 플레이어가 가드 행동을 할 때 실행되는 코루틴
+    /// 적 플레이어가 가드 행동을 할 때 실행되는 코루틴
     /// </summary>
     /// <returns></returns>
     IEnumerator GuardCoroutine()
     {
         animator.SetTrigger("Protect");         // 가드, 에너지 업, 힐 애니메이터
+        Debug.Log("적 가드 상태");
 
         // 적 플레이어가 가드 상태이면
         if (EselectedProtect == EnemyPlayerProtect.Guard)
@@ -1848,8 +1849,6 @@ public class EnemyPlayer : MonoBehaviour
             yield return null;
         }
 
-        enemyActiveEnd = true;                 // 행동이 끝났음을 표시
-
         ResetTrigger();
 
         // 적 플레이어가 가드 상태이면
@@ -1863,6 +1862,9 @@ public class EnemyPlayer : MonoBehaviour
         }
 
         animator.SetTrigger("Idle");
+        Debug.Log("적 가드 상태 종료");
+
+        enemyActiveEnd = true;                 // 행동이 끝났음을 표시
     }
 
     /// <summary>

@@ -1919,9 +1919,10 @@ public class Player : MonoBehaviour
     IEnumerator GuardCoroutine()
     {
         animator.SetTrigger("Protect");         // 가드, 에너지 업, 힐 애니메이터
-        
+        Debug.Log("플레이어 가드 상태");
+
         // 플레이어가 가드 상태이면
-        if(selectedProtect == PlayerProtect.Guard)
+        if (selectedProtect == PlayerProtect.Guard)
         {
             playerGuard = true;
         }
@@ -1937,8 +1938,6 @@ public class Player : MonoBehaviour
             yield return null;
         }
 
-        playerActiveEnd = true;                 // 행동이 끝났음을 표시
-
         ResetTrigger();
         
         // 플레이어가 가드 상태이면
@@ -1952,6 +1951,9 @@ public class Player : MonoBehaviour
         }
 
         animator.SetTrigger("Idle");
+        Debug.Log("플레이어 가드 상태 종료");
+
+        playerActiveEnd = true;                 // 행동이 끝났음을 표시
     }
 
     /// <summary>
