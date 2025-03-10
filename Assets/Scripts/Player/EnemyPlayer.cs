@@ -1810,13 +1810,13 @@ public class EnemyPlayer : MonoBehaviour
                 break;
 
             case EnemyPlayerProtect.EnergyUp:
-                StartCoroutine(EnergyHealCoroutine());
+                StartCoroutine(EnergyHealCoroutine(15));
                 // 에너지 회복하는 부분 필요
                 Energy += 15;
                 break;
 
             case EnemyPlayerProtect.Heal:
-                StartCoroutine(EnergyHealCoroutine());
+                StartCoroutine(EnergyHealCoroutine(15));
                 // HP 회복 시키는 부분 필요
                 HP += 15;
                 break;
@@ -1864,9 +1864,20 @@ public class EnemyPlayer : MonoBehaviour
     /// 플레이어가 에너지, 체력을 회복할 때 실행되는 코루틴
     /// </summary>
     /// <returns></returns>
-    IEnumerator EnergyHealCoroutine()
+    IEnumerator EnergyHealCoroutine(int up)
     {
         animator.SetTrigger("Protect");     // 가드, 에너지 업, 힐 애니메이터
+
+        if (EselectedProtect == EnemyPlayerProtect.EnergyUp)
+        {
+            enemyDamageText.color = Color.yellow;
+        }
+        else
+        {
+            enemyDamageText.color = Color.green;
+        }
+
+        enemyDamageText.text = "+" + up.ToString();
 
         float elTime = 0;                   // 누적 시간
 
@@ -1876,6 +1887,7 @@ public class EnemyPlayer : MonoBehaviour
             yield return null;
         }
 
+        enemyDamageText.text = "";
         enemyActiveEnd = true;             // 행동이 끝났음을 표시
 
         ResetTrigger();

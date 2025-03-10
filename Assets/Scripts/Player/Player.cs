@@ -1895,7 +1895,7 @@ public class Player : MonoBehaviour
                 break;
 
             case PlayerProtect.EnergyUp:
-                StartCoroutine(EnergyHealCoroutine());
+                StartCoroutine(EnergyHealCoroutine(15));
                 // 에너지 회복하는 부분 필요
                 //Debug.LogWarning($"<플레이어의 에너지 회복 전> 남은 에너지 : {Energy}");
                 Energy += 15;
@@ -1903,7 +1903,7 @@ public class Player : MonoBehaviour
                 break;
 
             case PlayerProtect.Heal:
-                StartCoroutine(EnergyHealCoroutine());
+                StartCoroutine(EnergyHealCoroutine(15));
                 // HP 회복 시키는 부분 필요
                 //Debug.LogWarning($"<플레이어의 체력 회복 전> 남은 체력 : {HP}");
                 HP += 15;
@@ -1953,9 +1953,20 @@ public class Player : MonoBehaviour
     /// 플레이어가 에너지, 체력을 회복할 때 실행되는 코루틴
     /// </summary>
     /// <returns></returns>
-    IEnumerator EnergyHealCoroutine()
+    IEnumerator EnergyHealCoroutine(int up)
     {
         animator.SetTrigger("Protect");     // 가드, 에너지 업, 힐 애니메이터
+
+        if (selectedProtect == PlayerProtect.EnergyUp)
+        {
+            playerDamageText.color = Color.yellow;
+        }
+        else
+        {
+            playerDamageText.color = Color.green;
+        }
+
+        playerDamageText.text = "+" + up.ToString();
 
         float elTime = 0;                   // 누적 시간
         
@@ -1965,6 +1976,7 @@ public class Player : MonoBehaviour
             yield return null;
         }
 
+        playerDamageText.text = "";
         playerActiveEnd = true;             // 행동이 끝났음을 표시
 
         ResetTrigger();
