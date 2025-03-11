@@ -1921,7 +1921,7 @@ public class EnemyPlayer : MonoBehaviour
     }
 
     /// <summary>
-    /// 플레이어가 에너지, 체력을 회복할 때 실행되는 코루틴
+    /// 적이 에너지, 체력을 회복할 때 실행되는 코루틴
     /// </summary>
     /// <returns></returns>
     IEnumerator EnergyHealCoroutine(int up)
