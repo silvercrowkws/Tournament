@@ -56,7 +56,7 @@ public class BackGround : MonoBehaviour
             // 셔플된 순서대로 배경을 설정
             int randomIndex = availableIndexes[0];              // 셔플된 첫 번째 인덱스를 선택
 
-            spriteRenderer.sprite = backgrounds[randomIndex];
+            guardSpriteRenderer.sprite = backgrounds[randomIndex];
 
             // 이후 셔플된 리스트에서 첫 번째 인덱스를 제거(다음 0번을 위함)
             availableIndexes.RemoveAt(0);
@@ -65,7 +65,7 @@ public class BackGround : MonoBehaviour
         // 게임 상태가 메인 상태이면
         else if(gameManager.GameState == GameState.Main)
         {
-            spriteRenderer.sprite = backgrounds[0];
+            guardSpriteRenderer.sprite = backgrounds[0];
         }*/
 
         // 게임 상태가 카드 선택 상태이면 => OnEnable 에서 하고 싶은데 GameManager.GameState가 OnEnable에서는 SelectCard가 아님
@@ -83,7 +83,7 @@ public class BackGround : MonoBehaviour
        /* // 게임 상태가 메인 상태이면
         else if (gameManager.GameState == GameState.Main)
         {
-            spriteRenderer.sprite = backgrounds[0];
+            guardSpriteRenderer.sprite = backgrounds[0];
         }*/
     }
 }

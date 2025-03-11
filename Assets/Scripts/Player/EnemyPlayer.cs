@@ -111,6 +111,26 @@ public class EnemyPlayer : MonoBehaviour
     /// </summary>
     Color perfectGuardColor;
 
+    /// <summary>
+    /// 힐 & 에너지업 상태일 때 사용할 오브젝트
+    /// </summary>
+    GameObject healenergyupObject;
+
+    /// <summary>
+    /// 힐, 에너지업 상태일 때 사용할 스프라이트 렌더러
+    /// </summary>
+    SpriteRenderer heSpriteRenderer;
+
+    /// <summary>
+    /// 힐 상태의 색
+    /// </summary>
+    Color healColor;
+
+    /// <summary>
+    /// 에너지 업 상태의 색
+    /// </summary>
+    Color energyUpColor;
+
     // 체력 & 에너지 관련 시작 ----------------------------------------------------------------------------------------------------
 
     /// <summary>
@@ -299,6 +319,13 @@ public class EnemyPlayer : MonoBehaviour
         guardObject = child.GetChild(0).gameObject;
         spriteRenderer = guardObject.GetComponent<SpriteRenderer>();
         guardObject.SetActive(false);
+
+        healColor = new Color(0, 1, 0);
+        energyUpColor = new Color(1, 1, 0);
+
+        healenergyupObject = child.GetChild(1).gameObject;
+        heSpriteRenderer = healenergyupObject.GetComponent<SpriteRenderer>();
+        healenergyupObject.SetActive(false);
     }
 
     private void Update()
@@ -1904,10 +1931,16 @@ public class EnemyPlayer : MonoBehaviour
         if (EselectedProtect == EnemyPlayerProtect.EnergyUp)
         {
             enemyDamageText.color = Color.yellow;
+
+            heSpriteRenderer.color = energyUpColor;
+            healenergyupObject.SetActive(true);
         }
         else
         {
             enemyDamageText.color = Color.green;
+
+            heSpriteRenderer.color = healColor;
+            healenergyupObject.SetActive(true);
         }
 
         enemyDamageText.text = "+" + up.ToString();

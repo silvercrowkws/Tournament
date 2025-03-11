@@ -115,7 +115,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 가드 상태일 때 사용할 스프라이트 렌더러
     /// </summary>
-    SpriteRenderer spriteRenderer;
+    SpriteRenderer guardSpriteRenderer;
 
     /// <summary>
     /// 가드 상태의 색
@@ -126,6 +126,26 @@ public class Player : MonoBehaviour
     /// 퍼펙트 가드 상태의 색
     /// </summary>
     Color perfectGuardColor;
+
+    /// <summary>
+    /// 힐 & 에너지업 상태일 때 사용할 오브젝트
+    /// </summary>
+    GameObject healenergyupObject;
+
+    /// <summary>
+    /// 힐, 에너지업 상태일 때 사용할 스프라이트 렌더러
+    /// </summary>
+    SpriteRenderer heSpriteRenderer;
+
+    /// <summary>
+    /// 힐 상태의 색
+    /// </summary>
+    Color healColor;
+
+    /// <summary>
+    /// 에너지 업 상태의 색
+    /// </summary>
+    Color energyUpColor;
 
     /// <summary>
     /// VS 이미지
@@ -387,8 +407,15 @@ public class Player : MonoBehaviour
 
         Transform child = transform.GetChild(1);
         guardObject = child.GetChild(0).gameObject;
-        spriteRenderer = guardObject.GetComponent<SpriteRenderer>();
+        guardSpriteRenderer = guardObject.GetComponent<SpriteRenderer>();
         guardObject.SetActive(false);
+
+        healColor = new Color(0, 1, 0);
+        energyUpColor = new Color(1, 1, 0);
+
+        healenergyupObject = child.GetChild(1).gameObject;
+        heSpriteRenderer = healenergyupObject.GetComponent<SpriteRenderer>();
+        healenergyupObject.SetActive(false);
     }
 
     private void Update()
@@ -1955,13 +1982,13 @@ public class Player : MonoBehaviour
         {
             playerGuard = true;
             guardObject.SetActive(true);
-            spriteRenderer.color = guardColor;
+            guardSpriteRenderer.color = guardColor;
         }
         else
         {
             playerPerfectGuard = true;
             guardObject.SetActive(true);
-            spriteRenderer.color = perfectGuardColor;
+            guardSpriteRenderer.color = perfectGuardColor;
         }
 
         yield return new WaitForSeconds(1);     // 1초 대기 => 가드를 먼저 시작하고 후에 적이 공격을 시작하기 때문에(공격 시작 전까지는 enemyActiveEnd 가 false임)
@@ -1994,10 +2021,16 @@ public class Player : MonoBehaviour
         if (selectedProtect == PlayerProtect.EnergyUp)
         {
             playerDamageText.color = Color.yellow;
+
+            heSpriteRenderer.color = energyUpColor;
+            healenergyupObject.SetActive(true);
         }
         else
         {
             playerDamageText.color = Color.green;
+
+            heSpriteRenderer.color = healColor;
+            healenergyupObject.SetActive(true);
         }
 
         playerDamageText.text = "+" + up.ToString();
