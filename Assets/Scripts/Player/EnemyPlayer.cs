@@ -91,6 +91,26 @@ public class EnemyPlayer : MonoBehaviour
     /// </summary>
     GameObject targetAttack;
 
+    /// <summary>
+    /// 가드 상태일 때 사용할 오브젝트
+    /// </summary>
+    GameObject guardObject;
+
+    /// <summary>
+    /// 가드 상태일 때 사용할 스프라이트 렌더러
+    /// </summary>
+    SpriteRenderer spriteRenderer;
+
+    /// <summary>
+    /// 가드 상태의 색
+    /// </summary>
+    Color guardColor;
+
+    /// <summary>
+    /// 퍼펙트 가드 상태의 색
+    /// </summary>
+    Color perfectGuardColor;
+
     // 체력 & 에너지 관련 시작 ----------------------------------------------------------------------------------------------------
 
     /// <summary>
@@ -271,6 +291,14 @@ public class EnemyPlayer : MonoBehaviour
 
         enemyDamageText = GetComponentInChildren<TextMeshProUGUI>();
         enemyDamageText.text = "";
+
+        guardColor = new Color(0, 0, 1);
+        perfectGuardColor = new Color(1, 1, 1);
+
+        Transform child = transform.GetChild(1);
+        guardObject = child.GetChild(0).gameObject;
+        spriteRenderer = guardObject.GetComponent<SpriteRenderer>();
+        guardObject.SetActive(false);
     }
 
     private void Update()
@@ -1836,10 +1864,14 @@ public class EnemyPlayer : MonoBehaviour
         if (EselectedProtect == EnemyPlayerProtect.Guard)
         {
             enemyPlayerGuard = true;
+            guardObject.SetActive(true);
+            spriteRenderer.color = guardColor;
         }
         else
         {
             enemyPlayerPerfectGuard = true;
+            guardObject.SetActive(true);
+            spriteRenderer.color = perfectGuardColor;
         }
 
         yield return new WaitForSeconds(1);     // 1초 대기 => 가드를 먼저 시작하고 후에 적이 공격을 시작하기 때문에(공격 시작 전까지는 enemyActiveEnd 가 false임)
@@ -1853,6 +1885,7 @@ public class EnemyPlayer : MonoBehaviour
 
         enemyPlayerGuard = false;               // 가드 상태 종료
         enemyPlayerPerfectGuard = false;
+        guardObject.SetActive(false);
 
         animator.SetTrigger("Idle");
         Debug.Log("적 가드 상태 종료");
@@ -1966,7 +1999,7 @@ public class EnemyPlayer : MonoBehaviour
     IEnumerator DamageCoroutine(int damage)
     {
         enemyDamageText.text = "-" + damage.ToString();
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
         enemyDamageText.text = "";
     }
 

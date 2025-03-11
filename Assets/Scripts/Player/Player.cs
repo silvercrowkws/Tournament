@@ -108,6 +108,26 @@ public class Player : MonoBehaviour
     GameObject targetAttack;
 
     /// <summary>
+    /// 가드 상태일 때 사용할 오브젝트
+    /// </summary>
+    GameObject guardObject;
+
+    /// <summary>
+    /// 가드 상태일 때 사용할 스프라이트 렌더러
+    /// </summary>
+    SpriteRenderer spriteRenderer;
+
+    /// <summary>
+    /// 가드 상태의 색
+    /// </summary>
+    Color guardColor;
+
+    /// <summary>
+    /// 퍼펙트 가드 상태의 색
+    /// </summary>
+    Color perfectGuardColor;
+
+    /// <summary>
     /// VS 이미지
     /// </summary>
     //VSImage vsImage;
@@ -360,6 +380,15 @@ public class Player : MonoBehaviour
 
         playerDamageText = GetComponentInChildren<TextMeshProUGUI>();
         playerDamageText.text = "";
+
+
+        guardColor = new Color(0, 0, 1);
+        perfectGuardColor = new Color(1, 1, 1);
+
+        Transform child = transform.GetChild(1);
+        guardObject = child.GetChild(0).gameObject;
+        spriteRenderer = guardObject.GetComponent<SpriteRenderer>();
+        guardObject.SetActive(false);
     }
 
     private void Update()
@@ -1925,10 +1954,14 @@ public class Player : MonoBehaviour
         if (selectedProtect == PlayerProtect.Guard)
         {
             playerGuard = true;
+            guardObject.SetActive(true);
+            spriteRenderer.color = guardColor;
         }
         else
         {
             playerPerfectGuard = true;
+            guardObject.SetActive(true);
+            spriteRenderer.color = perfectGuardColor;
         }
 
         yield return new WaitForSeconds(1);     // 1초 대기 => 가드를 먼저 시작하고 후에 적이 공격을 시작하기 때문에(공격 시작 전까지는 enemyActiveEnd 가 false임)
@@ -1942,6 +1975,7 @@ public class Player : MonoBehaviour
         
         playerGuard = false;                    // 가드 상태 종료
         playerPerfectGuard = false;
+        guardObject.SetActive(false);
 
         animator.SetTrigger("Idle");
         Debug.Log("플레이어 가드 상태 종료");
@@ -2061,7 +2095,7 @@ public class Player : MonoBehaviour
     IEnumerator DamageCoroutine(int damage)
     {
         playerDamageText.text = "-" + damage.ToString();
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
         playerDamageText.text = "";
     }
 
