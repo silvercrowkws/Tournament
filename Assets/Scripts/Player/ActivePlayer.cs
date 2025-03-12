@@ -1945,7 +1945,10 @@ public class ActivePlayer : Singleton<ActivePlayer>
                             int cardCost = 0;
                             do
                             {
-                                randomIndex = UnityEngine.Random.Range(0, randomNumber.Length);
+                                int num = 0;
+                                num = UnityEngine.Random.Range(0, randomNumber.Length);
+
+                                randomIndex = randomNumber[num];
 
                                 switch (randomIndex)
                                 {
@@ -2008,7 +2011,10 @@ public class ActivePlayer : Singleton<ActivePlayer>
                             int cardCost = 0;
                             do
                             {
-                                randomIndex = UnityEngine.Random.Range(0, randomNumber.Length);
+                                int num = 0;
+                                num = UnityEngine.Random.Range(0, randomNumber.Length);
+
+                                randomIndex = randomNumber[num];
 
                                 switch (randomIndex)
                                 {
@@ -2072,9 +2078,12 @@ public class ActivePlayer : Singleton<ActivePlayer>
                             int cardCost = 0;
                             do
                             {
-                                randomIndex = UnityEngine.Random.Range(0, randomNumber.Length);
+                                int num = 0;
+                                num = UnityEngine.Random.Range(0, randomNumber.Length);
 
-                                switch(randomIndex)
+                                randomIndex = randomNumber[num];
+
+                                switch (randomIndex)
                                 {
                                     case 11:
                                         cardCost = 25;
@@ -2354,7 +2363,10 @@ public class ActivePlayer : Singleton<ActivePlayer>
                             int cardCost = 0;
                             do
                             {
-                                randomIndex = UnityEngine.Random.Range(0, randomNumber.Length);
+                                int num = 0;
+                                num = UnityEngine.Random.Range(0, randomNumber.Length);
+
+                                randomIndex = randomNumber[num];
 
                                 switch (randomIndex)
                                 {
@@ -2422,7 +2434,10 @@ public class ActivePlayer : Singleton<ActivePlayer>
                             int cardCost = 0;
                             do
                             {
-                                randomIndex = UnityEngine.Random.Range(0, randomNumber.Length);
+                                int num = 0;
+                                num = UnityEngine.Random.Range(0, randomNumber.Length);
+
+                                randomIndex = randomNumber[num];
 
                                 switch (randomIndex)
                                 {
@@ -2491,7 +2506,10 @@ public class ActivePlayer : Singleton<ActivePlayer>
                             int cardCost = 0;
                             do
                             {
-                                randomIndex = UnityEngine.Random.Range(0, randomNumber.Length);
+                                int num = 0;
+                                num = UnityEngine.Random.Range(0, randomNumber.Length);
+
+                                randomIndex = randomNumber[num];
 
                                 switch (randomIndex)
                                 {
@@ -2789,7 +2807,10 @@ public class ActivePlayer : Singleton<ActivePlayer>
                             int cardCost = 0;
                             do
                             {
-                                randomIndex = UnityEngine.Random.Range(0, randomNumber.Length);
+                                int num = 0;
+                                num = UnityEngine.Random.Range(0, randomNumber.Length);
+
+                                randomIndex = randomNumber[num];
 
                                 switch (randomIndex)
                                 {
@@ -2857,7 +2878,10 @@ public class ActivePlayer : Singleton<ActivePlayer>
                             int cardCost = 0;
                             do
                             {
-                                randomIndex = UnityEngine.Random.Range(0, randomNumber.Length);
+                                int num = 0;
+                                num = UnityEngine.Random.Range(0, randomNumber.Length);
+
+                                randomIndex = randomNumber[num];
 
                                 switch (randomIndex)
                                 {
@@ -2926,7 +2950,10 @@ public class ActivePlayer : Singleton<ActivePlayer>
                             int cardCost = 0;
                             do
                             {
-                                randomIndex = UnityEngine.Random.Range(0, randomNumber.Length);
+                                int num = 0;
+                                num = UnityEngine.Random.Range(0, randomNumber.Length);
+
+                                randomIndex = randomNumber[num];
 
                                 switch (randomIndex)
                                 {
