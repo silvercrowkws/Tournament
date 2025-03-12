@@ -1889,6 +1889,8 @@ public class ActivePlayer : Singleton<ActivePlayer>
         Debug.Log($"적 : {enemyTargetSection}");
         Debug.Log($"적 : {enemyPlayer.EcurrentSectionIndex}");*/
 
+        List<int> safeMoves = new List<int>();
+
         // 첫번째 턴 카드 시작 ----------------------------------------------------------------------------------------------------
 
         // 만약 플레이어가 첫턴에 기본 공격 or 마법 공격 or 특수 공격을 할 예정이면
@@ -1914,7 +1916,6 @@ public class ActivePlayer : Singleton<ActivePlayer>
                         Debug.LogWarning("적이 기본 공격 범위에 있음, 피할 수 있는지 확인");
 
                         int[] moveOptions = { 0, 1, 2, 3, 9, 10 };
-                        List<int> safeMoves = new List<int>();
 
                         // 이동 가능한 방향 체크
                         foreach (int move in moveOptions)
@@ -1933,6 +1934,7 @@ public class ActivePlayer : Singleton<ActivePlayer>
                             EfirstTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
                             EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
                             Debug.Log($"적이 {EfirstTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                            safeMoves.Clear();
                         }
                         else
                         {
@@ -1977,7 +1979,6 @@ public class ActivePlayer : Singleton<ActivePlayer>
                         Debug.LogWarning("적이 마법 공격 범위에 있음, 피할 수 있는지 확인");
 
                         int[] moveOptions = { 0, 1, 2, 3, 9, 10 };
-                        List<int> safeMoves = new List<int>();
 
                         // 이동 가능한 방향 체크
                         foreach (int move in moveOptions)
@@ -1996,6 +1997,7 @@ public class ActivePlayer : Singleton<ActivePlayer>
                             EfirstTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
                             EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
                             Debug.Log($"적이 {EfirstTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                            safeMoves.Clear();
                         }
                         else
                         {
@@ -2040,7 +2042,6 @@ public class ActivePlayer : Singleton<ActivePlayer>
                         Debug.LogWarning("적이 특수 공격 범위에 있음, 피할 수 있는지 확인");
 
                         int[] moveOptions = { 0, 1, 2, 3, 9, 10 };
-                        List<int> safeMoves = new List<int>();
 
                         // 이동 가능한 방향 체크
                         foreach (int move in moveOptions)
@@ -2060,6 +2061,7 @@ public class ActivePlayer : Singleton<ActivePlayer>
                             EfirstTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
                             EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
                             Debug.Log($"적이 {EfirstTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                            safeMoves.Clear();
                         }
                         else
                         {
@@ -2318,7 +2320,6 @@ public class ActivePlayer : Singleton<ActivePlayer>
                         Debug.LogWarning("적이 기본 공격 범위에 있음, 피할 수 있는지 확인");
 
                         int[] moveOptions = { 0, 1, 2, 3, 9, 10 };
-                        List<int> safeMoves = new List<int>();
 
                         // 이동 가능한 방향 체크
                         foreach (int move in moveOptions)
@@ -2342,6 +2343,7 @@ public class ActivePlayer : Singleton<ActivePlayer>
                             EsecondTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
                             EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
                             Debug.Log($"적이 {EsecondTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                            safeMoves.Clear();
                         }
                         else
                         {
@@ -2386,7 +2388,6 @@ public class ActivePlayer : Singleton<ActivePlayer>
                         Debug.LogWarning("적이 마법 공격 범위에 있음, 피할 수 있는지 확인");
 
                         int[] moveOptions = { 0, 1, 2, 3, 9, 10 };
-                        List<int> safeMoves = new List<int>();
 
                         // 이동 가능한 방향 체크
                         foreach (int move in moveOptions)
@@ -2410,6 +2411,7 @@ public class ActivePlayer : Singleton<ActivePlayer>
                             EsecondTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
                             EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
                             Debug.Log($"적이 {EsecondTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                            safeMoves.Clear();
                         }
                         else
                         {
@@ -2454,7 +2456,6 @@ public class ActivePlayer : Singleton<ActivePlayer>
                         Debug.LogWarning("적이 특수 공격 범위에 있음, 피할 수 있는지 확인");
 
                         int[] moveOptions = { 0, 1, 2, 3, 9, 10 };
-                        List<int> safeMoves = new List<int>();
 
                         // 이동 가능한 방향 체크
                         foreach (int move in moveOptions)
@@ -2479,6 +2480,7 @@ public class ActivePlayer : Singleton<ActivePlayer>
                             EsecondTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
                             EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
                             Debug.Log($"적이 {EsecondTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                            safeMoves.Clear();
                         }
                         else
                         {
@@ -2753,7 +2755,6 @@ public class ActivePlayer : Singleton<ActivePlayer>
                         Debug.LogWarning("적이 기본 공격 범위에 있음, 피할 수 있는지 확인");
 
                         int[] moveOptions = { 0, 1, 2, 3, 9, 10 };
-                        List<int> safeMoves = new List<int>();
 
                         // 이동 가능한 방향 체크
                         foreach (int move in moveOptions)
@@ -2777,6 +2778,7 @@ public class ActivePlayer : Singleton<ActivePlayer>
                             EthirdTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
                             EnemyCharacterMove(EthirdTurnCardIndex, enemyTargetSection);
                             Debug.Log($"적이 {EthirdTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                            safeMoves.Clear();
                         }
                         else
                         {
@@ -2821,7 +2823,6 @@ public class ActivePlayer : Singleton<ActivePlayer>
                         Debug.LogWarning("적이 마법 공격 범위에 있음, 피할 수 있는지 확인");
 
                         int[] moveOptions = { 0, 1, 2, 3, 9, 10 };
-                        List<int> safeMoves = new List<int>();
 
                         // 이동 가능한 방향 체크
                         foreach (int move in moveOptions)
@@ -2845,6 +2846,7 @@ public class ActivePlayer : Singleton<ActivePlayer>
                             EthirdTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
                             EnemyCharacterMove(EthirdTurnCardIndex, enemyTargetSection);
                             Debug.Log($"적이 {EthirdTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                            safeMoves.Clear();
                         }
                         else
                         {
@@ -2889,7 +2891,6 @@ public class ActivePlayer : Singleton<ActivePlayer>
                         Debug.LogWarning("적이 특수 공격 범위에 있음, 피할 수 있는지 확인");
 
                         int[] moveOptions = { 0, 1, 2, 3, 9, 10 };
-                        List<int> safeMoves = new List<int>();
 
                         // 이동 가능한 방향 체크
                         foreach (int move in moveOptions)
@@ -2914,6 +2915,7 @@ public class ActivePlayer : Singleton<ActivePlayer>
                             EthirdTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
                             EnemyCharacterMove(EthirdTurnCardIndex, enemyTargetSection);
                             Debug.Log($"적이 {EthirdTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                            safeMoves.Clear();
                         }
                         else
                         {
