@@ -1695,6 +1695,179 @@ public class ActivePlayer : Singleton<ActivePlayer>
         }
     }
 
+
+    /// <summary>
+    /// 적이 특정 방향으로 이동했을 때 도착할 위치를 계산 (실제 이동 X)
+    /// </summary>
+    private int SimulateEnemyMove(int move, int currentPosition)
+    {
+        switch (move)
+        {
+            case 0: // 아래로 이동
+                if (currentPosition > 3)  // 현재 위치가 4, 5, 6, 7 일 때(윗줄)
+                {
+                    return currentPosition - 4; // 아래로 이동할 때는 -4 만큼
+                }
+                break;
+
+            case 1: // 위로 이동
+                if (currentPosition < 8)  // 현재 위치가 0, 1, 2, 3 일 때(아래줄)  4 -> 8
+                {
+                    return currentPosition + 4; // 위로 이동할 때는 +4 만큼
+                }
+                break;
+
+            case 2: // 오른쪽으로 이동
+                if (currentPosition != 3 && currentPosition != 7 && currentPosition != 11)  // 현재 위치가 3, 7, 11 이 아닐 때(맨 오른쪽)
+                {
+                    return currentPosition + 1; // 오른쪽으로 이동할 때는 +1 만큼
+                }
+                break;
+
+            case 3: // 왼쪽으로 이동
+                if (currentPosition != 0 && currentPosition != 4 && currentPosition != 8)  // 현재 위치가 0, 4, 8 이 아닐 때(맨 왼쪽)
+                {
+                    return currentPosition - 1; // 왼쪽으로 이동할 때는 -1 만큼
+                }
+                break;
+
+            case 9: // 더블 오른쪽 이동
+                if (currentPosition == 2 || currentPosition == 6 || currentPosition == 10)
+                {
+                    return currentPosition + 1;
+                }
+                else if (currentPosition != 2 && currentPosition != 3 && currentPosition != 6 && currentPosition != 7 && currentPosition != 10 && currentPosition != 11)
+                {
+                    return currentPosition + 2;
+                }
+                break;
+
+            case 10: // 더블 왼쪽 이동
+                if (currentPosition == 1 || currentPosition == 5 || currentPosition == 9)
+                {
+                    return currentPosition + 1;
+                }
+                else if (currentPosition != 0 && currentPosition != 1 && currentPosition != 4 && currentPosition != 5 && currentPosition != 8 && currentPosition != 9)
+                {
+                    return currentPosition - 2;
+                }
+                break;
+
+            default:
+                break;
+        }
+
+        // 이동할 수 없다면, 현재 위치를 그대로 반환
+        return currentPosition;
+    }
+
+    /// <summary>
+    /// 플레이어 공격 시 적이 공격 범위에 없을 때 사용되는 함수
+    /// </summary>
+    /// <param name="turnCardIndex"></param>
+    void HandleEnemyOutOfRange(ref int turnCardIndex)
+    {
+        // 적의 현재 위치에서 공격 범위 계산
+        CharacterAttackRange(gameManager.enemyPlayerCharacterIndex, enemyTargetSection);
+
+        // 공격 범위에 포함되는 카드들만 선택
+        List<int> availableCards = new List<int>();
+
+        if (attackRange.Contains(playerTargetSection))
+        {
+            Debug.Log("적의 기본 공격 범위에 포함됨");
+            Debug.Log($"{playerTargetSection}이 포함");
+            if (enemyPlayer.Energy >= attackCost)
+            {
+                availableCards.Add(5);
+                Debug.Log("에너지가 기본 공격 코스트 이상");
+            }
+            else
+            {
+                Debug.Log("하지만 에너지가 기본 공격 코스트 미만이라 할 수 없다");
+            }
+        }
+
+        if (magicAttackRange.Contains(playerTargetSection))
+        {
+            Debug.Log("적의 마법 공격 범위에 포함됨");
+            Debug.Log($"{playerTargetSection}이 포함");
+            if (enemyPlayer.Energy >= magicAttackCost)
+            {
+                availableCards.Add(6);
+                Debug.Log("에너지가 마법 공격 코스트 이상");
+            }
+            else
+            {
+                Debug.Log("하지만 에너지가 마법 공격 코스트 미만이라 할 수 없다");
+            }
+        }
+
+        if (limitAttackRange.Contains(playerTargetSection))
+        {
+            Debug.Log("적의 특수 공격 범위에 포함됨");
+            Debug.Log($"{playerTargetSection}이 포함");
+            if (enemyPlayer.Energy >= limitAttackCost)
+            {
+                availableCards.Add(7);
+                Debug.Log("에너지가 특수 공격 코스트 이상");
+            }
+            else
+            {
+                Debug.Log("하지만 에너지가 특수 공격 코스트 미만이라 할 수 없다");
+            }
+        }
+
+        // 적의 공격 범위에 하나라도 포함되면
+        if (availableCards.Count > 0)
+        {
+            int randomIndex;
+            int randomCard;
+            int cardCost = 0;
+
+            do
+            {
+                randomIndex = UnityEngine.Random.Range(0, availableCards.Count);
+                randomCard = availableCards[randomIndex];
+
+                // 선택된 카드에 해당하는 코스트를 확인
+                switch (randomCard)
+                {
+                    case 5:
+                        cardCost = attackCost; // attackCost
+                        break;
+                    case 6:
+                        cardCost = magicAttackCost;  // magicAttackCost
+                        break;
+                    case 7:
+                        cardCost = limitAttackCost; // limitAttackCost
+                        break;
+                }
+            }
+            while (enemyPlayer.Energy < cardCost);
+
+            // 선택된 카드 값을 turnCardIndex에 할당
+            turnCardIndex = randomCard;
+            availableCards.Clear();
+        }
+        // 적의 공격 범위에 하나도 포함되지 않으면
+        else
+        {
+            // 에너지업, 움직임 0 1 2 3 8
+            if (UnityEngine.Random.value < 0.3f)     // 30% 확률로
+            {
+                turnCardIndex = 8;            // 에너지 회복
+            }
+            else
+            {
+                int[] numbers = { 0, 1, 2, 3, 8 };
+                int randomIndex = UnityEngine.Random.Range(0, numbers.Length);
+                turnCardIndex = numbers[randomIndex];
+                EnemyCharacterMove(turnCardIndex, enemyTargetSection);
+            }
+        }
+    }
+
     /// <summary>
     /// 하드 모드로 플레이 할 경우의 적 플레이어의 행동
     /// </summary>
@@ -1730,137 +1903,195 @@ public class ActivePlayer : Singleton<ActivePlayer>
                 magicAttackRange.Contains(enemyPlayer.EcurrentSectionIndex) ||
                 limitAttackRange.Contains(enemyPlayer.EcurrentSectionIndex))
             {
-                Debug.LogWarning("1턴 플레이어가 공격 할건데, 적이 공격 범위에 있음");
-                
-                // 만약 적이 피할 수 있으면 피하기?
-                // 만약 0 1 2 3 9 10 으로 했을 때 플레이어의 공격을 피할 수 있으면?
+                //Debug.LogWarning("1턴 플레이어가 공격 할건데, 적이 공격 범위에 있음");
 
-
-                if (UnityEngine.Random.value < 0.7f)                        // 70% 확률로 움직임
+                // 플레이어가 기본 공격을 했을 때
+                if (controlZone.firstTurnCardIndex == 5)
                 {
-                    Debug.Log("70% 확률로 움직이기로 함");
-
-                    int[] numbers = { 0, 1, 2, 3, 9, 10 };
-                    int randomCard;
-                    int randomIndex;
-
-                    randomIndex = UnityEngine.Random.Range(0, numbers.Length);
-                    randomCard = numbers[randomIndex];      // 0 1 2 3 9 10 중에서 선택
-
-                    EfirstTurnCardIndex = randomCard;                       // 나중에 썼던 카드 또 쓰면 안됨
-                    EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
-                }
-                else
-                {
-                    // 움직이지 않기로 함
-                    Debug.LogWarning("30% 확률로 움직이지 않기로 함");
-                    // 움직이지 않기로 했는데 플레이어가 적의 공격 범위에 있으면 공격하고
-                    // 공격 범위에 없으면 딴거하는게?
-
-                    // 적의 현재 위치에서 공격 범위 계산
-                    CharacterAttackRange(gameManager.enemyPlayerCharacterIndex, enemyTargetSection);
-
-                    // 공격 범위에 포함되는 카드들만 선택
-                    List<int> availableCards = new List<int>();
-
-                    // 움직이지 않기로 했는데 플레이어가 적의 공격 범위에 있으면
-                    if (attackRange.Contains(playerTargetSection))
+                    // 적이 플레이어의 기본 공격 범위에 있으면
+                    if (attackRange.Contains(enemyPlayer.EcurrentSectionIndex))
                     {
-                        Debug.Log("1턴 플레이어가 공격할건데 적이 기본 공격 범위에 있고, 30% 확률로 움직이지 않기로 함");
-                        Debug.Log("적의 기본 공격 범위에 포함됨");
-                        Debug.Log($"{playerTargetSection}이 포함");
-                        if(enemyPlayer.Energy >= attackCost)
-                        {
-                            availableCards.Add(5);
-                            Debug.Log("에너지가 기본 공격 코스트 이상");
-                        }
-                        else
-                        {
-                            Debug.Log("하지만 에너지가 기본 공격 코스트 미만이라 할 수 없다");
-                        }
-                    }
+                        Debug.LogWarning("적이 기본 공격 범위에 있음, 피할 수 있는지 확인");
 
-                    if (magicAttackRange.Contains(playerTargetSection))
-                    {
-                        Debug.Log("1턴 플레이어가 공격할건데 적이 마법 공격 범위에 있고, 30% 확률로 움직이지 않기로 함");
-                        Debug.Log("적의 마법 공격 범위에 포함됨");
-                        Debug.Log($"{playerTargetSection}이 포함");
-                        if (enemyPlayer.Energy >= magicAttackCost)
-                        {
-                            availableCards.Add(6);
-                            Debug.Log("에너지가 마법 공격 코스트 이상");
-                        }
-                        else
-                        {
-                            Debug.Log("하지만 에너지가 마법 공격 코스트 미만이라 할 수 없다");
-                        }
-                    }
+                        int[] moveOptions = { 0, 1, 2, 3, 9, 10 };
+                        List<int> safeMoves = new List<int>();
 
-                    if (limitAttackRange.Contains(playerTargetSection))
-                    {
-                        Debug.Log("1턴 플레이어가 공격할건데 적이 특수 공격 범위에 있고, 30% 확률로 움직이지 않기로 함");
-                        Debug.Log("적의 특수 공격 범위에 포함됨");
-                        Debug.Log($"{playerTargetSection}이 포함");
-                        if (enemyPlayer.Energy >= limitAttackCost)
+                        // 이동 가능한 방향 체크
+                        foreach (int move in moveOptions)
                         {
-                            availableCards.Add(7);
-                            Debug.Log("에너지가 특수 공격 코스트 이상");
-                        }
-                        else
-                        {
-                            Debug.Log("하지만 에너지가 특수 공격 코스트 미만이라 할 수 없다");
-                        }
-                    }
+                            int newEnemyPosition = SimulateEnemyMove(move, enemyPlayer.EcurrentSectionIndex);
 
-                    // 적의 공격 범위에 하나라도 포함되면
-                    if (availableCards.Count > 0)
-                    {
-                        int randomIndex;
-                        int randomCard;
-                        int cardCost = 0;
-
-                        // 여기 들어왔다는 것은 availableCards[0]은 최소 5가 보장된다는 의미임(기본 공격 코스트 이상이기 때문에?)
-
-                        do
-                        {
-                            randomIndex = UnityEngine.Random.Range(0, availableCards.Count);
-                            randomCard = availableCards[randomIndex];
-
-                            // 선택된 카드에 해당하는 코스트를 확인
-                            switch (randomCard)
+                            if (!attackRange.Contains(newEnemyPosition))
                             {
-                                case 5:
-                                    cardCost = attackCost; // attackCost
-                                    break;
-                                case 6:
-                                    cardCost = magicAttackCost;  // magicAttackCost
-                                    break;
-                                case 7:
-                                    cardCost = limitAttackCost; // limitAttackCost
-                                    break;
+                                safeMoves.Add(move);
                             }
                         }
-                        while (enemyPlayer.Energy < cardCost);
-                        //while (enemyPlayer.Energy < cardCost);      // 적의 에너지 < 코스트 면 다른게 뽑을 때까지 반복
 
-                        EfirstTurnCardIndex = randomCard;
-                        availableCards.Clear();
-                    }
-                    // 적의 공격 범위에 하나도 포함되지 않으면
-                    else
-                    {
-                        // 에너지업, 움직임 0 1 2 3 8
-                        if(UnityEngine.Random.value < 0.3f)     // 30% 확률로
+                        // 피할 수 있는 방향이 있다면 랜덤하게 선택
+                        if (safeMoves.Count > 0)
                         {
-                            EfirstTurnCardIndex = 8;            // 에너지 회복
+                            EfirstTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
+                            EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
+                            Debug.Log($"적이 {EfirstTurnCardIndex} 방향으로 이동하여 공격을 피함!");
                         }
                         else
                         {
-                            int[] numbers = { 0, 1, 2, 3, 8 };
-                            int randomIndex = UnityEngine.Random.Range(0, numbers.Length);
-                            EfirstTurnCardIndex = numbers[randomIndex];
-                            EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
+                            Debug.Log("적이 어떤 방향으로 이동해도 공격을 피할 수 없음!");
+
+                            int[] randomNumber = { 4, 11, 12 };
+                            int randomIndex = 0;
+                            int cardCost = 0;
+                            do
+                            {
+                                randomIndex = UnityEngine.Random.Range(0, randomNumber.Length);
+
+                                switch (randomIndex)
+                                {
+                                    case 11:
+                                        cardCost = 25;
+                                        break;
+                                    default:
+                                        cardCost = 0;
+                                        break;
+
+                                }
+                            }
+                            while (enemyPlayer.Energy < cardCost);
+
+                            EfirstTurnCardIndex = randomIndex;
                         }
+                    }
+                    // 적이 기본 공격 범위에 없음
+                    else
+                    {
+                        HandleEnemyOutOfRange(ref EfirstTurnCardIndex);
+                    }
+                }
+
+                // 플레이어가 마법 공격을 했을 때
+                else if(controlZone.firstTurnCardIndex == 6)
+                {
+                    // 적이 플레이어의 마법 공격 범위에 있으면
+                    if (magicAttackRange.Contains(enemyPlayer.EcurrentSectionIndex))
+                    {
+                        Debug.LogWarning("적이 마법 공격 범위에 있음, 피할 수 있는지 확인");
+
+                        int[] moveOptions = { 0, 1, 2, 3, 9, 10 };
+                        List<int> safeMoves = new List<int>();
+
+                        // 이동 가능한 방향 체크
+                        foreach (int move in moveOptions)
+                        {
+                            int newEnemyPosition = SimulateEnemyMove(move, enemyPlayer.EcurrentSectionIndex);
+
+                            if (!magicAttackRange.Contains(newEnemyPosition))
+                            {
+                                safeMoves.Add(move);
+                            }
+                        }
+
+                        // 피할 수 있는 방향이 있다면 랜덤하게 선택
+                        if (safeMoves.Count > 0)
+                        {
+                            EfirstTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
+                            EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
+                            Debug.Log($"적이 {EfirstTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                        }
+                        else
+                        {
+                            Debug.Log("적이 어떤 방향으로 이동해도 공격을 피할 수 없음!");
+
+                            int[] randomNumber = { 4, 11, 12 };
+                            int randomIndex = 0;
+                            int cardCost = 0;
+                            do
+                            {
+                                randomIndex = UnityEngine.Random.Range(0, randomNumber.Length);
+
+                                switch (randomIndex)
+                                {
+                                    case 11:
+                                        cardCost = 25;
+                                        break;
+                                    default:
+                                        cardCost = 0;
+                                        break;
+
+                                }
+                            }
+                            while (enemyPlayer.Energy < cardCost);
+
+                            EfirstTurnCardIndex = randomIndex;
+                        }
+                    }
+                    // 적이 마법 공격 범위에 없음
+                    else
+                    {
+                        HandleEnemyOutOfRange(ref EfirstTurnCardIndex);
+                    }
+                }
+
+                // 플레이어가 특수 공격을 했을 때
+                else if (controlZone.firstTurnCardIndex == 7)
+                {
+                    // 적이 플레이어의 특수 공격 범위에 있으면
+                    if (limitAttackRange.Contains(enemyPlayer.EcurrentSectionIndex))
+                    {
+                        Debug.LogWarning("적이 특수 공격 범위에 있음, 피할 수 있는지 확인");
+
+                        int[] moveOptions = { 0, 1, 2, 3, 9, 10 };
+                        List<int> safeMoves = new List<int>();
+
+                        // 이동 가능한 방향 체크
+                        foreach (int move in moveOptions)
+                        {
+                            int newEnemyPosition = SimulateEnemyMove(move, enemyPlayer.EcurrentSectionIndex);
+
+                            if (!limitAttackRange.Contains(newEnemyPosition))
+                            {
+                                safeMoves.Add(move);
+                            }
+                        }
+
+                        // 피할 수 있는 방향이 있다면 랜덤하게 선택
+                        if (safeMoves.Count > 0)
+                        {
+                            Debug.Log(safeMoves.Count);
+                            EfirstTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
+                            EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
+                            Debug.Log($"적이 {EfirstTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                        }
+                        else
+                        {
+                            Debug.Log("적이 어떤 방향으로 이동해도 공격을 피할 수 없음!");
+
+                            int[] randomNumber = { 4, 11, 12 };
+                            int randomIndex = 0;
+                            int cardCost = 0;
+                            do
+                            {
+                                randomIndex = UnityEngine.Random.Range(0, randomNumber.Length);
+
+                                switch(randomIndex)
+                                {
+                                    case 11:
+                                        cardCost = 25;
+                                        break;
+                                    default :
+                                        cardCost = 0;
+                                        break;
+
+                                }
+                            }
+                            while (enemyPlayer.Energy < cardCost);
+
+                            EfirstTurnCardIndex = randomIndex;
+                        }
+                    }
+                    // 적이 특수 공격 범위에 없음
+                    else
+                    {
+                        HandleEnemyOutOfRange(ref EfirstTurnCardIndex);
                     }
                 }
             }
@@ -1878,6 +2109,7 @@ public class ActivePlayer : Singleton<ActivePlayer>
                 else
                 {
                     Debug.Log("70% 확률로 움직이기로 함");
+                    //공격 범위에 없는데 그냥 움직이는게 맞나?
                     int randomCard = UnityEngine.Random.Range(0, 4);        // 0 1 2 3 중 1개 선택
                     EfirstTurnCardIndex = randomCard;                       // 나중에 썼던 카드 또 쓰면 안됨
                     EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
@@ -2075,121 +2307,210 @@ public class ActivePlayer : Singleton<ActivePlayer>
                 magicAttackRange.Contains(enemyPlayer.EcurrentSectionIndex) ||
                 limitAttackRange.Contains(enemyPlayer.EcurrentSectionIndex))
             {
-                Debug.LogWarning("2턴 플레이어가 공격 할건데, 적이 공격 범위에 있음");
-                if (UnityEngine.Random.value < 0.7f)                        // 70% 확률로 움직임
+                //Debug.LogWarning("1턴 플레이어가 공격 할건데, 적이 공격 범위에 있음");
+
+                // 플레이어가 기본 공격을 했을 때
+                if (controlZone.secondTurnCardIndex == 5)
                 {
-                    Debug.Log("70% 확률로 움직이기로 함");
-
-                    int[] numbers = { 0, 1, 2, 3, 9, 10 };
-                    int randomCard;
-                    int randomIndex;
-                    do
+                    // 적이 플레이어의 기본 공격 범위에 있으면
+                    if (attackRange.Contains(enemyPlayer.EcurrentSectionIndex))
                     {
-                        randomIndex = UnityEngine.Random.Range(0, numbers.Length);
-                        randomCard = numbers[randomIndex];      // 0 1 2 3 9 10 중에서 선택
-                    }
-                    while (randomCard == EfirstTurnCardIndex);
+                        Debug.LogWarning("적이 기본 공격 범위에 있음, 피할 수 있는지 확인");
 
+                        int[] moveOptions = { 0, 1, 2, 3, 9, 10 };
+                        List<int> safeMoves = new List<int>();
 
-                    EsecondTurnCardIndex = randomCard;                       // 나중에 썼던 카드 또 쓰면 안됨
-                    EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
-                }
-                else
-                {
-                    // 움직이지 않기로 함
-                    Debug.LogWarning("30% 확률로 움직이지 않기로 함");
-                    // 움직이지 않기로 했는데 플레이어가 적의 공격 범위에 있으면 공격하고
-                    // 공격 범위에 없으면 딴거하는게?
-
-                    // 적의 현재 위치에서 공격 범위 계산
-                    CharacterAttackRange(gameManager.enemyPlayerCharacterIndex, enemyTargetSection);
-
-                    // 공격 범위에 포함되는 카드들만 선택
-                    List<int> availableCards = new List<int>();
-
-                    // 움직이지 않기로 했는데 플레이어가 적의 공격 범위에 있으면
-                    if (attackRange.Contains(playerTargetSection))
-                    {
-                        Debug.Log("2턴 플레이어가 공격할건데 적이 기본 공격 범위에 있고, 30% 확률로 움직이지 않기로 함");
-                        Debug.Log("적의 기본 공격 범위에 포함됨");
-                        Debug.Log($"{playerTargetSection}이 포함");
-                        if(EfirstTurnCardIndex != 5 && enemyPlayer.Energy >= attackCost)
+                        // 이동 가능한 방향 체크
+                        foreach (int move in moveOptions)
                         {
-                            availableCards.Add(5);
-                            Debug.Log("첫 턴에 기본 공격을 안했고, 에너지가 기본 공격 코스트 이상");
+                            if (move == EfirstTurnCardIndex)        // 첫번째 번호와 같은 것은 아래 코드 실행하지 않음
+                            {
+                                continue;
+                            }
+
+                            int newEnemyPosition = SimulateEnemyMove(move, enemyPlayer.EcurrentSectionIndex);
+
+                            if (!attackRange.Contains(newEnemyPosition))
+                            {
+                                safeMoves.Add(move);
+                            }
+                        }
+
+                        // 피할 수 있는 방향이 있다면 랜덤하게 선택
+                        if (safeMoves.Count > 0)
+                        {
+                            EsecondTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
+                            EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
+                            Debug.Log($"적이 {EsecondTurnCardIndex} 방향으로 이동하여 공격을 피함!");
                         }
                         else
                         {
-                            Debug.Log("첫 턴에 기본 공격을 했거나, 에너지가 기본 공격 코스트 미만");
-                        }
-                    }
+                            Debug.Log("적이 어떤 방향으로 이동해도 공격을 피할 수 없음!");
 
-                    if (magicAttackRange.Contains(playerTargetSection))
-                    {
-                        Debug.Log("2턴 플레이어가 공격할건데 적이 마법 공격 범위에 있고, 30% 확률로 움직이지 않기로 함");
-                        Debug.Log("적의 마법 공격 범위에 포함됨");
-                        Debug.Log($"{playerTargetSection}이 포함");
-                        if (EfirstTurnCardIndex != 6 && enemyPlayer.Energy >= magicAttackCost)
-                        {
-                            availableCards.Add(6);
-                            Debug.Log("첫 턴에 마법 공격을 안했고, 에너지가 기본 마법 코스트 이상");
-                        }
-                        else
-                        {
-                            Debug.Log("첫 턴에 마법 공격을 했거나, 에너지가 마법 공격 코스트 미만");
-                        }
-                    }
-
-                    if (limitAttackRange.Contains(playerTargetSection))
-                    {
-                        Debug.Log("2턴 플레이어가 공격할건데 적이 특수 공격 범위에 있고, 30% 확률로 움직이지 않기로 함");
-                        Debug.Log("적의 특수 공격 범위에 포함됨");
-                        Debug.Log($"{playerTargetSection}이 포함");
-                        if (EfirstTurnCardIndex != 7 && enemyPlayer.Energy >= limitAttackCost)
-                        {
-                            availableCards.Add(7);
-                            Debug.Log("첫 턴에 특수 공격을 안했고, 에너지가 특수 공격 코스트 이상");
-                        }
-                        else
-                        {
-                            Debug.Log("첫 턴에 특수 공격을 했거나, 에너지가 특수 공격 코스트 미만");
-                        }
-                    }
-
-                    // 적의 공격 범위에 하나라도 포함되면
-                    if (availableCards.Count > 0)
-                    {
-                        int randomIndex;
-                        int randomCard;
-
-                        randomIndex = UnityEngine.Random.Range(0, availableCards.Count);
-                        randomCard = availableCards[randomIndex];
-
-                        EsecondTurnCardIndex = randomCard;
-                        
-                        availableCards.Clear();
-                    }
-                    // 적의 공격 범위에 하나도 포함되지 않으면
-                    else
-                    {
-                        // 에너지업, 움직임 0 1 2 3 8
-
-                        if (EfirstTurnCardIndex != 8 && UnityEngine.Random.value < 0.3f)     // 30% 확률로
-                        {
-                            EsecondTurnCardIndex = 8;            // 에너지 회복
-                        }
-                        else
-                        {
-                            int[] numbers = { 0, 1, 2, 3, 8 };
-                            int randomIndex;
+                            int[] randomNumber = { 4, 11, 12 };
+                            int randomIndex = 0;
+                            int cardCost = 0;
                             do
                             {
-                                randomIndex = UnityEngine.Random.Range(0, numbers.Length);
+                                randomIndex = UnityEngine.Random.Range(0, randomNumber.Length);
+
+                                switch (randomIndex)
+                                {
+                                    case 11:
+                                        cardCost = 25;
+                                        break;
+                                    default:
+                                        cardCost = 0;
+                                        break;
+
+                                }
                             }
-                            while (randomIndex == EfirstTurnCardIndex);
-                            EsecondTurnCardIndex = numbers[randomIndex];
-                            EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
+                            while (randomIndex == EfirstTurnCardIndex || enemyPlayer.Energy < cardCost);
+
+                            EsecondTurnCardIndex = randomIndex;
                         }
+                    }
+                    // 적이 기본 공격 범위에 없음
+                    else
+                    {
+                        HandleEnemyOutOfRange(ref EsecondTurnCardIndex);
+                    }
+                }
+
+                // 플레이어가 마법 공격을 했을 때
+                else if (controlZone.secondTurnCardIndex == 6)
+                {
+                    // 적이 플레이어의 마법 공격 범위에 있으면
+                    if (magicAttackRange.Contains(enemyPlayer.EcurrentSectionIndex))
+                    {
+                        Debug.LogWarning("적이 마법 공격 범위에 있음, 피할 수 있는지 확인");
+
+                        int[] moveOptions = { 0, 1, 2, 3, 9, 10 };
+                        List<int> safeMoves = new List<int>();
+
+                        // 이동 가능한 방향 체크
+                        foreach (int move in moveOptions)
+                        {
+                            if (move == EfirstTurnCardIndex)        // 첫번째 번호와 같은 것은 아래 코드 실행하지 않음
+                            {
+                                continue;
+                            }
+
+                            int newEnemyPosition = SimulateEnemyMove(move, enemyPlayer.EcurrentSectionIndex);
+
+                            if (!magicAttackRange.Contains(newEnemyPosition))
+                            {
+                                safeMoves.Add(move);
+                            }
+                        }
+
+                        // 피할 수 있는 방향이 있다면 랜덤하게 선택
+                        if (safeMoves.Count > 0)
+                        {
+                            EsecondTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
+                            EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
+                            Debug.Log($"적이 {EsecondTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                        }
+                        else
+                        {
+                            Debug.Log("적이 어떤 방향으로 이동해도 공격을 피할 수 없음!");
+
+                            int[] randomNumber = { 4, 11, 12 };
+                            int randomIndex = 0;
+                            int cardCost = 0;
+                            do
+                            {
+                                randomIndex = UnityEngine.Random.Range(0, randomNumber.Length);
+
+                                switch (randomIndex)
+                                {
+                                    case 11:
+                                        cardCost = 25;
+                                        break;
+                                    default:
+                                        cardCost = 0;
+                                        break;
+
+                                }
+                            }
+                            while (randomIndex == EfirstTurnCardIndex || enemyPlayer.Energy < cardCost);
+
+                            EsecondTurnCardIndex = randomIndex;
+                        }
+                    }
+                    // 적이 마법 공격 범위에 없음
+                    else
+                    {
+                        HandleEnemyOutOfRange(ref EsecondTurnCardIndex);
+                    }
+                }
+
+                // 플레이어가 특수 공격을 했을 때
+                else if (controlZone.secondTurnCardIndex == 7)
+                {
+                    // 적이 플레이어의 특수 공격 범위에 있으면
+                    if (limitAttackRange.Contains(enemyPlayer.EcurrentSectionIndex))
+                    {
+                        Debug.LogWarning("적이 특수 공격 범위에 있음, 피할 수 있는지 확인");
+
+                        int[] moveOptions = { 0, 1, 2, 3, 9, 10 };
+                        List<int> safeMoves = new List<int>();
+
+                        // 이동 가능한 방향 체크
+                        foreach (int move in moveOptions)
+                        {
+                            if (move == EfirstTurnCardIndex)        // 첫번째 번호와 같은 것은 아래 코드 실행하지 않음
+                            {
+                                continue;
+                            }
+
+                            int newEnemyPosition = SimulateEnemyMove(move, enemyPlayer.EcurrentSectionIndex);
+
+                            if (!limitAttackRange.Contains(newEnemyPosition))
+                            {
+                                safeMoves.Add(move);
+                            }
+                        }
+
+                        // 피할 수 있는 방향이 있다면 랜덤하게 선택
+                        if (safeMoves.Count > 0)
+                        {
+                            Debug.Log(safeMoves.Count);
+                            EsecondTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
+                            EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
+                            Debug.Log($"적이 {EsecondTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                        }
+                        else
+                        {
+                            Debug.Log("적이 어떤 방향으로 이동해도 공격을 피할 수 없음!");
+
+                            int[] randomNumber = { 4, 11, 12 };
+                            int randomIndex = 0;
+                            int cardCost = 0;
+                            do
+                            {
+                                randomIndex = UnityEngine.Random.Range(0, randomNumber.Length);
+
+                                switch (randomIndex)
+                                {
+                                    case 11:
+                                        cardCost = 25;
+                                        break;
+                                    default:
+                                        cardCost = 0;
+                                        break;
+
+                                }
+                            }
+                            while (randomIndex == EfirstTurnCardIndex || enemyPlayer.Energy < cardCost);
+
+                            EsecondTurnCardIndex = randomIndex;
+                        }
+                    }
+                    // 적이 특수 공격 범위에 없음
+                    else
+                    {
+                        HandleEnemyOutOfRange(ref EsecondTurnCardIndex);
                     }
                 }
             }
@@ -2421,116 +2742,210 @@ public class ActivePlayer : Singleton<ActivePlayer>
                 magicAttackRange.Contains(enemyTargetSection) ||
                 limitAttackRange.Contains(enemyTargetSection))
             {
-                Debug.LogWarning("3턴 플레이어가 공격 할건데, 적이 공격 범위에 있음");
-                if (UnityEngine.Random.value < 0.7f)                        // 70% 확률로 움직임
+                //Debug.LogWarning("1턴 플레이어가 공격 할건데, 적이 공격 범위에 있음");
+
+                // 플레이어가 기본 공격을 했을 때
+                if (controlZone.thirdTurnCardIndex == 5)
                 {
-                    Debug.Log("70% 확률로 움직이기로 함");
-                    int[] numbers = { 0, 1, 2, 3, 9, 10 };
-                    int randomCard;
-                    int randomIndex;
-                    do
+                    // 적이 플레이어의 기본 공격 범위에 있으면
+                    if (attackRange.Contains(enemyPlayer.EcurrentSectionIndex))
                     {
-                        randomIndex = UnityEngine.Random.Range(0, numbers.Length);
-                        randomCard = numbers[randomIndex];      // 0 1 2 3 9 10 중에서 선택
-                    }
-                    while (randomCard == EfirstTurnCardIndex || randomCard == EsecondTurnCardIndex);              // 같은 값이면 다시 뽑기
+                        Debug.LogWarning("적이 기본 공격 범위에 있음, 피할 수 있는지 확인");
 
-                    EthirdTurnCardIndex = randomCard;                      // 중복되지 않는 값 저장
-                    EnemyCharacterMove(EthirdTurnCardIndex, enemyTargetSection);
-                }
-                else
-                {
-                    // 움직이지 않기로 함
-                    Debug.LogWarning("30% 확률로 움직이지 않기로 함");
-                    // 적의 현재 위치에서 공격 범위 계산
-                    CharacterAttackRange(gameManager.enemyPlayerCharacterIndex, enemyTargetSection);
+                        int[] moveOptions = { 0, 1, 2, 3, 9, 10 };
+                        List<int> safeMoves = new List<int>();
 
-                    // 공격 범위에 포함되는 카드들만 선택
-                    List<int> availableCards = new List<int>();
-
-                    // 움직이지 않기로 했는데 플레이어가 적의 공격 범위에 있으면
-                    if (attackRange.Contains(playerTargetSection))
-                    {
-                        Debug.Log("3턴 플레이어가 공격할건데 적이 기본 공격 범위에 있고, 30% 확률로 움직이지 않기로 함");
-                        Debug.Log("적의 기본 공격 범위에 포함됨");
-                        Debug.Log($"{playerTargetSection}이 포함");
-                        if (EfirstTurnCardIndex != 5 && EsecondTurnCardIndex != 5 && enemyPlayer.Energy >= attackCost)
+                        // 이동 가능한 방향 체크
+                        foreach (int move in moveOptions)
                         {
-                            availableCards.Add(5);
-                            Debug.Log("1,2 턴에 기본 공격을 안했고, 에너지가 기본 공격 코스트 이상");
+                            if (move == EfirstTurnCardIndex || move == EsecondTurnCardIndex)        // 첫, 두번째 번호와 같은 것은 아래 코드 실행하지 않음
+                            {
+                                continue;
+                            }
+
+                            int newEnemyPosition = SimulateEnemyMove(move, enemyPlayer.EcurrentSectionIndex);
+
+                            if (!attackRange.Contains(newEnemyPosition))
+                            {
+                                safeMoves.Add(move);
+                            }
+                        }
+
+                        // 피할 수 있는 방향이 있다면 랜덤하게 선택
+                        if (safeMoves.Count > 0)
+                        {
+                            EthirdTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
+                            EnemyCharacterMove(EthirdTurnCardIndex, enemyTargetSection);
+                            Debug.Log($"적이 {EthirdTurnCardIndex} 방향으로 이동하여 공격을 피함!");
                         }
                         else
                         {
-                            Debug.Log("1,2 턴에 기본 공격을 했거나, 에너지가 기본 공격 코스트 미만");
-                        }
-                    }
+                            Debug.Log("적이 어떤 방향으로 이동해도 공격을 피할 수 없음!");
 
-                    if (magicAttackRange.Contains(playerTargetSection))
-                    {
-                        Debug.Log("3턴 플레이어가 공격할건데 적이 마법 공격 범위에 있고, 30% 확률로 움직이지 않기로 함");
-                        Debug.Log("적의 마법 공격 범위에 포함됨");
-                        Debug.Log($"{playerTargetSection}이 포함");
-                        if (EfirstTurnCardIndex != 6 && EsecondTurnCardIndex != 6 && enemyPlayer.Energy >= magicAttackCost)
-                        {
-                            availableCards.Add(6);
-                            Debug.Log("1,2 턴에 마법 공격을 안했고, 에너지가 기본 마법 코스트 이상");
-                        }
-                        else
-                        {
-                            Debug.Log("1,2 턴에 마법 공격을 했거나, 에너지가 마법 공격 코스트 미만");
-                        }
-                    }
-
-                    if (limitAttackRange.Contains(playerTargetSection))
-                    {
-                        Debug.Log("3턴 플레이어가 공격할건데 적이 특수 공격 범위에 있고, 30% 확률로 움직이지 않기로 함");
-                        Debug.Log("적의 특수 공격 범위에 포함됨");
-                        Debug.Log($"{playerTargetSection}이 포함");
-                        if (EfirstTurnCardIndex != 7 && EsecondTurnCardIndex != 7 && enemyPlayer.Energy >= limitAttackCost)
-                        {
-                            availableCards.Add(7);
-                            Debug.Log("1,2 턴에 특수 공격을 안했고, 에너지가 특수 공격 코스트 이상");
-                        }
-                        else
-                        {
-                            Debug.Log("1,2 턴에 특수 공격을 했거나, 에너지가 특수 공격 코스트 미만");
-                        }
-                    }
-
-                    // 적의 공격 범위에 하나라도 포함되면
-                    if (availableCards.Count > 0)
-                    {
-                        int randomIndex;
-                        int randomCard;
-
-                        randomIndex = UnityEngine.Random.Range(0, availableCards.Count);
-                        randomCard = availableCards[randomIndex];
-
-                        EthirdTurnCardIndex = randomCard;
-
-                        availableCards.Clear();
-                    }
-                    // 적의 공격 범위에 하나도 포함되지 않으면
-                    else
-                    {
-                        // 에너지업, 움직임 0 1 2 3 8
-                        if (EfirstTurnCardIndex != 8 && EsecondTurnCardIndex != 8 && UnityEngine.Random.value < 0.3f)     // 30% 확률로
-                        {
-                            EthirdTurnCardIndex = 8;            // 에너지 회복
-                        }
-                        else
-                        {
-                            int[] numbers = { 0, 1, 2, 3, 8 };
-                            int randomIndex;
+                            int[] randomNumber = { 4, 11, 12 };
+                            int randomIndex = 0;
+                            int cardCost = 0;
                             do
                             {
-                                randomIndex = UnityEngine.Random.Range(0, numbers.Length);
-                            }
-                            while (randomIndex == EfirstTurnCardIndex || randomIndex == EsecondTurnCardIndex);
+                                randomIndex = UnityEngine.Random.Range(0, randomNumber.Length);
 
-                            EthirdTurnCardIndex = numbers[randomIndex];
-                            EnemyCharacterMove(EthirdTurnCardIndex, enemyTargetSection);
+                                switch (randomIndex)
+                                {
+                                    case 11:
+                                        cardCost = 25;
+                                        break;
+                                    default:
+                                        cardCost = 0;
+                                        break;
+
+                                }
+                            }
+                            while (randomIndex == EfirstTurnCardIndex || randomIndex == EsecondTurnCardIndex || enemyPlayer.Energy < cardCost);
+
+                            EthirdTurnCardIndex = randomIndex;
                         }
+                    }
+                    // 적이 기본 공격 범위에 없음
+                    else
+                    {
+                        HandleEnemyOutOfRange(ref EthirdTurnCardIndex);
+                    }
+                }
+
+                // 플레이어가 마법 공격을 했을 때
+                else if (controlZone.thirdTurnCardIndex == 6)
+                {
+                    // 적이 플레이어의 마법 공격 범위에 있으면
+                    if (magicAttackRange.Contains(enemyPlayer.EcurrentSectionIndex))
+                    {
+                        Debug.LogWarning("적이 마법 공격 범위에 있음, 피할 수 있는지 확인");
+
+                        int[] moveOptions = { 0, 1, 2, 3, 9, 10 };
+                        List<int> safeMoves = new List<int>();
+
+                        // 이동 가능한 방향 체크
+                        foreach (int move in moveOptions)
+                        {
+                            if (move == EfirstTurnCardIndex || move == EsecondTurnCardIndex)       // 첫, 두번째 번호와 같은 것은 아래 코드 실행하지 않음
+                            {
+                                continue;
+                            }
+
+                            int newEnemyPosition = SimulateEnemyMove(move, enemyPlayer.EcurrentSectionIndex);
+
+                            if (!magicAttackRange.Contains(newEnemyPosition))
+                            {
+                                safeMoves.Add(move);
+                            }
+                        }
+
+                        // 피할 수 있는 방향이 있다면 랜덤하게 선택
+                        if (safeMoves.Count > 0)
+                        {
+                            EthirdTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
+                            EnemyCharacterMove(EthirdTurnCardIndex, enemyTargetSection);
+                            Debug.Log($"적이 {EthirdTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                        }
+                        else
+                        {
+                            Debug.Log("적이 어떤 방향으로 이동해도 공격을 피할 수 없음!");
+
+                            int[] randomNumber = { 4, 11, 12 };
+                            int randomIndex = 0;
+                            int cardCost = 0;
+                            do
+                            {
+                                randomIndex = UnityEngine.Random.Range(0, randomNumber.Length);
+
+                                switch (randomIndex)
+                                {
+                                    case 11:
+                                        cardCost = 25;
+                                        break;
+                                    default:
+                                        cardCost = 0;
+                                        break;
+
+                                }
+                            }
+                            while (randomIndex == EfirstTurnCardIndex || randomIndex == EsecondTurnCardIndex || enemyPlayer.Energy < cardCost);
+
+                            EthirdTurnCardIndex = randomIndex;
+                        }
+                    }
+                    // 적이 마법 공격 범위에 없음
+                    else
+                    {
+                        HandleEnemyOutOfRange(ref EthirdTurnCardIndex);
+                    }
+                }
+
+                // 플레이어가 특수 공격을 했을 때
+                else if (controlZone.thirdTurnCardIndex == 7)
+                {
+                    // 적이 플레이어의 특수 공격 범위에 있으면
+                    if (limitAttackRange.Contains(enemyPlayer.EcurrentSectionIndex))
+                    {
+                        Debug.LogWarning("적이 특수 공격 범위에 있음, 피할 수 있는지 확인");
+
+                        int[] moveOptions = { 0, 1, 2, 3, 9, 10 };
+                        List<int> safeMoves = new List<int>();
+
+                        // 이동 가능한 방향 체크
+                        foreach (int move in moveOptions)
+                        {
+                            if (move == EfirstTurnCardIndex || move == EsecondTurnCardIndex)        // 첫번째 번호와 같은 것은 아래 코드 실행하지 않음
+                            {
+                                continue;
+                            }
+
+                            int newEnemyPosition = SimulateEnemyMove(move, enemyPlayer.EcurrentSectionIndex);
+
+                            if (!limitAttackRange.Contains(newEnemyPosition))
+                            {
+                                safeMoves.Add(move);
+                            }
+                        }
+
+                        // 피할 수 있는 방향이 있다면 랜덤하게 선택
+                        if (safeMoves.Count > 0)
+                        {
+                            Debug.Log(safeMoves.Count);
+                            EthirdTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
+                            EnemyCharacterMove(EthirdTurnCardIndex, enemyTargetSection);
+                            Debug.Log($"적이 {EthirdTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                        }
+                        else
+                        {
+                            Debug.Log("적이 어떤 방향으로 이동해도 공격을 피할 수 없음!");
+
+                            int[] randomNumber = { 4, 11, 12 };
+                            int randomIndex = 0;
+                            int cardCost = 0;
+                            do
+                            {
+                                randomIndex = UnityEngine.Random.Range(0, randomNumber.Length);
+
+                                switch (randomIndex)
+                                {
+                                    case 11:
+                                        cardCost = 25;
+                                        break;
+                                    default:
+                                        cardCost = 0;
+                                        break;
+
+                                }
+                            }
+                            while (randomIndex == EfirstTurnCardIndex || randomIndex == EsecondTurnCardIndex || enemyPlayer.Energy < cardCost);
+
+                            EthirdTurnCardIndex = randomIndex;
+                        }
+                    }
+                    // 적이 특수 공격 범위에 없음
+                    else
+                    {
+                        HandleEnemyOutOfRange(ref EthirdTurnCardIndex);
                     }
                 }
             }
