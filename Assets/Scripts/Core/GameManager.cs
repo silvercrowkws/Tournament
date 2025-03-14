@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum PlayerCharacter
 {
@@ -240,6 +242,21 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public bool gameOver = false;
 
+    /// <summary>
+    /// 게임 종료 패널
+    /// </summary>
+    GameObject quitPanel;
+
+    /// <summary>
+    /// 게임 종료 버튼
+    /// </summary>
+    Button quitButton;
+
+    /// <summary>
+    /// 인풋 시스템
+    /// </summary>
+    GameControlActions gameControlActions;
+
     private void Start()
     {
         /*if (player != null)
@@ -257,6 +274,9 @@ public class GameManager : Singleton<GameManager>
         }
 
         SceneManager.sceneLoaded += OnSceneLoaded;*/
+        
+        quitButton.onClick.AddListener(OnQuit);
+        quitPanel.SetActive(false);
     }
 
     private void OnEnable()
@@ -269,6 +289,14 @@ public class GameManager : Singleton<GameManager>
         }
 
         SceneManager.sceneLoaded += OnSceneLoaded;
+        gameControlActions = new GameControlActions();
+
+        Transform child = transform.GetChild(0);
+        quitPanel = child.GetChild(0).gameObject;
+        quitButton = quitPanel.GetComponentInChildren<Button>();
+
+        gameControlActions.Controls.Enable();
+        gameControlActions.Controls.ESC.performed += OnESC;
     }
 
     private void OnDisable()
@@ -279,6 +307,12 @@ public class GameManager : Singleton<GameManager>
         }
 
         SceneManager.sceneLoaded -= OnSceneLoaded;
+
+        if(gameControlActions != null)
+        {
+            gameControlActions.Controls.ESC.performed -= OnESC;
+            gameControlActions.Controls.Disable();
+        }
     }
 
     protected override void OnInitialize()
@@ -474,6 +508,38 @@ public class GameManager : Singleton<GameManager>
                 playerResult = true;                // 플레이어 승리
             }
         }
+    }
+
+    /// <summary>
+    /// ESC 키가 눌러졌을 때 패널을 활성화/비활성화 하는 함수
+    /// </summary>
+    /// <param name="context"></param>
+    private void OnESC(InputAction.CallbackContext context)
+    {
+        //quitPanel.SetActive(true);
+        quitPanel.SetActive(!quitPanel.activeSelf);
+
+        if(quitPanel.activeSelf)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+    }
+
+    /// <summary>
+    /// 게임 종료 버튼으로 게임을 종료시키는 함수
+    /// </summary>
+    private void OnQuit()
+    {
+        Application.Quit();
+
+        // 에디터에서 실행 시 종료 테스트 (에디터에서는 실제로 종료되지 않음)
+    #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+    #endif
     }
 
 #if UNITY_EDITOR

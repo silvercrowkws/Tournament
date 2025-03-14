@@ -1,0 +1,51 @@
+{
+    "name": "GameControls",
+    "maps": [
+        {
+            "name": "Controls",
+            "id": "8f40b415-c39c-4ccc-9e64-c3e6a47f798d",
+            "actions": [
+                {
+                    "name": "ESC",
+                    "type": "Button",
+                    "id": "0f6a3098-66c4-43bb-8ffd-b4e5b797bc15",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d92b439d-a0cb-47dc-b22a-5dbe71d3e114",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KM",
+                    "action": "ESC",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "KM",
+            "bindingGroup": "KM",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
