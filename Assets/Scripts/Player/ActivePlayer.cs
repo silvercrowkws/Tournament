@@ -2663,7 +2663,7 @@ public class ActivePlayer : Singleton<ActivePlayer>
                 {
                     if (EfirstTurnCardIndex != 8 && UnityEngine.Random.value < 0.3f)
                     {
-                        EsecondTurnCardIndex = 8;
+                        EsecondTurnCardIndex = 8; 
                     }
                     else
                     {
