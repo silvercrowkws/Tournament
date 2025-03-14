@@ -1640,7 +1640,7 @@ public class ActivePlayer : Singleton<ActivePlayer>
 
                             }
                         }
-                        while (enemyPlayer.Energy <= cardCost);      // 적의 에너지 <= 코스트 면 다른게 뽑을 때까지 반복
+                        while (randomCard == EfirstTurnCardIndex || randomCard == EsecondTurnCardIndex || enemyPlayer.Energy <= cardCost);      // 적의 에너지 <= 코스트 면 다른게 뽑을 때까지 반복
 
                         EthirdTurnCardIndex = randomCard;
                         EnemyCharacterMove(EthirdTurnCardIndex, enemyTargetSection);
@@ -3135,7 +3135,7 @@ public class ActivePlayer : Singleton<ActivePlayer>
 
                             }
                         }
-                        while (enemyPlayer.Energy <= cardCost);      // 적의 에너지 <= 코스트 면 다른게 뽑을 때까지 반복
+                        while (randomCard == EfirstTurnCardIndex || randomCard == EsecondTurnCardIndex || enemyPlayer.Energy <= cardCost);      // 적의 에너지 <= 코스트 면 다른게 뽑을 때까지 반복
 
                         EthirdTurnCardIndex = randomCard;
                         EnemyCharacterMove(EthirdTurnCardIndex, enemyTargetSection);
