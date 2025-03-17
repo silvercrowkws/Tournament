@@ -415,6 +415,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: VSImage2
       objectReference: {fileID: 0}
+    - target: {fileID: 3159613927945138422, guid: b1f2997c2d149ea458914555d8b97515, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3159613927945138422, guid: b1f2997c2d149ea458914555d8b97515, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4468578214700281858, guid: b1f2997c2d149ea458914555d8b97515, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

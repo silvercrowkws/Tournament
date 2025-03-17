@@ -109,6 +109,11 @@ public class VSImage2 : MonoBehaviour
     /// </summary>
     TextMeshProUGUI rightCharacterName;
 
+    /// <summary>
+    /// 승리 횟수
+    /// </summary>
+    int winCount;
+
     private void Awake()
     {
         leftCharacter = transform.GetChild(0).GetComponent<Image>();
@@ -214,7 +219,7 @@ public class VSImage2 : MonoBehaviour
         }
 
         // 전체 대전 수 - 현재 남아있는 상대 수 = 이긴 전적 수
-        int winCount = 9 - gameManager.gameTournamentList.Count;
+        winCount = 9 - gameManager.gameTournamentList.Count;
 
         if (winCount > 0)
         {
@@ -222,9 +227,53 @@ public class VSImage2 : MonoBehaviour
             {
                 X_Images[i].gameObject.SetActive(true);
             }
+
+            // 마지막 X_Images 애니메이션 적용
+            StartCoroutine(AnimateLastXImage(winCount - 1));
         }
 
         StartCoroutine(MoveCharacters());
+    }
+
+    IEnumerator AnimateLastXImage(int index)
+    {
+        if (index < 0 || index >= X_Images.Length) yield break;
+
+        Image xImage = X_Images[index];
+        RectTransform xRect = xImage.rectTransform;
+
+        // 초기 상태 설정
+        xImage.gameObject.SetActive(true);
+        xRect.localScale = new Vector3(3, 3, 1);
+        xRect.offsetMin = new Vector2(xRect.offsetMin.x, 270);
+        xRect.offsetMax = new Vector2(xRect.offsetMax.x, 270);
+
+        float duration = 0.5f;
+        float elapsed = 0f;
+
+        Vector3 startScale = new Vector3(3, 3, 1);
+        Vector3 targetScale = Vector3.one;
+        Vector2 startMin = new Vector2(xRect.offsetMin.x, 270);
+        Vector2 targetMin = new Vector2(xRect.offsetMin.x, 0);
+        Vector2 startMax = new Vector2(xRect.offsetMax.x, 270);
+        Vector2 targetMax = new Vector2(xRect.offsetMax.x, 0);
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+
+            xRect.localScale = Vector3.Lerp(startScale, targetScale, t);
+            xRect.offsetMin = Vector2.Lerp(startMin, targetMin, t);
+            xRect.offsetMax = Vector2.Lerp(startMax, targetMax, t);
+
+            yield return null;
+        }
+
+        // 최종 값 보정
+        xRect.localScale = targetScale;
+        xRect.offsetMin = targetMin;
+        xRect.offsetMax = targetMax;
     }
 
     /// <summary>
