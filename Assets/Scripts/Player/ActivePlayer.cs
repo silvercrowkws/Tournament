@@ -1933,7 +1933,7 @@ public class ActivePlayer : Singleton<ActivePlayer>
                         {
                             EfirstTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
                             EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
-                            Debug.Log($"적이 {EfirstTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                            //Debug.Log($"적이 {EfirstTurnCardIndex} 방향으로 이동하여 공격을 피함!");
                             safeMoves.Clear();
                         }
                         else
@@ -1999,7 +1999,7 @@ public class ActivePlayer : Singleton<ActivePlayer>
                         {
                             EfirstTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
                             EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
-                            Debug.Log($"적이 {EfirstTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                            //Debug.Log($"적이 {EfirstTurnCardIndex} 방향으로 이동하여 공격을 피함!");
                             safeMoves.Clear();
                         }
                         else
@@ -2063,10 +2063,10 @@ public class ActivePlayer : Singleton<ActivePlayer>
                         // 피할 수 있는 방향이 있다면 랜덤하게 선택
                         if (safeMoves.Count > 0)
                         {
-                            Debug.Log(safeMoves.Count);
+                            //Debug.Log(safeMoves.Count);
                             EfirstTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
                             EnemyCharacterMove(EfirstTurnCardIndex, enemyTargetSection);
-                            Debug.Log($"적이 {EfirstTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                            //Debug.Log($"적이 {EfirstTurnCardIndex} 방향으로 이동하여 공격을 피함!");
                             safeMoves.Clear();
                         }
                         else
@@ -2351,7 +2351,7 @@ public class ActivePlayer : Singleton<ActivePlayer>
                         {
                             EsecondTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
                             EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
-                            Debug.Log($"적이 {EsecondTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                            //Debug.Log($"적이 {EsecondTurnCardIndex} 방향으로 이동하여 공격을 피함!");
                             safeMoves.Clear();
                         }
                         else
@@ -2422,7 +2422,7 @@ public class ActivePlayer : Singleton<ActivePlayer>
                         {
                             EsecondTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
                             EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
-                            Debug.Log($"적이 {EsecondTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                            //Debug.Log($"적이 {EsecondTurnCardIndex} 방향으로 이동하여 공격을 피함!");
                             safeMoves.Clear();
                         }
                         else
@@ -2491,10 +2491,10 @@ public class ActivePlayer : Singleton<ActivePlayer>
                         // 피할 수 있는 방향이 있다면 랜덤하게 선택
                         if (safeMoves.Count > 0)
                         {
-                            Debug.Log(safeMoves.Count);
+                            //Debug.Log(safeMoves.Count);
                             EsecondTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
                             EnemyCharacterMove(EsecondTurnCardIndex, enemyTargetSection);
-                            Debug.Log($"적이 {EsecondTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                            //Debug.Log($"적이 {EsecondTurnCardIndex} 방향으로 이동하여 공격을 피함!");
                             safeMoves.Clear();
                         }
                         else
@@ -2795,7 +2795,7 @@ public class ActivePlayer : Singleton<ActivePlayer>
                         {
                             EthirdTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
                             EnemyCharacterMove(EthirdTurnCardIndex, enemyTargetSection);
-                            Debug.Log($"적이 {EthirdTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                            //Debug.Log($"적이 {EthirdTurnCardIndex} 방향으로 이동하여 공격을 피함!");
                             safeMoves.Clear();
                         }
                         else
@@ -2866,7 +2866,7 @@ public class ActivePlayer : Singleton<ActivePlayer>
                         {
                             EthirdTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
                             EnemyCharacterMove(EthirdTurnCardIndex, enemyTargetSection);
-                            Debug.Log($"적이 {EthirdTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                            //Debug.Log($"적이 {EthirdTurnCardIndex} 방향으로 이동하여 공격을 피함!");
                             safeMoves.Clear();
                         }
                         else
@@ -2935,10 +2935,10 @@ public class ActivePlayer : Singleton<ActivePlayer>
                         // 피할 수 있는 방향이 있다면 랜덤하게 선택
                         if (safeMoves.Count > 0)
                         {
-                            Debug.Log(safeMoves.Count);
+                            //Debug.Log(safeMoves.Count);
                             EthirdTurnCardIndex = safeMoves[UnityEngine.Random.Range(0, safeMoves.Count)];
                             EnemyCharacterMove(EthirdTurnCardIndex, enemyTargetSection);
-                            Debug.Log($"적이 {EthirdTurnCardIndex} 방향으로 이동하여 공격을 피함!");
+                            //Debug.Log($"적이 {EthirdTurnCardIndex} 방향으로 이동하여 공격을 피함!");
                             safeMoves.Clear();
                         }
                         else
