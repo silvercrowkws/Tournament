@@ -49,6 +49,11 @@ public class VSImage2 : MonoBehaviour
     Image[] frameImages;
 
     /// <summary>
+    /// 이겼을 때 X 표시해줄 이미지 배열
+    /// </summary>
+    Image[] X_Images;
+
+    /// <summary>
     /// 왼쪽 캐릭터의 color
     /// </summary>
     Color leftColor;
@@ -127,17 +132,21 @@ public class VSImage2 : MonoBehaviour
         // tournaments, frameImages 배열 초기화
         tournamentImages = new Image[tournamentsCount];
         frameImages = new Image[tournamentsCount];
+        X_Images = new Image[tournamentsCount];
 
         for (int i = 0; i < tournamentsCount; i++)
         {
             tournamentImages[i] = child.GetChild(i).GetComponent<Image>();
-            frameImages[i] = tournamentImages[i].GetComponentInChildren<Image>();
+            //frameImages[i] = tournamentImages[i].GetComponentInChildren<Image>();
+            frameImages[i] = tournamentImages[i].transform.GetChild(0).GetComponent<Image>();
+            X_Images[i] = tournamentImages[i].transform.GetChild(1).GetComponent<Image>();
 
             // 알파값을 0으로 설정
             tournamentColor = tournamentImages[i].color;
             tournamentColor.a = 0f;
             tournamentImages[i].color = tournamentColor;
             frameImages[i].gameObject.SetActive(false);
+            X_Images[i].gameObject.SetActive(false);
         }
 
         leftStartPos = leftCharacter.rectTransform.localPosition;
@@ -202,6 +211,17 @@ public class VSImage2 : MonoBehaviour
             tournamentColor.a = 1f;
             tournamentImages[i].color = tournamentColor;
             frameImages[i].gameObject.SetActive(true);
+        }
+
+        // 전체 대전 수 - 현재 남아있는 상대 수 = 이긴 전적 수
+        int winCount = 9 - gameManager.gameTournamentList.Count;
+
+        if (winCount > 0)
+        {
+            for(int i = 0; i < winCount; i++)
+            {
+                X_Images[i].gameObject.SetActive(true);
+            }
         }
 
         StartCoroutine(MoveCharacters());

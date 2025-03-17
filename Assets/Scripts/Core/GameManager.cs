@@ -75,7 +75,7 @@ public class GameManager : Singleton<GameManager>
     public int enemyPlayerCharacterIndex = 0;
 
     /// <summary>
-    /// 게임 매니저가 관리하는 게임 토너먼트 리스트
+    /// 게임 매니저가 관리하는 게임 토너먼트 리스트()
     /// </summary>
     public List<int> gameTournamentList = new List<int>();
 
@@ -478,7 +478,7 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     private void OnGameOver()
     {
-        gameOver = true;        // 나중에 이거 초기화 필요
+        gameOver = true;        // 나중에 이거 초기화 필요(했음)
 
         Debug.Log($"게임 오버 : {gameOver}");
 
